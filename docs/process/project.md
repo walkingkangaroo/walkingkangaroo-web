@@ -40,6 +40,8 @@ Baseline: run these once before changing anything.
 - **Anything visual:** check at 390 px wide; no horizontal scroll; text contrast 4.5:1.
 - **The GitHub Pages workflow or `CNAME`:** read the workflow run with `gh run view`; the live
   site must still load after merge.
+- **A product site's Azure Static Web Apps workflow (0031):** the same, plus the pull request's
+  preview link loads, and a change to one site doesn't run another site's deploy.
 
 ## Model table
 
@@ -57,7 +59,8 @@ worktrees: the repo is small.
 
 ## CI
 
-The GitHub Pages deploy workflow, once it exists. Read a failure with
+The hub's GitHub Pages deploy workflow and each product site's Azure Static Web Apps workflow,
+once they exist. Read a failure with
 `gh run view <id> --log-failed`.
 
 ## Risky areas
@@ -96,4 +99,5 @@ Backlog.
 
 ## Extra stop-and-ask conditions
 
-- Anything that would change DNS, email, or the GitHub Pages settings outside the repo.
+- Anything that would change DNS, email, the GitHub Pages settings or Azure resources outside the
+  repo, or that needs a secret (Grant adds every secret himself).

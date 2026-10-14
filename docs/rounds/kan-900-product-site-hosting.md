@@ -1,6 +1,6 @@
 # Decision round: how product sites in walkingkangaroo-web are hosted
 
-Status: Waiting on Grant
+Status: Answered
 Opened: 2026-10-14
 Issue: https://linear.app/walkingkangaroo/issue/KAN-900/choose-how-product-sites-in-walkingkangaroo-web-are-hosted
 Research: [docs/research/kan-900-product-site-hosting.md](../research/kan-900-product-site-hosting.md)
@@ -38,7 +38,7 @@ sites need somewhere else.
   VentraIP's DNS, and is where you already run things (the showcase-sites skill's default).
 - **Default if unanswered:** A.
 - **For:** Grant
-- **Answer:**
+- **Answer:** A. Grant, 2026-10-14: "Azure sounds good"
 
 ## Decided without asking
 
@@ -59,13 +59,15 @@ sites need somewhere else.
 
 ## Held out
 
-- **Deploying the first product site:** goes in Backlog, written as a plain issue when the
-  answer is recorded. It's built when that site is shaped.
+- **Deploying the first product site:** Backlog,
+  https://linear.app/walkingkangaroo/issue/KAN-908/deploy-the-first-product-site-to-azure-static-web-apps.
+  It's built when that site is shaped.
 
 ## Outcome
 
-Filled in when the answers are recorded.
-
-- Decisions:
-- Spec or design changes:
-- Issues:
+- Decisions: [0031](../decisions/0031-product-sites-on-azure-static-web-apps.md), product sites are
+  hosted on Azure Static Web Apps, one app per site.
+- Spec or design changes: `CLAUDE.md` (Layout), `docs/process/project.md` (extra checks, CI,
+  stop-and-ask), `docs/DECISIONS.md`.
+- Issues: none to build now. The deploy is held out as KAN-908 (Backlog):
+  https://linear.app/walkingkangaroo/issue/KAN-908/deploy-the-first-product-site-to-azure-static-web-apps

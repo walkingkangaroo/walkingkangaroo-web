@@ -30,6 +30,7 @@ The repo is `walkingkangaroo/walkingkangaroo-web`, one repo for the web
 ([0027](docs/decisions/0027-one-web-repo-walkingkangaroo-web.md)).
 
 - `sites/hub/`: the hub, walkingkangaroo.com (the Astro site and its `design-plan.md`).
+- `sites/<name>/`: a product site, each hosted on its own Azure Static Web App ([0031](docs/decisions/0031-product-sites-on-azure-static-web-apps.md)).
 - `packages/shared/`: the Walking Kangaroo signature for product sites' footers ([0028](docs/decisions/0028-signature-uses-brand-pack-files.md)).
 - `docs/` and `.claude/` stay at the root and serve every site.
 - `docs/brief.md`: what the site is, what it shows, and the plan.
