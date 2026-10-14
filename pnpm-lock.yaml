@@ -166,6 +166,12 @@ importers:
 
   .: {}
 
+  packages/shared:
+    dependencies:
+      astro:
+        specifier: ^7.0.0
+        version: 7.3.5(yaml@2.9.1)
+
   sites/hub:
     dependencies:
       astro:

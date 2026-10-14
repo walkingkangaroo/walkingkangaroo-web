@@ -1,0 +1,13 @@
+{
+  "name": "@walkingkangaroo/shared",
+  "version": "0.0.1",
+  "private": true,
+  "type": "module",
+  "description": "Shared pieces for Walking Kangaroo product sites.",
+  "exports": {
+    "./WkSignature.astro": "./WkSignature.astro"
+  },
+  "peerDependencies": {
+    "astro": "^7.0.0"
+  }
+}

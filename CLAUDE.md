@@ -30,7 +30,7 @@ The repo is `walkingkangaroo/walkingkangaroo-web`, one repo for the web
 ([0027](docs/decisions/0027-one-web-repo-walkingkangaroo-web.md)).
 
 - `sites/hub/`: the hub, walkingkangaroo.com (the Astro site and its `design-plan.md`).
-- `packages/`: shared code for product sites (coming in KAN-895).
+- `packages/shared/`: the Walking Kangaroo signature for product sites' footers ([0028](docs/decisions/0028-signature-uses-brand-pack-files.md)).
 - `docs/` and `.claude/` stay at the root and serve every site.
 - `docs/brief.md`: what the site is, what it shows, and the plan.
 - `docs/decisions/`: one record per decision, indexed in `docs/DECISIONS.md`.
