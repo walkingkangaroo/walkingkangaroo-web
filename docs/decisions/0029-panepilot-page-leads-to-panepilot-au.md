@@ -1,6 +1,6 @@
 # 0029. PanePilot's project page leads with "Go to panepilot.au" and its lockup
 
-- **Status:** Accepted
+- **Status:** Accepted; the button label is superseded by [0030](0030-panepilot-link-reads-visit-panepilot-au.md)
 - **Date:** 2026-10-14
 - **Issues:** KAN-893
 - **Round:** [docs/rounds/hub-leads-with-panepilot.md](../rounds/hub-leads-with-panepilot.md), question 4
