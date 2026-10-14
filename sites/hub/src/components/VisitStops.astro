@@ -1,0 +1,125 @@
+---
+// "How a visit goes": four stops in order on a --site-panel band (0025). The copy is a draft for
+// Grant to rewrite (0014). Every line is checked against PanePilot's docs; the vocabulary is
+// visit, pane, run and invoice (0025).
+const stops = [
+  {
+    title: 'Quote per pane',
+    text: 'Build it from your price book, with your own surcharges like Ladder or Roof. An accepted quote sets the price for the visits that follow.',
+  },
+  {
+    title: 'The visits come round',
+    text: 'Set each schedule once: fortnightly, every 4 weeks, monthly. A street of shops can share one run.',
+  },
+  {
+    title: 'Do the visit from your phone',
+    text: 'The visit card has the address, the access notes, the checklist and your start and finish times.',
+  },
+  {
+    title: 'Invoice it, pay the crew',
+    text: "Send the invoice by email or SMS, record the transfer or the cash, then approve each worker's time.",
+  },
+];
+---
+
+<section id="how" class="run" aria-labelledby="how-heading">
+  <div class="container">
+    <div class="run__head">
+      <h2 id="how-heading">How a visit goes</h2>
+      <p>Four stops, from the first quote to the money landing.</p>
+    </div>
+    <ol class="stops" role="list">
+      {
+        stops.map((stop, i) => (
+          <li class="stop">
+            {/* KAN-899: this stop's cropped screenshot goes here, above the number and heading. Nothing renders yet (0026). */}
+            <span class="stop__num" aria-hidden="true">{i + 1}</span>
+            <h3>{stop.title}</h3>
+            <p>{stop.text}</p>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  /* The hero has no bottom padding of its own, so the band keeps its distance from the buttons. */
+  .run {
+    margin-top: clamp(40px, 6vw, 64px);
+    padding-block: clamp(56px, 8vw, 88px);
+    background: var(--site-panel);
+  }
+
+  .run__head {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    max-width: 40rem;
+    margin-bottom: 36px;
+  }
+
+  .run__head h2 {
+    margin: 0;
+    font-size: clamp(28px, 5vw, 36px);
+  }
+
+  .run__head p {
+    margin: 0;
+    color: var(--site-text-quiet);
+  }
+
+  /* Stacked on phones and tablets, four equal columns from 900 px. There are no footprints
+     between or beside the stops. */
+  .stops {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .stop {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    min-width: 0;
+  }
+
+  /* Paper on Ink, 14.1:1. */
+  .stop__num {
+    display: inline-flex;
+    flex-shrink: 0;
+    align-items: center;
+    justify-content: center;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--wk-ink);
+    color: var(--wk-paper);
+    font-size: 16px;
+    font-weight: 600;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .stop h3 {
+    margin: 0;
+  }
+
+  /* Quiet on Panel, 8.9:1. */
+  .stop p {
+    margin: 0;
+    font-size: 16px;
+    color: var(--site-text-quiet);
+  }
+
+  @media (min-width: 900px) {
+    .stops {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      align-items: start;
+      gap: 0 28px;
+    }
+  }
+</style>

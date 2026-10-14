@@ -1,33 +1,51 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
 import HomeHero from '../components/HomeHero.astro';
-import ProjectCard from '../components/ProjectCard.astro';
-import StepsStrip from '../components/StepsStrip.astro';
+import VisitStops from '../components/VisitStops.astro';
+import OwnRound from '../components/OwnRound.astro';
+import GameRow from '../components/GameRow.astro';
 import PostCard from '../components/PostCard.astro';
 import AboutSection from '../components/AboutSection.astro';
 import NewsletterBand from '../components/NewsletterBand.astro';
-import { getFeaturedProject, getProjects, getPublishedPosts } from '../lib/content';
+import { getFeaturedProject, getProjects, getPublishedPosts, stageName } from '../lib/content';
 
 const featured = await getFeaturedProject();
 const others = (await getProjects()).filter((project) => !project.data.featured);
 // The Devlog section is left out entirely until there is a published post.
 const latestPosts = (await getPublishedPosts()).slice(0, 3);
+
+// The note under "Also in the works" is worked out from the projects, so it stays true when one moves
+// up a stage: "Four games, all at the prototype stage." or "Four games, from Idea to Alpha."
+const COUNT_WORDS = ['No', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
+const countWord = COUNT_WORDS[others.length] ?? String(others.length);
+const noun = others.every((project) => project.data.type === 'Game') ? 'game' : 'project';
+const stages = others.map((project) => project.data.stage);
+const [lowest, highest] = [Math.min(...stages), Math.max(...stages)];
+const worksNote = others.length
+  ? `${countWord} ${noun}${others.length === 1 ? '' : 's'}, ${
+      lowest === highest
+        ? `all at the ${stageName(lowest).toLowerCase()} stage`
+        : `from ${stageName(lowest)} to ${stageName(highest)}`
+    }.`
+  : '';
 ---
 
 <BaseLayout title="Walking Kangaroo" description="Grant's games and apps, and how far along each one is.">
   <HomeHero project={featured} />
 
-  <section id="games" class="container section">
-    <div class="section__head">
-      <h2>Also in the works</h2>
-      <span class="section__note">Nothing's out yet. Here's everything on the go.</span>
+  <VisitStops />
+
+  <OwnRound />
+
+  <section id="games" class="container works" aria-labelledby="games-heading">
+    <div class="section__head section__head--ruled">
+      <h2 id="games-heading">Also in the works</h2>
+      {worksNote && <span class="section__note">{worksNote}</span>}
     </div>
-    <div class="projects">
-      {others.map((project) => <ProjectCard project={project} />)}
+    <div class="games">
+      {others.map((project) => <GameRow project={project} />)}
     </div>
   </section>
-
-  <StepsStrip />
 
   {
     latestPosts.length > 0 && (
@@ -89,10 +107,26 @@ const latestPosts = (await getPublishedPosts()).slice(0, 3);
     font-weight: 600;
   }
 
-  .projects {
+  /* The games section follows the own-round block, which carries its own bottom padding. */
+  .works {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    padding-top: 8px;
+    padding-bottom: clamp(40px, 6vw, 64px);
+  }
+
+  /* Rows, not cards: one column on phones, two from 900 px. */
+  .games {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
-    gap: 28px;
+    gap: 0;
+  }
+
+  @media (min-width: 900px) {
+    .games {
+      grid-template-columns: 1fr 1fr;
+      column-gap: 48px;
+    }
   }
 
   .posts {

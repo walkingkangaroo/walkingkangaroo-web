@@ -1,0 +1,93 @@
+---
+import { Image } from 'astro:assets';
+import StageMeter from './StageMeter.astro';
+import type { Project } from '../lib/content';
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const { name, oneLiner, stage, cover } = project.data;
+---
+
+<a class="game" href={`/projects/${project.id}/`}>
+  {/* The name sits right beside the cover, so the cover needs no alt text of its own. */}
+  {
+    cover ? (
+      <Image class="game__cover" src={cover} alt="" widths={[88, 112, 176, 224, 336]} sizes="(max-width: 420px) 88px, 112px" />
+    ) : (
+      <span class="game__cover" aria-hidden="true" />
+    )
+  }
+  <div class="game__text">
+    <h3>{name}</h3>
+    <p class="game__line">{oneLiner}</p>
+    <StageMeter stage={stage} size="sm" label="short" />
+  </div>
+</a>
+
+<style>
+  /* One row is one link, and each row ends in a rule. */
+  .game {
+    display: grid;
+    grid-template-columns: 112px minmax(0, 1fr);
+    align-items: center;
+    gap: 16px;
+    padding-block: 16px;
+    border-bottom: 1px solid var(--site-rule);
+    color: var(--wk-ink);
+    text-decoration: none;
+  }
+
+  .game:hover {
+    color: var(--wk-ink);
+  }
+
+  .game__cover {
+    display: block;
+    width: 112px;
+    height: auto;
+    aspect-ratio: 16 / 9;
+    object-fit: cover;
+    border-radius: 10px;
+    background: var(--site-media);
+  }
+
+  .game__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    min-width: 0;
+  }
+
+  .game__text h3 {
+    margin: 0;
+    font-size: 19px;
+  }
+
+  .game:hover h3 {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  /* Quiet on Paper, 9.6:1. */
+  .game__line {
+    margin: 0;
+    font-size: 15px;
+    line-height: 1.45;
+    color: var(--site-text-quiet);
+  }
+
+  @media (max-width: 420px) {
+    .game {
+      grid-template-columns: 88px minmax(0, 1fr);
+      gap: 12px;
+    }
+
+    .game__cover {
+      width: 88px;
+    }
+  }
+</style>
