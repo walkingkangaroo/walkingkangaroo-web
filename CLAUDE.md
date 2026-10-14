@@ -14,33 +14,32 @@ load only when those files are touched. History goes in decision records, not he
 ## Commands
 
 Node 24 LTS (`.nvmrc`), [0008](docs/decisions/0008-astro-7-on-node-24.md). pnpm 12 through
-corepack (`packageManager` in `package.json`).
+corepack (`packageManager` in the root `package.json`). A pnpm workspace: run everything from
+the repo root, and the root scripts run the hub's (`pnpm --filter hub ...`).
 
 ```bash
-pnpm install
-pnpm build      # astro build into dist/
-pnpm check      # astro check
+pnpm install    # one pnpm-lock.yaml, at the root
+pnpm build      # astro build into sites/hub/dist/
+pnpm check      # astro check of the hub
 pnpm dev        # local preview on http://localhost:4321
 ```
 
 ## Layout
 
+The repo is `walkingkangaroo/walkingkangaroo-web`, one repo for the web
+([0027](docs/decisions/0027-one-web-repo-walkingkangaroo-web.md)).
+
+- `sites/hub/`: the hub, walkingkangaroo.com (the Astro site and its `design-plan.md`).
+- `packages/`: shared code for product sites (coming in KAN-895).
+- `docs/` and `.claude/` stay at the root and serve every site.
 - `docs/brief.md`: what the site is, what it shows, and the plan.
 - `docs/decisions/`: one record per decision, indexed in `docs/DECISIONS.md`.
 - `docs/process/`: facts for `/shape`, `/do` and `/retro`.
 
 ## Conventions
 
-- Brand assets come from `C:\dev\walkingkangaroo\brand\dist\walking-kangaroo-brand-pack\`,
-  copied in unchanged. Never redraw, recolour or re-letter the logo.
-- Colours: Rust `#9E3B22`, Ink `#2B1A12`, Paper `#F4EBDD`, Rust Light `#E0785A` (on Ink only).
-  Rust on Ink and Rust Light on Paper fail contrast: never for text.
-  Seven site tints sit beside them, and no other colours: [0010](docs/decisions/0010-site-tints.md).
-- PanePilot's lockup, cover and screenshots are its own, copied unchanged from
-  `C:\dev\panepilot\public\brand\`. Its teal never enters the site's CSS:
-  [0024](docs/decisions/0024-home-hero-is-the-fogged-pane.md).
-- Type: Outfit, SemiBold 600 for headings (sentence case, -2.5% tracking at 48 px and up),
-  Regular 400 for body.
+- Rules for the hub only (brand assets, colours and tints, PanePilot's assets, type) are in
+  [.claude/rules/hub.md](.claude/rules/hub.md).
 - The repo is public: no secrets, keys or unpublished plans for other projects.
 
 ## Workflow

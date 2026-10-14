@@ -9,7 +9,7 @@ To answer, edit the `Answer:` lines, reply in chat, or run
 `/shape hub-leads-with-panepilot 1: A, 2: yes`. Say "use the defaults" to take every default below.
 
 Most of the design is already settled: your answers of 2026-10-14 are in
-[docs/design-plan.md](../design-plan.md), "Grant's answers, 2026-10-14", and they are recorded as
+[sites/hub/design-plan.md](../../sites/hub/design-plan.md), "Grant's answers, 2026-10-14", and they are recorded as
 decisions without asking again (see "Already answered" below). These four questions are what's
 left.
 

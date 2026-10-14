@@ -3,7 +3,7 @@
 - **Status:** Accepted
 - **Date:** 2026-10-14
 - **Issues:** KAN-893
-- **Round:** [docs/rounds/hub-leads-with-panepilot.md](../rounds/hub-leads-with-panepilot.md), question 3, and Grant's answers of 2026-10-14 in [docs/design-plan.md](../design-plan.md)
+- **Round:** [docs/rounds/hub-leads-with-panepilot.md](../rounds/hub-leads-with-panepilot.md), question 3, and Grant's answers of 2026-10-14 in [sites/hub/design-plan.md](../../sites/hub/design-plan.md)
 
 ## Context
 

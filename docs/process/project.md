@@ -7,7 +7,9 @@ never edited here.
 ## Identity
 
 - **Linear:** team Dev, project **Website**
-- **Repo:** `C:\dev\website`, remote `walkingkangaroo/website` (public)
+- **Repo:** local folder `C:\dev\website`, remote `walkingkangaroo/walkingkangaroo-web` (public).
+  A pnpm workspace: the hub is in `sites/hub/`, shared code goes in `packages/`, and `docs/`
+  and `.claude/` stay at the root (0027).
 - **Shell:** Git Bash from the Bash tool.
 
 ## Read before planning
@@ -68,7 +70,7 @@ Diffs here get an `opus` review, and their issues are `Risk: high`.
 ## Files that never change without their own issue
 
 - `.github/workflows/*`
-- `public/CNAME`
+- `sites/hub/public/CNAME`
 
 ## Who decides
 
@@ -89,7 +91,7 @@ Backlog.
 
 ## Stray files to check for
 
-- `node_modules/`, `dist/`, `.astro/`, `.env*`
+- `node_modules/`, `dist/`, `.astro/` at any depth (the build writes `sites/hub/dist/`), `.env*`
 - Large media: images over 500 KB or clips over 5 MB need a reason in the pull request.
 
 ## Extra stop-and-ask conditions
