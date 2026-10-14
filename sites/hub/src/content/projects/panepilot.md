@@ -1,12 +1,19 @@
 ---
 name: PanePilot
 type: App
-stage: 2
-featured: false
+stage: 4
+featured: true
 order: 5
 platforms: [Web, Phone]
 oneLiner: "Scheduling, quoting, invoicing and field work for window cleaners."
 cover: ../../assets/projects/panepilot.jpg
+lockup: ../../assets/projects/panepilot-lockup.svg
+eyebrow: "Going live in November · Web and phone"
+headline: "The window-cleaning round, start to finish."
+summary: "Quote per pane, book the recurring visits, work each one from your phone, then invoice it and pay whoever did the job."
+link:
+  label: "Go to panepilot.au"
+  href: "https://panepilot.au"
 ---
 
 I'm making PanePilot, an app for scheduling jobs, quoting, invoicing, field work and paying workers at an Australian window-cleaning business. It's for an owner-operator who does most of the jobs personally, with occasional workers, and it's a web app that works on a phone.
