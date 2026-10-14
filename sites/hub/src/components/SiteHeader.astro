@@ -9,6 +9,7 @@ import logo from '../assets/brand/walking-kangaroo-logo-horizontal-primary.svg';
     </a>
     <nav aria-label="Main">
       <ul class="site-nav">
+        <li><a href="/projects/panepilot/">PanePilot</a></li>
         <li><a href="/#games">Games</a></li>
         <li><a href="/devlog/">Devlog</a></li>
         <li><a href="/about/">About</a></li>
@@ -48,7 +49,8 @@ import logo from '../assets/brand/walking-kangaroo-logo-horizontal-primary.svg';
     list-style: none;
   }
 
-  /* Narrower gaps on phones so the four links share one line under the logo at 375–390 px (0013). */
+  /* Narrower gaps on phones. The links wrap under the logo (0013): at 375–390 px the four text
+     links share one line and "Get updates" takes the next. */
   @media (max-width: 30rem) {
     .site-nav {
       column-gap: 16px;
