@@ -1,6 +1,6 @@
 # 0002. The site shows five projects, all in progress
 
-- **Status:** Accepted
+- **Status:** Accepted; which project is featured, and PanePilot's stage, are superseded by [0023](0023-panepilot-is-featured-at-beta.md)
 - **Date:** 2026-10-05
 - **Issues:** —
 
