@@ -12,7 +12,7 @@ eyebrow: "Going live in November · Web and phone"
 headline: "The window-cleaning round, start to finish."
 summary: "Quote per pane, book the recurring visits, work each one from your phone, then invoice it and pay whoever did the job."
 link:
-  label: "Go to panepilot.au"
+  label: "Visit panepilot.au"
   href: "https://panepilot.au"
 ---
 

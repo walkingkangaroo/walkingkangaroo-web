@@ -28,6 +28,8 @@ Recorded in [docs/rounds/hub-leads-with-panepilot.md](../../docs/rounds/hub-lead
 - **PanePilot's project page:** "Go to panepilot.au" first, then "Follow this project", with the
   lockup as its `h1` (0029).
 - **The nav's "PanePilot" link** goes to the hub's PanePilot page (0024).
+- **The link label** to PanePilot's website is "Visit panepilot.au", not "Go to panepilot.au", on
+  the buttons and in "Built on our own round" (0030, Grant on 2026-10-14).
 - **The steps strip:** it was only ever on the home page, so it is removed, not kept on the project
   pages. Project pages already name all five steps in their stage panel (0025).
 

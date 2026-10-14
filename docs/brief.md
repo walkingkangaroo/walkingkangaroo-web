@@ -19,7 +19,7 @@ except the project page, which is the template for project pages).
   `C:\dev\walkingkangaroo\brand\dist\walking-kangaroo-brand-pack\`: colour tokens, Outfit
   webfonts, logos, favicons, link-preview images. Never redraw or recolour the logo.
 - Home, PanePilot first ([design-plan.md](../sites/hub/design-plan.md), 0024, 0025): header; PanePilot's hero, a
-  fogged pane cleared by one squeegee sweep, with "Go to panepilot.au"; "How a visit goes" in four
+  fogged pane cleared by one squeegee sweep, with "Visit panepilot.au"; "How a visit goes" in four
   stops; "Built on our own round"; the four games as an "Also in the works" list; devlog; about;
   newsletter band; footer.
 - **The footprint stage meter**: five prints for Idea, Prototype, Alpha, Beta, Launch. Filled
