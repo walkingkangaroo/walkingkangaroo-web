@@ -38,10 +38,11 @@ Baseline: run these once before changing anything.
 ## Extra checks by area
 
 - **Anything visual:** check at 390 px wide; no horizontal scroll; text contrast 4.5:1.
-- **The GitHub Pages workflow or `CNAME`:** read the workflow run with `gh run view`; the live
-  site must still load after merge.
-- **A product site's Azure Static Web Apps workflow (0031):** the same, plus the pull request's
-  preview link loads, and a change to one site doesn't run another site's deploy.
+- **A site's Azure Static Web Apps workflow or `staticwebapp.config.json` (0031, 0032):**
+  - Read the workflow run with `gh run view`.
+  - The pull request's preview link loads (0035).
+  - The live site still loads after merge.
+  - A change to one site doesn't run another site's deploy.
 
 ## Model table
 
@@ -59,9 +60,8 @@ worktrees: the repo is small.
 
 ## CI
 
-The hub's GitHub Pages deploy workflow and each product site's Azure Static Web Apps workflow,
-once they exist. Read a failure with
-`gh run view <id> --log-failed`.
+Each site's Azure Static Web Apps workflow, the hub's included (0031, 0032), once it exists.
+Read a failure with `gh run view <id> --log-failed`.
 
 ## Risky areas
 
@@ -73,7 +73,7 @@ Diffs here get an `opus` review, and their issues are `Risk: high`.
 ## Files that never change without their own issue
 
 - `.github/workflows/*`
-- `sites/hub/public/CNAME`
+- `sites/*/public/staticwebapp.config.json`
 
 ## Who decides
 
@@ -99,5 +99,5 @@ Backlog.
 
 ## Extra stop-and-ask conditions
 
-- Anything that would change DNS, email, the GitHub Pages settings or Azure resources outside the
-  repo, or that needs a secret (Grant adds every secret himself).
+- Anything that would change DNS, email, the GitHub repo's settings or Azure resources outside
+  the repo, or that needs a secret (Grant adds every secret himself).

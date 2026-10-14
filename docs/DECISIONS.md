@@ -35,19 +35,24 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0028](decisions/0028-signature-uses-brand-pack-files.md) | The signature on product sites uses the brand pack's logo files unchanged | Accepted |
 | [0029](decisions/0029-panepilot-page-leads-to-panepilot-au.md) | PanePilot's project page leads with "Go to panepilot.au" and its lockup | Accepted (button label superseded by 0030) |
 | [0030](decisions/0030-panepilot-link-reads-visit-panepilot-au.md) | Links to PanePilot's website read "Visit panepilot.au" | Accepted |
+| [0034](decisions/0034-newsletter-hidden-until-kit.md) | The newsletter band and the links to it are hidden until Kit is connected | Accepted |
 
 ## Platform, code and process
 
 | # | Decision | Status |
 | --- | --- | --- |
 | [0003](decisions/0003-astro-static-site.md) | A static Astro site, with projects and posts as content files | Accepted |
-| [0004](decisions/0004-github-pages-public-repo.md) | Public repo, published to GitHub Pages on merge | Accepted |
-| [0005](decisions/0005-dns-stays-at-ventraip.md) | DNS stays at VentraIP, and email records are never touched | Accepted |
+| [0004](decisions/0004-github-pages-public-repo.md) | Public repo, published to GitHub Pages on merge | Accepted (GitHub Pages superseded by 0032) |
+| [0005](decisions/0005-dns-stays-at-ventraip.md) | DNS stays at VentraIP, and email records are never touched | Accepted (GitHub Pages records superseded by 0032) |
 | [0007](decisions/0007-adopt-process-template.md) | Work through process-template 1.0.1 | Accepted |
 | [0008](decisions/0008-astro-7-on-node-24.md) | Astro 7 on Node 24 LTS | Accepted |
-| [0011](decisions/0011-publish-at-launch.md) | The site is first published at launch, not while it's built | Accepted |
+| [0011](decisions/0011-publish-at-launch.md) | The site is first published at launch, not while it's built | Accepted (first publication superseded by 0033) |
 | [0027](decisions/0027-one-web-repo-walkingkangaroo-web.md) | One web repo, walkingkangaroo-web, with the hub in sites/hub/ | Accepted |
-| [0031](decisions/0031-product-sites-on-azure-static-web-apps.md) | Product sites are hosted on Azure Static Web Apps, one app per site | Accepted |
+| [0031](decisions/0031-product-sites-on-azure-static-web-apps.md) | Product sites are hosted on Azure Static Web Apps, one app per site | Accepted (the hub's host superseded by 0032, apex options by 0036) |
+| [0032](decisions/0032-hub-on-azure-static-web-apps.md) | The hub is hosted on Azure Static Web Apps, at walkingkangaroo.com | Accepted |
+| [0033](decisions/0033-hub-goes-live-on-its-azure-address-first.md) | The hub goes live on its Azure address before the domain points at it | Accepted |
+| [0035](decisions/0035-pull-requests-get-preview-links.md) | Pull requests from this repo get a public preview link | Accepted |
+| [0036](decisions/0036-apex-uses-alias-or-an-a-record.md) | An apex domain uses an ALIAS record, or else an A record, never forwarding | Accepted |
 
 ## Open questions
 

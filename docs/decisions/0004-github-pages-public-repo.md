@@ -1,6 +1,6 @@
 # 0004. Public repo, published to GitHub Pages on merge
 
-- **Status:** Accepted
+- **Status:** Accepted; the GitHub Pages hosting is superseded by [0032](0032-hub-on-azure-static-web-apps.md), and the repo stays public
 - **Date:** 2026-10-05
 - **Issues:** —
 

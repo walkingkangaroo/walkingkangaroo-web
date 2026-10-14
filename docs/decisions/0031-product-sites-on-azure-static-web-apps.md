@@ -1,6 +1,6 @@
 # 0031. Product sites are hosted on Azure Static Web Apps, one app per site
 
-- **Status:** Accepted
+- **Status:** Accepted; "the hub stays on GitHub Pages" is superseded by [0032](0032-hub-on-azure-static-web-apps.md), and the apex options by [0036](0036-apex-uses-alias-or-an-a-record.md)
 - **Date:** 2026-10-14
 - **Issues:** KAN-900
 - **Round:** [docs/rounds/kan-900-product-site-hosting.md](../rounds/kan-900-product-site-hosting.md), question 1

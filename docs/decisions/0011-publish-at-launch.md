@@ -1,6 +1,6 @@
 # 0011. The site is first published at launch, not while it's built
 
-- **Status:** Accepted
+- **Status:** Accepted; "first published at launch" is superseded by [0033](0033-hub-goes-live-on-its-azure-address-first.md)
 - **Date:** 2026-10-05
 - **Issues:** KAN-726
 - **Round:** [docs/rounds/build-the-site.md](../rounds/build-the-site.md), question 4
