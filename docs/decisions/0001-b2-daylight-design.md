@@ -1,6 +1,6 @@
 # 0001. The site follows direction B2 · Daylight, built from the brand pack
 
-- **Status:** Accepted; the hero layout is superseded by [0022](0022-hero-text-beside-the-cover.md)
+- **Status:** Accepted; the hero is superseded by [0024](0024-home-hero-is-the-fogged-pane.md) (earlier by [0022](0022-hero-text-beside-the-cover.md)), and the home page's project cards and steps strip by [0025](0025-home-sections-panepilot-first.md)
 - **Date:** 2026-10-05
 - **Issues:** —
 

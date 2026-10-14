@@ -15,6 +15,22 @@ moves into `walkingkangaroo-web` (see "Repo" at the end).
 - **First notes:** no footprints on the hero image, and none between the four stops.
 - **Launch and stage:** it launches in November. Show Beta (step 4 of 5) for now.
 
+## Decided in the shape round, 2026-10-14
+
+Recorded in [rounds/hub-leads-with-panepilot.md](rounds/hub-leads-with-panepilot.md) and decisions
+0023 to 0029. Where this plan and a decision record disagree, the record wins.
+
+- **Signature on product sites:** the brand pack's logo files, unchanged, in the variant that suits
+  the site's background. Not `currentColor` (0028).
+- **Screenshots:** the redesign is built first. The pane shows the cover alone and the stops have
+  no picture until the demo-business screenshots arrive (0026).
+- **Repo rename:** Grant renames the GitHub repo himself, before the move (0027).
+- **PanePilot's project page:** "Go to panepilot.au" first, then "Follow this project", with the
+  lockup as its `h1` (0029).
+- **The nav's "PanePilot" link** goes to the hub's PanePilot page (0024).
+- **The steps strip:** it was only ever on the home page, so it is removed, not kept on the project
+  pages. Project pages already name all five steps in their stage panel (0025).
+
 ## Brief
 
 - **What it is:** the studio hub, reworked so its lead is PanePilot, the first Walking Kangaroo

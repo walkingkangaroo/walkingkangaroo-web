@@ -1,6 +1,6 @@
 # 0022. The home hero shows the featured cover beside or above its text, never behind it
 
-- **Status:** Accepted
+- **Status:** Superseded by [0024](0024-home-hero-is-the-fogged-pane.md)
 - **Date:** 2026-10-07
 - **Issues:** KAN-769
 - **Round:** none: Grant's choice on KAN-754 (2026-10-06, text beside or below the image) and on KAN-769 (2026-10-07, whole cover, about 480 px tall)

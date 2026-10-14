@@ -1,6 +1,6 @@
 # Decision round: Hub leads with PanePilot, and the move into walkingkangaroo-web
 
-Status: Waiting on Grant
+Status: Answered
 Opened: 2026-10-14
 Issue: https://linear.app/walkingkangaroo/issue/KAN-893/shape-hub-leads-with-panepilot-and-the-move-into-walkingkangaroo-web
 Research: [docs/research/hub-leads-with-panepilot.md](../research/hub-leads-with-panepilot.md)
@@ -30,7 +30,7 @@ the logo, and this repo's rule is "Never redraw, recolour or re-letter the logo"
   ink and paper version for any background.
 - **Default if unanswered:** A.
 - **For:** Grant
-- **Answer:**
+- **Answer:** default taken (A). Grant, 2026-10-14: "use the defaults"
 
 ### 2. Does the home redesign wait for the PanePilot screenshots?
 
@@ -47,7 +47,7 @@ separately and has no date yet.
   stages, and nothing hand-drawn stands in for the real app.
 - **Default if unanswered:** A.
 - **For:** Grant
-- **Answer:**
+- **Answer:** default taken (A). Grant, 2026-10-14: "use the defaults"
 
 ### 3. Who renames the GitHub repo to `walkingkangaroo-web`?
 
@@ -61,7 +61,7 @@ GitHub redirects the old web and git addresses after a rename, so local clones k
   you.
 - **Default if unanswered:** A.
 - **For:** Grant
-- **Answer:**
+- **Answer:** default taken (A). Grant, 2026-10-14: "use the defaults"
 
 ### 4. On the hub's PanePilot page, what is the main button?
 
@@ -74,7 +74,7 @@ Today every project page has one button, "Follow this project", which goes to th
   cleaners to panepilot.au.
 - **Default if unanswered:** A.
 - **For:** Grant
-- **Answer:**
+- **Answer:** default taken (A). Grant, 2026-10-14: "use the defaults"
 
 ## Already answered (2026-10-14, recorded without asking again)
 
@@ -121,6 +121,11 @@ Today every project page has one button, "Follow this project", which goes to th
   only its own data is confirmed (row-level security, PanePilot `docs/tenancy.md`). "Hosted in
   Australia" is left out until you confirm where the database lives. As always, you rewrite it.
 - **One milestone, "PanePilot first",** with the repo move as its first issue.
+- **Found while recording (2026-10-14): the steps strip is removed, not moved.** The plan said it
+  stays on the project pages, but it was only ever on the home page (`src/pages/index.astro` is its
+  only user). Project pages already show all five step names in their stage panel. So "drop it
+  from home only" leaves nothing to keep, and the component goes. If you want the strip on the
+  project pages, that's a new issue.
 
 ## Held out
 
@@ -132,8 +137,27 @@ Today every project page has one button, "Follow this project", which goes to th
 
 ## Outcome
 
-Filled in when the answers are recorded.
+Recorded 2026-10-14. Grant: "use the defaults", so A for all four questions.
 
-- Decisions:
-- Spec or design changes:
-- Issues:
+- Decisions: [0023](../decisions/0023-panepilot-is-featured-at-beta.md),
+  [0024](../decisions/0024-home-hero-is-the-fogged-pane.md),
+  [0025](../decisions/0025-home-sections-panepilot-first.md),
+  [0026](../decisions/0026-panepilot-screenshots-from-a-demo-business.md),
+  [0027](../decisions/0027-one-web-repo-walkingkangaroo-web.md),
+  [0028](../decisions/0028-signature-uses-brand-pack-files.md),
+  [0029](../decisions/0029-panepilot-page-leads-to-panepilot-au.md). 0001 and 0002 are superseded in
+  part, and 0022 in full.
+- Spec or design changes: `docs/brief.md` (home, the project table, a new plan step 4),
+  `docs/design-plan.md` ("Decided in the shape round"), `CLAUDE.md` (PanePilot's assets),
+  `docs/DECISIONS.md`.
+- Issues, in build order (milestone "PanePilot first"):
+  1. https://linear.app/walkingkangaroo/issue/KAN-894/the-hub-lives-in-siteshub-of-walkingkangaroo-web-and-build-check-and
+     (starts after Grant renames the repo)
+  2. https://linear.app/walkingkangaroo/issue/KAN-895/product-sites-have-a-shared-walking-kangaroo-signature-and-the-repo
+  3. https://linear.app/walkingkangaroo/issue/KAN-896/the-home-page-opens-on-panepilot-its-lockup-and-a-fogged-pane-cleared
+  4. https://linear.app/walkingkangaroo/issue/KAN-897/below-the-hero-the-home-page-shows-how-a-visit-goes-our-own-round-and
+  5. https://linear.app/walkingkangaroo/issue/KAN-898/panepilots-project-page-shows-its-lockup-and-sends-people-to
+  6. https://linear.app/walkingkangaroo/issue/KAN-899/real-panepilot-screenshots-with-no-real-customer-data-show-on-the-home
+     (also waits on the PanePilot demo seed and screenshots)
+- Held out: https://linear.app/walkingkangaroo/issue/KAN-900/choose-how-product-sites-in-walkingkangaroo-web-are-hosted
+  (Backlog). A note on the monorepo build was added to KAN-733 (launch).
