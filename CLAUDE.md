@@ -1,7 +1,8 @@
 # walkingkangaroo.com
 
 The Walking Kangaroo website: Grant's games and apps, how far along each one is, and a devlog.
-A static Astro site, published to GitHub Pages from launch (0011); until then it runs locally.
+A static Astro site, hosted on Azure Static Web Apps like every site in this repo
+([0032](docs/decisions/0032-hub-on-azure-static-web-apps.md)).
 Start with [docs/brief.md](docs/brief.md).
 
 **Decisions and their reasons: [docs/DECISIONS.md](docs/DECISIONS.md).** Don't reopen an Accepted

@@ -57,10 +57,13 @@ Studios' 2017 game; Grant has confirmed it is cleared to show.
    (0027) and a shared footer signature for product sites (0028). Then the home page leads with
    PanePilot (0023–0025, 0029), and real screenshots from a demo business follow (0026). Shaped in
    [rounds/hub-leads-with-panepilot.md](rounds/hub-leads-with-panepilot.md).
-5. **Newsletter**: Kit's free plan, its form embedded; Kit's sending records and an SPF record
-   added at VentraIP.
-6. **Launch**: the GitHub Pages workflow and `CNAME` (0011); Grant adds the apex and www records at VentraIP; check HTTPS, link
-   previews and the phone layout.
+5. **Launch**, on Azure Static Web Apps (0032). The newsletter band and its links are hidden
+   until Kit is connected (0034). The deploy goes live on the app's Azure address first (0033),
+   with preview links on pull requests (0035). Then Grant points walkingkangaroo.com at it, apex
+   first by ALIAS or else an A record (0036), and the devlog posts go live. Check HTTPS, link
+   previews and the phone layout. Shaped in [rounds/kan-733-hub-on-azure.md](rounds/kan-733-hub-on-azure.md).
+6. **Newsletter**: Kit's free plan, its form embedded; Kit's sending records and an SPF record
+   added at VentraIP. It brings the band and its links back (0034).
 
 Later: gameplay clips (0015), release pages (the "Released product page" board), Steam wishlist buttons once store
 pages exist, a press kit.

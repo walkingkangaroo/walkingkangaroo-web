@@ -1,6 +1,6 @@
 # 0005. DNS stays at VentraIP, and email records are never touched
 
-- **Status:** Accepted
+- **Status:** Accepted; its GitHub Pages records are superseded by [0032](0032-hub-on-azure-static-web-apps.md)
 - **Date:** 2026-10-05
 - **Issues:** —
 

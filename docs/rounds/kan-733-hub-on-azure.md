@@ -1,6 +1,6 @@
 # Decision round: the hub launches on Azure Static Web Apps
 
-Status: Waiting on Grant
+Status: Answered
 Opened: 2026-10-15
 Issue: https://linear.app/walkingkangaroo/issue/KAN-733/publish-the-site-to-github-pages-at-walkingkangaroocom
 Research: [docs/research/kan-733-hub-on-azure.md](../research/kan-733-hub-on-azure.md)
@@ -28,7 +28,7 @@ To answer, edit the `Answer:` lines, reply in chat, or run
   placeholder text and a base path. Neither applies now.
 - **Default if unanswered:** A.
 - **For:** Grant
-- **Answer:**
+- **Answer:** A. Grant, 2026-10-15: "use the defaults" (default taken).
 
 ### 2. What should the newsletter band do at launch, while its form isn't connected to Kit yet?
 
@@ -41,7 +41,7 @@ To answer, edit the `Answer:` lines, reply in chat, or run
   goes live in November, and that shouldn't wait on Kit.
 - **Default if unanswered:** B.
 - **For:** Grant
-- **Answer:**
+- **Answer:** B. Grant, 2026-10-15: "use the defaults" (default taken).
 
 ### 3. Should pull requests to the hub get a preview link?
 
@@ -57,7 +57,7 @@ To answer, edit the `Answer:` lines, reply in chat, or run
   someone guesses the link. Posts marked `draft: true` stay out of previews either way.
 - **Default if unanswered:** A.
 - **For:** Grant
-- **Answer:**
+- **Answer:** A. Grant, 2026-10-15: "use the defaults" (default taken).
 
 ### 4. If VentraIP won't take an ALIAS record at the apex, what should walkingkangaroo.com use instead?
 
@@ -76,7 +76,7 @@ looks like a poor second choice.
   then an A record, for the hub and for product sites.
 - **Default if unanswered:** A.
 - **For:** Grant
-- **Answer:**
+- **Answer:** A. Grant, 2026-10-15: "use the defaults" (default taken).
 
 ## Decided without asking
 
@@ -115,13 +115,34 @@ looks like a poor second choice.
 
 - **A Content-Security-Policy header:** Backlog. It's worth having, but it needs testing against
   the hero's script and the Kit embed. That's easier once both are live.
+  https://linear.app/walkingkangaroo/issue/KAN-920/add-a-content-security-policy-header-to-the-hub
 - **Cancelling whatever serves 103.42.108.46:** it's yours to check at VentraIP after launch. It's
   outside the repo.
 
 ## Outcome
 
-Filled in when the answers are recorded.
-
-- Decisions:
-- Spec or design changes:
-- Issues:
+- **Decisions:**
+  - [0032](../decisions/0032-hub-on-azure-static-web-apps.md): the hub is on Azure Static Web
+    Apps, at walkingkangaroo.com.
+  - [0033](../decisions/0033-hub-goes-live-on-its-azure-address-first.md): it goes live on its
+    Azure address first.
+  - [0034](../decisions/0034-newsletter-hidden-until-kit.md): the newsletter band and its links
+    are hidden until Kit is connected. The links are the header's "Get updates", the project
+    pages' "Follow this project", and the hero's fallback, which all jump to the band.
+  - [0035](../decisions/0035-pull-requests-get-preview-links.md): pull requests from this repo get
+    a preview link.
+  - [0036](../decisions/0036-apex-uses-alias-or-an-a-record.md): an apex domain uses ALIAS, else
+    an A record, never forwarding.
+  - Status lines updated on 0004, 0005, 0011 and 0031.
+- **Spec or design changes:**
+  - `CLAUDE.md` (what the site is);
+  - `docs/brief.md` (Launch is now step 5, Newsletter step 6);
+  - `docs/process/project.md` (extra checks, CI, protected files, stop-and-ask);
+  - `docs/DECISIONS.md`.
+- **Issues, in build order** (milestone Launch):
+  1. https://linear.app/walkingkangaroo/issue/KAN-917/the-newsletter-band-and-every-link-to-it-stay-hidden-until-kit-is
+  2. https://linear.app/walkingkangaroo/issue/KAN-733/the-hub-deploys-to-azure-static-web-apps-from-main-with-a-preview-link
+     (Grant creates the Azure app and adds the token first)
+  3. https://linear.app/walkingkangaroo/issue/KAN-918/walkingkangaroocom-serves-the-hub-over-https-and-www-redirects-to-it
+  4. https://linear.app/walkingkangaroo/issue/KAN-919/the-five-first-devlog-posts-are-live-dated-launch-day
+- **KAN-908** (the first product site's deploy) now points at the hub's setup, 0035 and 0036.
