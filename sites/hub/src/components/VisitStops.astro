@@ -2,6 +2,17 @@
 // "How a visit goes": four stops in order on a --site-panel band (0025). The copy is a draft for
 // Grant to rewrite (0014). Every line is checked against PanePilot's docs; the vocabulary is
 // visit, pane, run and invoice (0025).
+//
+// A stop's pictures are the featured project's `screenshots` entries whose `stop` is its number,
+// listed in its content file with their alt text and crop. A stop with no entry shows no picture.
+import { Image } from 'astro:assets';
+import { getFeaturedProject } from '../lib/content';
+
+const featured = await getFeaturedProject();
+const screenshots = featured.data.screenshots ?? [];
+// The empty spacer that keeps a row lined up is only needed when some stop has a picture.
+const anyShots = screenshots.some((shot) => shot.stop);
+
 const stops = [
   {
     title: 'Quote per pane',
@@ -30,14 +41,36 @@ const stops = [
     </div>
     <ol class="stops" role="list">
       {
-        stops.map((stop, i) => (
+        stops.map((stop, i) => {
+          const shots = screenshots.filter((shot) => shot.stop === i + 1);
+          return (
           <li class="stop">
-            {/* KAN-899: this stop's cropped screenshot goes here, above the number and heading. Nothing renders yet (0026). */}
+            {shots.length > 0 ? (
+              <div class="stop__shot" style={`grid-template-rows: ${shots.map((shot) => `minmax(0, ${shot.weight ?? 1}fr)`).join(' ')}`}>
+                {shots.map((shot) => (
+                  <Image
+                    class="stop__img"
+                    src={shot.src}
+                    alt={shot.alt}
+                    style={shot.position ? `object-position: ${shot.position}` : undefined}
+                    widths={[360, 560, 780]}
+                    sizes="(min-width: 1280px) 280px, (min-width: 900px) 25vw, min(420px, calc(100vw - 32px))"
+                    loading="lazy"
+                  />
+                ))}
+              </div>
+            ) : anyShots ? (
+              /* KAN-913: stop 2 has no picture yet. Its weeks calendar is added as one more `screenshots`
+                 entry with `stop: 2` in panepilot.md. Until then this is plain empty space, so the
+                 numbers and headings of the four stops still line up in a row. No box, no placeholder. */
+              <div class="stop__shot stop__shot--none" aria-hidden="true" />
+            ) : null}
             <span class="stop__num" aria-hidden="true">{i + 1}</span>
             <h3>{stop.title}</h3>
             <p>{stop.text}</p>
           </li>
-        ))
+          );
+        })
       }
     </ol>
   </div>
@@ -87,6 +120,36 @@ const stops = [
     min-width: 0;
   }
 
+  /* One frame shape for every stop, so the row lines up: 780 x 935 source pixels, the width of a
+     screenshot and the height that shows "Finished 8:41 am" down to the ticked checklist. A stop with
+     two pictures splits it by their `weight`, with a 4 px gap between. Each picture is cropped by
+     its own `object-position`. On phones and tablets the frame stops growing at 420 px wide. */
+  .stop__shot {
+    display: grid;
+    gap: 4px;
+    width: 100%;
+    max-width: 420px;
+    aspect-ratio: 780 / 935;
+    min-height: 0;
+    overflow: hidden;
+  }
+
+  .stop__img {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    border: 1px solid var(--site-rule);
+    border-radius: 14px;
+    object-fit: cover;
+  }
+
+  /* A stop without a picture keeps the space only where the stops sit in a row. */
+  .stop__shot--none {
+    display: none;
+  }
+
   /* Paper on Ink, 14.1:1. */
   .stop__num {
     display: inline-flex;
@@ -120,6 +183,10 @@ const stops = [
       grid-template-columns: repeat(4, minmax(0, 1fr));
       align-items: start;
       gap: 0 28px;
+    }
+
+    .stop__shot--none {
+      display: block;
     }
   }
 </style>

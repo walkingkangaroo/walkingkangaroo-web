@@ -32,6 +32,23 @@ const projects = defineCollection({
       summary: z.string().optional(),
       /** The project's own site, for example `{ label: 'Go to example.com', href: 'https://example.com' }`. */
       link: z.object({ label: z.string(), href: z.url({ protocol: /^https?$/ }) }).optional(),
+      /** A phone screenshot shown in a CSS phone frame on the home hero's cover. It is decorative there. */
+      phone: image().optional(),
+      /** The project's real app screenshots. The project page shows every entry, in order. Each home
+       *  page stop shows the entries with its number in `stop` (1 to 4). `position` is the crop's
+       *  CSS `object-position` (for example `50% 100%`); `weight` is the entry's share of a stop's
+       *  frame when a stop shows more than one. */
+      screenshots: z
+        .array(
+          z.object({
+            src: image(),
+            alt: z.string(),
+            stop: z.number().int().min(1).max(4).optional(),
+            position: z.string().optional(),
+            weight: z.number().positive().optional(),
+          }),
+        )
+        .optional(),
     }),
 });
 
