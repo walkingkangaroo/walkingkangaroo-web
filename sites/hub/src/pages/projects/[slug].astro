@@ -19,7 +19,7 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { name, oneLiner, stage, platforms, target, cover, clip, workingOn } = project.data;
+const { name, oneLiner, stage, platforms, target, cover, clip, workingOn, lockup, link } = project.data;
 
 // Newest first, so the first post is the latest update. In dev this includes drafts.
 const posts = await getPublishedPosts(project);
@@ -46,12 +46,29 @@ const hasLower = posts.length > 0 || hasSidebar;
 
       <div class="intro">
         <div class="intro__text">
-          <h1>{name}</h1>
+          {
+            lockup ? (
+              <h1 class="lockup">
+                <img src={lockup.src} width={lockup.width} height={lockup.height} alt={name} />
+              </h1>
+            ) : (
+              <h1>{name}</h1>
+            )
+          }
           <p class="one-liner">{oneLiner}</p>
         </div>
-        <div class="actions">
-          <a class="follow" href="/#news">Follow this project</a>
-        </div>
+        {
+          link ? (
+            <div class="actions actions--pair">
+              <a class="btn btn--solid" href={link.href}>{link.label}</a>
+              <a class="btn btn--outline" href="/#news">Follow this project</a>
+            </div>
+          ) : (
+            <div class="actions">
+              <a class="follow" href="/#news">Follow this project</a>
+            </div>
+          )
+        }
       </div>
 
       {
@@ -168,6 +185,77 @@ const hasLower = posts.length > 0 || hasSidebar;
   .follow:hover {
     background: var(--wk-rust);
     color: var(--wk-paper);
+  }
+
+  /* A project with a lockup: the lockup is the heading, never the name set in Outfit (PanePilot's
+     brand rules). Its clear space is a quarter of its mark's tile on every side, and the tile is as
+     wide as the lockup is tall: 11 px at 44 px, 13 px at 52 px. Above, the .top gap is 28 px; below,
+     the text column's gap is 14 px; at the left, the page margin is 16 px or more; at the right, the
+     empty rest of the column and the 40 px intro gap. Same heights as the home hero. */
+  .lockup {
+    --lockup-h: 44px;
+    margin: 0;
+    line-height: 0;
+  }
+
+  .lockup img {
+    display: block;
+    height: var(--lockup-h);
+    width: auto;
+  }
+
+  @media (min-width: 1024px) {
+    .lockup {
+      --lockup-h: clamp(40px, 3.6vw, 52px);
+    }
+  }
+
+  /* A project with a link: the link, then "Follow this project", styled as in the home hero. */
+  .actions--pair {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 12px 16px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 50px;
+    padding: 0 24px;
+    border-radius: 999px;
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  /* Paper on Rust, 5.7:1. */
+  .btn--solid {
+    background: var(--wk-rust);
+    color: var(--wk-paper);
+  }
+
+  .btn--solid:hover {
+    background: var(--wk-ink);
+    color: var(--wk-paper);
+  }
+
+  .btn--outline {
+    border: 2px solid var(--wk-ink);
+    color: var(--wk-ink);
+  }
+
+  .btn--outline:hover {
+    background: var(--wk-ink);
+    color: var(--wk-paper);
+  }
+
+  /* Phones: the buttons span the full width. */
+  @media (max-width: 719px) {
+    .actions--pair,
+    .btn {
+      width: 100%;
+    }
   }
 
   /* The board's flex-wrap layout: the main column wants 560 px, the sidebar 300 px, and the gap is
