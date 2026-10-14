@@ -15,8 +15,8 @@ const { name, oneLiner, stage, platforms, cover, lockup, eyebrow, headline, summ
 // hero fields gets the older hero's text: its name set in Outfit, its one-liner, "In development".
 const eyebrowText = eyebrow ?? (platforms.length ? `In development · ${platforms.join(' / ')}` : 'In development');
 const primary = link ?? { label: 'Follow development', href: '/#news' };
-// The second button. KAN-897 changes it to "See how it works" → "#how".
-const secondary = { label: 'See the project', href: `/projects/${project.id}/` };
+// The second button jumps to the "How a visit goes" section just below the hero (0025).
+const secondary = { label: 'See how it works', href: '#how' };
 ---
 
 <section id="top" class="container hero-section">

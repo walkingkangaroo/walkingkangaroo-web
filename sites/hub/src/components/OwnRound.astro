@@ -1,0 +1,64 @@
+---
+// "Built on our own round": a left-aligned editorial block in Grant's voice, with no image (0025).
+// The copy is a draft for Grant to rewrite (0014). It states only what PanePilot's docs confirm.
+// The claim about where it is hosted stays out until Grant says where the database lives (0025).
+---
+
+<section id="story" class="container story" aria-labelledby="story-heading">
+  <h2 id="story-heading">Built on our own round</h2>
+  <div class="story__text">
+    <p>
+      We clean windows in South Australia's Clare Valley, and I built PanePilot to run our round. It quotes per pane because
+      that's how we price. It runs from a phone because that's where we are when the visit's done. It pays our workers for
+      the time they log, because that's how we pay them.
+    </p>
+    <p class="story__quiet">
+      Each business sees only its own customers, prices and money.
+    </p>
+    <a class="story__link" href="https://panepilot.au">See PanePilot at panepilot.au</a>
+  </div>
+</section>
+
+<style>
+  .story {
+    display: grid;
+    gap: 20px;
+    padding-block: clamp(56px, 8vw, 96px);
+  }
+
+  .story h2 {
+    margin: 0;
+    font-size: clamp(28px, 5vw, 36px);
+  }
+
+  .story__text {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 16px;
+    max-width: 38rem;
+  }
+
+  .story__text p {
+    margin: 0;
+    font-size: 19px;
+    line-height: 1.6;
+  }
+
+  /* Quiet on Paper, 9.6:1. */
+  .story__text .story__quiet {
+    color: var(--site-text-quiet);
+  }
+
+  .story__link {
+    font-weight: 600;
+    text-underline-offset: 4px;
+  }
+
+  @media (min-width: 900px) {
+    .story {
+      grid-template-columns: minmax(0, 4fr) minmax(0, 7fr);
+      gap: 56px;
+    }
+  }
+</style>
