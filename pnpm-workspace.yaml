@@ -1,2 +1,6 @@
+packages:
+  - sites/*
+  - packages/*
+
 allowBuilds:
   esbuild: true

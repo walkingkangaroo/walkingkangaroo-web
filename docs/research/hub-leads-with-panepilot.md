@@ -13,7 +13,7 @@ with the hub in `sites/hub/`, a shared package for the footer signature, and a r
 A good outcome keeps `pnpm build`, `check` and `dev` green through the move, keeps the history, and
 ends with a home page that sends window cleaners to panepilot.au and keeps game followers subscribed.
 
-The design is settled in [docs/design-plan.md](../design-plan.md), which Grant reviewed against the
+The design is settled in [sites/hub/design-plan.md](../../sites/hub/design-plan.md), which Grant reviewed against the
 clickable mockup (https://claude.ai/artifact/RWJKnAbkrJUm6hT6jHpkjG) on 2026-10-14.
 
 ## What exists today

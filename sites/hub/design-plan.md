@@ -17,7 +17,7 @@ moves into `walkingkangaroo-web` (see "Repo" at the end).
 
 ## Decided in the shape round, 2026-10-14
 
-Recorded in [rounds/hub-leads-with-panepilot.md](rounds/hub-leads-with-panepilot.md) and decisions
+Recorded in [docs/rounds/hub-leads-with-panepilot.md](../../docs/rounds/hub-leads-with-panepilot.md) and decisions
 0023 to 0029. Where this plan and a decision record disagree, the record wins.
 
 - **Signature on product sites:** the brand pack's logo files, unchanged, in the variant that suits

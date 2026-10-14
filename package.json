@@ -1,0 +1,15 @@
+{
+  "name": "walkingkangaroo-web",
+  "version": "0.0.1",
+  "private": true,
+  "packageManager": "pnpm@12.9.1",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "dev": "pnpm --filter hub dev",
+    "build": "pnpm --filter hub build",
+    "preview": "pnpm --filter hub preview",
+    "check": "pnpm --filter hub check"
+  }
+}
