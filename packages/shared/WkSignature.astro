@@ -1,0 +1,79 @@
+---
+// The Walking Kangaroo signature for a product site's footer (decision 0028).
+// It shows a brand-pack logo file, copied into ./brand unchanged, and links to the hub.
+// It never recolours the logo: pick the variant that suits the background instead.
+import hSmallPrimary from './brand/walking-kangaroo-logo-horizontal-small-primary.svg';
+import hSmallInk from './brand/walking-kangaroo-logo-horizontal-small-ink.svg';
+import hSmallReversed from './brand/walking-kangaroo-logo-horizontal-small-reversed.svg';
+import hSmallPaper from './brand/walking-kangaroo-logo-horizontal-small-paper.svg';
+import stackedPrimary from './brand/walking-kangaroo-logo-stacked-primary.svg';
+import stackedInk from './brand/walking-kangaroo-logo-stacked-ink.svg';
+import stackedReversed from './brand/walking-kangaroo-logo-stacked-reversed.svg';
+import stackedPaper from './brand/walking-kangaroo-logo-stacked-paper.svg';
+
+export interface Props {
+  /** primary and ink are for light backgrounds, reversed and paper for dark ones. */
+  variant?: 'primary' | 'ink' | 'reversed' | 'paper';
+  /** horizontal is the small horizontal logo; stacked is the stacked logo. */
+  layout?: 'horizontal' | 'stacked';
+  /** Passed to the link, for placing the signature (margin, alignment). */
+  class?: string;
+}
+
+const { variant = 'primary', layout = 'horizontal', class: className } = Astro.props;
+
+const logos = {
+  horizontal: {
+    primary: hSmallPrimary,
+    ink: hSmallInk,
+    reversed: hSmallReversed,
+    paper: hSmallPaper,
+  },
+  stacked: {
+    primary: stackedPrimary,
+    ink: stackedInk,
+    reversed: stackedReversed,
+    paper: stackedPaper,
+  },
+};
+
+const logo = logos[layout][variant];
+---
+
+<a
+  class:list={['wk-signature', className]}
+  href="https://walkingkangaroo.com"
+  aria-label="Made by Walking Kangaroo"
+  data-layout={layout}
+>
+  <img src={logo.src} width={logo.width} height={logo.height} alt="" />
+</a>
+
+<style>
+  /*
+    Sizes and clear space come from the brand pack (README rules of thumb):
+    - horizontal-small logos are 100-160 px wide: 120 px here.
+    - the stacked logo is at least 120 px wide: 120 px here.
+    - one foot length of clear space all round. A foot is 365 units long in the 2716-unit-wide
+      horizontal logo (13.5% of its width) and 425 units in the 1991-unit-wide stacked logo
+      (21.3%), measured along the footprints' 51.3 degree axis. --wk-foot is that share of the
+      logo width, rounded up.
+  */
+  .wk-signature {
+    --wk-width: 120px;
+    --wk-foot: 0.14;
+    display: inline-block;
+    box-sizing: content-box;
+    padding: calc(var(--wk-width) * var(--wk-foot));
+    line-height: 0;
+  }
+  .wk-signature[data-layout='stacked'] {
+    --wk-foot: 0.22;
+  }
+  .wk-signature img {
+    display: block;
+    width: var(--wk-width);
+    height: auto;
+    max-width: none;
+  }
+</style>
