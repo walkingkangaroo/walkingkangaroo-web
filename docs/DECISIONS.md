@@ -47,6 +47,7 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0008](decisions/0008-astro-7-on-node-24.md) | Astro 7 on Node 24 LTS | Accepted |
 | [0011](decisions/0011-publish-at-launch.md) | The site is first published at launch, not while it's built | Accepted |
 | [0027](decisions/0027-one-web-repo-walkingkangaroo-web.md) | One web repo, walkingkangaroo-web, with the hub in sites/hub/ | Accepted |
+| [0031](decisions/0031-product-sites-on-azure-static-web-apps.md) | Product sites are hosted on Azure Static Web Apps, one app per site | Accepted |
 
 ## Open questions
 
