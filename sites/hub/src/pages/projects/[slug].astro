@@ -1,6 +1,6 @@
 ---
 import { render } from 'astro:content';
-import { getImage } from 'astro:assets';
+import { getImage, Image } from 'astro:assets';
 import BaseLayout from '../../layouts/BaseLayout.astro';
 import MediaPanel from '../../components/MediaPanel.astro';
 import ProjectStagePanel from '../../components/ProjectStagePanel.astro';
@@ -19,7 +19,7 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { name, oneLiner, stage, platforms, target, cover, clip, workingOn, lockup, link } = project.data;
+const { name, oneLiner, stage, platforms, target, cover, clip, workingOn, lockup, link, screenshots } = project.data;
 
 // Newest first, so the first post is the latest update. In dev this includes drafts.
 const posts = await getPublishedPosts(project);
@@ -94,6 +94,28 @@ const hasLower = posts.length > 0 || hasSidebar;
       radius="20px"
       sizes="(min-width: 1280px) 1200px, 100vw"
     />
+
+    {/* The project's real screenshots, in the order of its content file. Only projects that list some. */}
+    {
+      screenshots?.length ? (
+        <section class="shots" aria-label={`${name} screenshots`}>
+          <ul class="shots__grid" role="list">
+            {screenshots.map((shot) => (
+              <li>
+                <Image
+                  class="shots__img"
+                  src={shot.src}
+                  alt={shot.alt}
+                  widths={[360, 560, 780]}
+                  sizes="(min-width: 1280px) 285px, (min-width: 640px) 50vw, calc(100vw - 32px)"
+                  loading="lazy"
+                />
+              </li>
+            ))}
+          </ul>
+        </section>
+      ) : null
+    }
 
     {
       hasLower && (
@@ -256,6 +278,27 @@ const hasLower = posts.length > 0 || hasSidebar;
     .btn {
       width: 100%;
     }
+  }
+
+  /* Screenshots: a simple grid of the whole images, each at its own height, with the stops' 14 px
+     radius and 1 px rule border. */
+  .shots__grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(min(100%, 240px), 1fr));
+    align-items: start;
+    gap: 24px;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .shots__img {
+    display: block;
+    box-sizing: border-box;
+    width: 100%;
+    height: auto;
+    border: 1px solid var(--site-rule);
+    border-radius: 14px;
   }
 
   /* The board's flex-wrap layout: the main column wants 560 px, the sidebar 300 px, and the gap is

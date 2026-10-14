@@ -9,7 +9,7 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { name, oneLiner, stage, platforms, cover, lockup, eyebrow, headline, summary, link } = project.data;
+const { name, oneLiner, stage, platforms, cover, phone, lockup, eyebrow, headline, summary, link } = project.data;
 
 // Everything below reads from the project's content file (0024). A featured project without the
 // hero fields gets the older hero's text: its name set in Outfit, its one-liner, "In development".
@@ -35,7 +35,21 @@ const secondary = { label: 'See how it works', href: '#how' };
           />
         )
       }
-      {/* KAN-899: the phone screenshot in its CSS phone frame goes here, on the cover and under the fog. Nothing renders yet (0026). */}
+      {
+        phone && (
+          <div class="pane__phone">
+            <Image
+              class="pane__shot"
+              src={phone}
+              alt=""
+              widths={[200, 320, 480, 640]}
+              sizes="(min-width: 1024px) 165px, 33vw"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
+        )
+      }
       <div class="pane__fog" aria-hidden="true"></div>
       <div class="pane__blade" aria-hidden="true"></div>
     </div>
@@ -105,6 +119,32 @@ const secondary = { label: 'See how it works', href: '#how' };
     width: 100%;
     height: 100%;
     object-fit: cover;
+  }
+
+  /* The phone: a real screenshot in a plain CSS phone frame, standing on the cover and under the
+     fog, so the sweep clears it with the rest of the scene. The frame is Ink. It is 88% of the
+     pane's height, centred at 40% of its width (a little left of centre), so it fits at 5:4 and
+     16:10 alike. The bezel is a percentage of the pane's width, so it scales with the pane. */
+  .pane__phone {
+    position: absolute;
+    top: 6%;
+    left: 40%;
+    transform: translateX(-50%);
+    box-sizing: border-box;
+    height: 88%;
+    padding: 1.6%;
+    border-radius: 17% / 8%;
+    background: var(--wk-ink);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--site-text-quiet) 70%, transparent),
+      0 14px 32px color-mix(in srgb, var(--wk-ink) 35%, transparent);
+  }
+
+  .pane__shot {
+    display: block;
+    width: auto;
+    height: 100%;
+    border-radius: 15% / 7%;
   }
 
   .pane__fog,
