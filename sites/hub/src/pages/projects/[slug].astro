@@ -7,6 +7,7 @@ import ProjectStagePanel from '../../components/ProjectStagePanel.astro';
 import ProjectDevlog from '../../components/ProjectDevlog.astro';
 import WorkingOn from '../../components/WorkingOn.astro';
 import { getProjects, getPublishedPosts, type Project } from '../../lib/content';
+import { newsletterLive } from '../../lib/newsletter';
 import '../../styles/prose.css';
 
 export async function getStaticPaths() {
@@ -61,13 +62,13 @@ const hasLower = posts.length > 0 || hasSidebar;
           link ? (
             <div class="actions actions--pair">
               <a class="btn btn--solid" href={link.href}>{link.label}</a>
-              <a class="btn btn--outline" href="/#news">Follow this project</a>
+              {newsletterLive && <a class="btn btn--outline" href="/#news">Follow this project</a>}
             </div>
-          ) : (
+          ) : newsletterLive ? (
             <div class="actions">
               <a class="follow" href="/#news">Follow this project</a>
             </div>
-          )
+          ) : null
         }
       </div>
 

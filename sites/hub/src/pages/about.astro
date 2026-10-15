@@ -2,9 +2,10 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import AboutSection from '../components/AboutSection.astro';
 import NewsletterBand from '../components/NewsletterBand.astro';
+import { newsletterLive } from '../lib/newsletter';
 ---
 
 <BaseLayout title="About" description="Hi, I'm Grant. I make games and apps as Walking Kangaroo.">
   <AboutSection headingLevel="h1" />
-  <NewsletterBand />
+  {newsletterLive && <NewsletterBand />}
 </BaseLayout>

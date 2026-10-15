@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import StageMeter from './StageMeter.astro';
 import type { Project } from '../lib/content';
+import { newsletterLive } from '../lib/newsletter';
 
 interface Props {
   /** The featured project. */
@@ -14,7 +15,9 @@ const { name, oneLiner, stage, platforms, cover, phone, lockup, eyebrow, headlin
 // Everything below reads from the project's content file (0024). A featured project without the
 // hero fields gets the older hero's text: its name set in Outfit, its one-liner, "In development".
 const eyebrowText = eyebrow ?? (platforms.length ? `In development · ${platforms.join(' / ')}` : 'In development');
-const primary = link ?? { label: 'Follow development', href: '/#news' };
+// With no link, the first button is "Follow development", which goes to the newsletter band. While the
+// newsletter is hidden (0034) there is no first button, and the hero shows only the second one.
+const primary = link ?? (newsletterLive ? { label: 'Follow development', href: '/#news' } : undefined);
 // The second button jumps to the "How a visit goes" section just below the hero (0025).
 const secondary = { label: 'See how it works', href: '#how' };
 ---
@@ -69,7 +72,7 @@ const secondary = { label: 'See how it works', href: '#how' };
       {summary ? <p class="summary">{summary}</p> : <p class="one-liner">{oneLiner}</p>}
       <StageMeter stage={stage} size="md" label="long" detail={platforms.length ? platforms.join(', ') : undefined} />
       <div class="actions">
-        <a class="btn btn--solid" href={primary.href}>{primary.label}</a>
+        {primary && <a class="btn btn--solid" href={primary.href}>{primary.label}</a>}
         <a class="btn btn--outline" href={secondary.href}>{secondary.label}</a>
       </div>
     </div>
