@@ -1,6 +1,6 @@
 # 0024. The home hero is PanePilot's fogged pane, cleared by one sweep
 
-- **Status:** Accepted; the button label is superseded by [0030](0030-panepilot-link-reads-visit-panepilot-au.md)
+- **Status:** Accepted; the button label is superseded by [0030](0030-panepilot-link-reads-visit-panepilot-au.md), the pane's composition (the phone alone on the cover) by [0038](0038-hero-shows-wide-screen-and-phone-over-the-swoops.md)
 - **Date:** 2026-10-14
 - **Issues:** KAN-893
 - **Round:** none: Grant's answers of 2026-10-14 in [sites/hub/design-plan.md](../../sites/hub/design-plan.md), recorded in [docs/rounds/hub-leads-with-panepilot.md](../rounds/hub-leads-with-panepilot.md)

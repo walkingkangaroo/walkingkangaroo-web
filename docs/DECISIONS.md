@@ -29,7 +29,7 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0021](decisions/0021-about-has-no-photo.md) | The about section has no photo | Accepted |
 | [0022](decisions/0022-hero-text-beside-the-cover.md) | The home hero shows the featured cover beside or above its text, never behind it | Superseded by 0024 |
 | [0023](decisions/0023-panepilot-is-featured-at-beta.md) | PanePilot is the featured project, shown at Beta | Accepted |
-| [0024](decisions/0024-home-hero-is-the-fogged-pane.md) | The home hero is PanePilot's fogged pane, cleared by one sweep | Accepted (button label superseded by 0030) |
+| [0024](decisions/0024-home-hero-is-the-fogged-pane.md) | The home hero is PanePilot's fogged pane, cleared by one sweep | Accepted (button label superseded by 0030, pane composition by 0038) |
 | [0025](decisions/0025-home-sections-panepilot-first.md) | After the hero, the home page shows how a visit goes, our own round, and the games as a list | Accepted (cropped screenshots superseded by 0037) |
 | [0026](decisions/0026-panepilot-screenshots-from-a-demo-business.md) | PanePilot's screenshots come from a demo business with invented data, and the page doesn't wait for them | Accepted |
 | [0028](decisions/0028-signature-uses-brand-pack-files.md) | The signature on product sites uses the brand pack's logo files unchanged | Accepted |
@@ -37,6 +37,7 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0030](decisions/0030-panepilot-link-reads-visit-panepilot-au.md) | Links to PanePilot's website read "Visit panepilot.au" | Accepted |
 | [0034](decisions/0034-newsletter-hidden-until-kit.md) | The newsletter band and the links to it are hidden until Kit is connected | Accepted |
 | [0037](decisions/0037-visit-stops-show-whole-screenshots.md) | Each stop in "How a visit goes" shows its screenshot whole, below its text | Accepted |
+| [0038](decisions/0038-hero-shows-wide-screen-and-phone-over-the-swoops.md) | The home hero shows PanePilot on a wide screen and a phone, over the swoops without the mark | Accepted |
 
 ## Platform, code and process
 

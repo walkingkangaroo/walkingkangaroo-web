@@ -32,7 +32,11 @@ const projects = defineCollection({
       summary: z.string().optional(),
       /** The project's own site, for example `{ label: 'Go to example.com', href: 'https://example.com' }`. */
       link: z.object({ label: z.string(), href: z.url({ protocol: /^https?$/ }) }).optional(),
-      /** A phone screenshot shown in a CSS phone frame on the home hero's cover. It is decorative there. */
+      /** A version of the cover without its mark, used only by the home hero's pane. Falls back to `cover`. */
+      heroBackdrop: image().optional(),
+      /** A wide-screen screenshot shown in a CSS frame on the home hero's pane. It is decorative there. */
+      wide: image().optional(),
+      /** A phone screenshot shown in a CSS phone frame on the home hero's pane. It is decorative there. */
       phone: image().optional(),
       /** The project's real app screenshots. The project page shows every entry, in order. Each home
        *  page stop shows, whole, the entries with its number in `stop` (1 to 4). */
