@@ -19,14 +19,16 @@ wide: ../../assets/projects/panepilot/calendar-wide.png
 phone: ../../assets/projects/panepilot/job-card.png
 # Every entry is shown on the project page, in this order. An entry with `stop` also shows, whole, on
 # that stop of the home page's "How a visit goes". The approved-time screenshot has no `stop`, so it
-# is on the project page only. Stop 2 (the week calendar) has no screenshot yet: KAN-913 adds it as
-# one more entry here with `stop: 2`.
+# is on the project page only.
 screenshots:
   - src: ../../assets/projects/panepilot/job-card.png
     alt: "A visit on a phone: Example Bakery today from 9:30 to 10:45 am, with the address and Navigate, Sam Sample on the crew, the hazard, access and parking notes, and a Start button."
   - src: ../../assets/projects/panepilot/quote.png
     alt: "A per-pane quote: 18 standard panes for $81.00 and 6 large panes with a 20% Ladder surcharge for $43.20, $124.20 in total."
     stop: 1
+  - src: ../../assets/projects/panepilot/calendar.png
+    alt: "The week calendar from Monday to Friday, with a visit on each day. On Thursday the Shops run is one block: 3 shops from 9:30 am to 12:00 pm, 0 of 3 done."
+    stop: 2
   - src: ../../assets/projects/panepilot/time-card.png
     alt: "A visit's time card: finished at 8:41 am, with all three checklist items ticked."
     stop: 3
