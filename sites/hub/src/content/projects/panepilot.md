@@ -14,6 +14,8 @@ summary: "Quote per pane, book the recurring visits, work each one from your pho
 link:
   label: "Visit panepilot.au"
   href: "https://panepilot.au"
+heroBackdrop: ../../assets/projects/panepilot-backdrop.jpg
+wide: ../../assets/projects/panepilot/calendar-wide.png
 phone: ../../assets/projects/panepilot/job-card.png
 # Every entry is shown on the project page, in this order. An entry with `stop` also shows, whole, on
 # that stop of the home page's "How a visit goes". The approved-time screenshot has no `stop`, so it

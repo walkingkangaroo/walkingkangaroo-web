@@ -10,7 +10,18 @@ interface Props {
 }
 
 const { project } = Astro.props;
-const { name, oneLiner, stage, platforms, cover, phone, lockup, eyebrow, headline, summary, link } = project.data;
+const { name, oneLiner, stage, platforms, cover, heroBackdrop, wide, phone, lockup, eyebrow, headline, summary, link } = project.data;
+
+// The pane's backdrop is the project's own hero version of its cover (the swoops without the mark),
+// else its cover. `cover` itself is unchanged everywhere else (0038).
+const backdrop = heroBackdrop ?? cover;
+// With both a wide screen and a phone, they stand together. With only one, it stands alone.
+const duo = Boolean(wide && phone);
+// The phone's rendered width: 16.1% of the pane's width as one of a pair (its screenshot, inside the
+// bezel), or 0024's single phone.
+const phoneSizes = duo
+  ? '(min-width: 1280px) 108px, (min-width: 1024px) calc((100vw - 128px) * 7 / 12 * 0.161), calc((100vw - 2 * clamp(16px, 4vw, 40px)) * 0.161)'
+  : '(min-width: 1024px) 165px, 33vw';
 
 // Everything below reads from the project's content file (0024). A featured project without the
 // hero fields gets the older hero's text: its name set in Outfit, its one-liner, "In development".
@@ -24,12 +35,12 @@ const secondary = { label: 'See how it works', href: '#how' };
 
 <section id="top" class="container hero-section">
   <div class="hero">
-    <div class="pane">
+    <div class:list={['pane', { 'pane--duo': duo }]}>
       {
-        cover && (
+        backdrop && (
           <Image
             class="pane__cover"
-            src={cover}
+            src={backdrop}
             alt=""
             widths={[480, 800, 1200, 1800]}
             sizes="(min-width: 1280px) 672px, (min-width: 1024px) calc((100vw - 128px) * 7 / 12), calc(100vw - 2 * clamp(16px, 4vw, 40px))"
@@ -39,16 +50,30 @@ const secondary = { label: 'See how it works', href: '#how' };
         )
       }
       {
+        wide && (
+          <div class="pane__wide">
+            <Image
+              class="pane__wide-shot"
+              src={wide}
+              alt=""
+              widths={[480, 760, 1020, 1520]}
+              sizes="(min-width: 1280px) 508px, (min-width: 1024px) calc((100vw - 128px) * 7 / 12 * 0.756), calc((100vw - 2 * clamp(16px, 4vw, 40px)) * 0.756)"
+              loading="eager"
+              fetchpriority="high"
+            />
+          </div>
+        )
+      }
+      {
         phone && (
           <div class="pane__phone">
             <Image
               class="pane__shot"
               src={phone}
               alt=""
-              widths={[200, 320, 480, 640]}
-              sizes="(min-width: 1024px) 165px, 33vw"
+              widths={[160, 240, 320, 480, 640]}
+              sizes={phoneSizes}
               loading="eager"
-              fetchpriority="high"
             />
           </div>
         )
@@ -99,7 +124,8 @@ const secondary = { label: 'See how it works', href: '#how' };
     gap: 28px;
   }
 
-  /* The pane: PanePilot's cover, then the fog and the blade over it. 5:4 here and 16:10 from
+  /* The pane: the project's hero backdrop (its cover, or a version of it without the mark), the wide
+     screen and the phone, then the fog and the blade over all of it. 5:4 here and 16:10 from
      1024 px. */
   .pane {
     --sweep-delay: 400ms;
@@ -124,10 +150,50 @@ const secondary = { label: 'See how it works', href: '#how' };
     object-fit: cover;
   }
 
-  /* The phone: a real screenshot in a plain CSS phone frame, standing on the cover and under the
-     fog, so the sweep clears it with the rest of the scene. The frame is Ink. It is 88% of the
-     pane's height, centred at 40% of its width (a little left of centre), so it fits at 5:4 and
-     16:10 alike. The bezel is a percentage of the pane's width, so it scales with the pane. */
+  /* The wide screen and the phone: real screenshots in plain Ink CSS frames, standing on the
+     backdrop and under the fog, so the sweep clears them with the rest of the scene. Every size is
+     a share of the pane, and the bezels are shares of the pane's width, so it all scales with it.
+     W is the pane's width and H its height (5:4 under 1024 px, so H = 0.8 W; 16:10 from there, so
+     H = 0.625 W).
+
+     Both devices, as a pair (.pane--duo):
+       Wide screen: 78% of W wide, 4% from the left, bezel 1.2% of W. Its screenshot is 16:10, so the
+         frame is 0.497 W tall. Top at 10% of H at 5:4 (0.08 W) and 5% of H at 16:10 (0.031 W), so
+         it ends at 72% of H at 5:4 and 84% of H at 16:10, and its right edge is at 82% of W.
+       Phone: 9% from the right and 5% from the bottom, bezel 1.6% of W. Its height is 47.5% of H at
+         5:4 and 60.8% of H at 16:10. Both are 0.38 W, so its frame is 19.3% of W wide.
+     So the phone is the same size against the pane's width at both ratios, and 76% of the wide
+     screen's height at both. Its left edge is at 71.7% of W, so it covers the wide screen's right
+     10.3% of W, from 0.38 W down at 5:4 and 0.214 W down at 16:10: the Sun column, below its
+     header, and the empty space below the week's cards. Sat is fully visible. The Thu column and
+     its Shops run block, at 53 to 64% across the screenshot, are not covered. Both stay inside
+     the pane with a margin of 4% of W or more at 5:4 and 3% of W or more at 16:10 (the wide
+     screen's top and the phone's bottom are 5% of H, 0.031 W).
+
+     One device alone: the wide screen is centred, and the phone stands centred a little left of
+     the middle at 88% of H, as 0024 had it. */
+  .pane__wide {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    width: 78%;
+    padding: 1.2%;
+    border-radius: 2.6% / 4%;
+    background: var(--wk-ink);
+    box-shadow:
+      0 0 0 1px color-mix(in srgb, var(--site-text-quiet) 70%, transparent),
+      0 14px 32px color-mix(in srgb, var(--wk-ink) 35%, transparent);
+  }
+
+  .pane__wide-shot {
+    display: block;
+    width: 100%;
+    height: auto;
+    border-radius: 1.1% / 1.7%;
+  }
+
   .pane__phone {
     position: absolute;
     top: 6%;
@@ -141,6 +207,21 @@ const secondary = { label: 'See how it works', href: '#how' };
     box-shadow:
       0 0 0 1px color-mix(in srgb, var(--site-text-quiet) 70%, transparent),
       0 14px 32px color-mix(in srgb, var(--wk-ink) 35%, transparent);
+  }
+
+  .pane--duo .pane__wide {
+    top: 10%;
+    left: 4%;
+    transform: none;
+  }
+
+  .pane--duo .pane__phone {
+    top: auto;
+    right: 9%;
+    bottom: 5%;
+    left: auto;
+    transform: none;
+    height: 47.5%;
   }
 
   .pane__shot {
@@ -372,6 +453,16 @@ const secondary = { label: 'See how it works', href: '#how' };
       grid-column: 2;
       grid-row: 1;
       aspect-ratio: 16 / 10;
+    }
+
+    /* The pane is shorter against its width, so the pair's vertical shares change (see the
+       comment on .pane__wide). */
+    .pane--duo .pane__wide {
+      top: 5%;
+    }
+
+    .pane--duo .pane__phone {
+      height: 60.8%;
     }
 
     .hero__text {

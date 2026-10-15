@@ -69,8 +69,9 @@ on. The rest of this plan shows them as designed.
 The hero's media pane opens lightly fogged, like a shop window before the round, with a dusting
 of Paper haze over the PanePilot cover. About a third of a second after load, a single squeegee
 stroke crosses it. The stroke follows the same curve as PanePilot's Curved Sweep mark, from top
-right to bottom left, and it clears the glass to reveal the real app: the phone job card,
-standing on the teal cover art. A thin wet edge trails the blade and fades. It happens once and
+right to bottom left, and it clears the glass to reveal the real app: the owner's week calendar
+on a wide screen, with the phone job card standing in front of its lower right corner, over the
+cover's teal swoops without the mark (KAN-923). A thin wet edge trails the blade and fades. It happens once and
 takes about 0.9 s.
 
 It comes from this product and no other. The mark is a squeegee stroke and the verb is cleaning
