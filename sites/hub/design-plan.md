@@ -142,7 +142,7 @@ how it works" buttons. On desktop the pane is 16:10.
 
 "How a visit goes" is four stops in order on a `--site-panel` band, with no footprints between
 them (Grant's note). The numbers are real here because it is a sequence. Each stop is its
-number, a heading and two lines, then its phone screenshot shown whole, never cropped. On desktop
+number, a heading and two lines, then its screenshot shown whole, never cropped. On desktop
 the pictures' tops line up and their bottoms are left uneven (KAN-924).
 
 ```
