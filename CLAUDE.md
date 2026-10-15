@@ -37,6 +37,7 @@ The repo is `walkingkangaroo/walkingkangaroo-web`, one repo for the web
 - `docs/brief.md`: what the site is, what it shows, and the plan.
 - `docs/decisions/`: one record per decision, indexed in `docs/DECISIONS.md`.
 - `docs/process/`: facts for `/shape`, `/do` and `/retro`.
+- `docs/hosting.md`: each live site's Azure app, its DNS records at VentraIP, and how to check them.
 
 ## Conventions
 
