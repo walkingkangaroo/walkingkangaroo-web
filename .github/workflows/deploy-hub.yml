@@ -1,0 +1,101 @@
+# Deploys the hub (sites/hub, walkingkangaroo.com) to its Azure Static Web App (0032).
+# A push to main deploys to production. A pull request from a branch of this repo deploys to
+# a preview environment and the bot comments its link; closing the pull request removes it
+# (0035). Pull requests from forks never deploy.
+#
+# To copy this for another site (KAN-908), the site's name appears in these places only:
+#   - the workflow `name:` and the file name (deploy-<site>.yml);
+#   - the `paths:` filters (sites/<site>/**, and the workflow's own file);
+#   - the build step (pnpm --filter <site> build);
+#   - app_location (sites/<site>/dist);
+#   - the token secret, AZURE_STATIC_WEB_APPS_API_TOKEN_<SITE>, in both jobs.
+# The app's hostname is never written here; Azure owns it.
+
+name: Deploy hub
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'sites/hub/**'
+      - 'pnpm-lock.yaml'
+      - 'package.json'
+      - 'pnpm-workspace.yaml'
+      - '.nvmrc'
+      - '.github/workflows/deploy-hub.yml'
+  pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - closed
+    paths:
+      - 'sites/hub/**'
+      - 'pnpm-lock.yaml'
+      - 'package.json'
+      - 'pnpm-workspace.yaml'
+      - '.nvmrc'
+      - '.github/workflows/deploy-hub.yml'
+
+permissions:
+  contents: read
+  pull-requests: write
+
+jobs:
+  build_and_deploy:
+    name: Build and deploy
+    if: >-
+      github.event_name == 'push' ||
+      (github.event.action != 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out
+        uses: actions/checkout@v7
+
+      # No `version`: pnpm/action-setup reads it from packageManager in the root package.json.
+      # The store is cached by setup-node below, not here.
+      - name: Set up pnpm
+        uses: pnpm/action-setup@ea17c68df8912ef543352723c149a84f56e3d413 # v6.1.0
+
+      - name: Set up Node
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+
+      - name: Install
+        run: pnpm install --frozen-lockfile
+
+      - name: Build
+        run: pnpm --filter hub build
+
+      # The site is built above, so Azure only uploads sites/hub/dist.
+      - name: Deploy
+        uses: Azure/static-web-apps-deploy@4d27395796ac319302594769cfe812bd207490b1 # v1
+        with:
+          action: upload
+          app_location: sites/hub/dist
+          output_location: ''
+          skip_app_build: true
+          skip_api_build: true
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_HUB }}
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+
+  close_pull_request:
+    name: Close preview
+    if: >-
+      github.event_name == 'pull_request' &&
+      github.event.action == 'closed' &&
+      github.event.pull_request.head.repo.full_name == github.repository
+    runs-on: ubuntu-latest
+    steps:
+      # Frees the pull request's preview slot (the Free plan allows 3).
+      - name: Close preview
+        uses: Azure/static-web-apps-deploy@4d27395796ac319302594769cfe812bd207490b1 # v1
+        with:
+          action: close
+          azure_static_web_apps_api_token: ${{ secrets.AZURE_STATIC_WEB_APPS_API_TOKEN_HUB }}
