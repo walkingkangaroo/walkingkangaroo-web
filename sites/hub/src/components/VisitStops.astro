@@ -4,14 +4,18 @@
 // visit, pane, run and invoice (0025).
 //
 // A stop's pictures are the featured project's `screenshots` entries whose `stop` is its number,
-// listed in its content file with their alt text and crop. A stop with no entry shows no picture.
+// listed in its content file with their alt text. Each is shown whole, at its own aspect ratio.
+// A stop with no entry shows no picture.
 import { Image } from 'astro:assets';
 import { getFeaturedProject } from '../lib/content';
 
 const featured = await getFeaturedProject();
 const screenshots = featured.data.screenshots ?? [];
-// The empty spacer that keeps a row lined up is only needed when some stop has a picture.
-const anyShots = screenshots.some((shot) => shot.stop);
+// A picture is one column of four. The content is 1200 px wide at most (1280 px less 40 px padding
+// each side, from 1000 px; 4vw each side below that) and there are three 28 px gaps. Under 900 px
+// it is no wider than 320 px.
+const sizes =
+  '(min-width: 1280px) 280px, (min-width: 1000px) calc((100vw - 164px) / 4), (min-width: 900px) calc((92vw - 84px) / 4), min(320px, calc(100vw - 32px))';
 
 const stops = [
   {
@@ -45,29 +49,23 @@ const stops = [
           const shots = screenshots.filter((shot) => shot.stop === i + 1);
           return (
           <li class="stop">
+            <span class="stop__num" aria-hidden="true">{i + 1}</span>
+            <h3>{stop.title}</h3>
+            <p>{stop.text}</p>
             {shots.length > 0 ? (
-              <div class="stop__shot" style={`grid-template-rows: ${shots.map((shot) => `minmax(0, ${shot.weight ?? 1}fr)`).join(' ')}`}>
+              <div class="stop__shots">
                 {shots.map((shot) => (
                   <Image
                     class="stop__img"
                     src={shot.src}
                     alt={shot.alt}
-                    style={shot.position ? `object-position: ${shot.position}` : undefined}
                     widths={[360, 560, 780]}
-                    sizes="(min-width: 1280px) 280px, (min-width: 900px) 25vw, min(420px, calc(100vw - 32px))"
+                    sizes={sizes}
                     loading="lazy"
                   />
                 ))}
               </div>
-            ) : anyShots ? (
-              /* KAN-913: stop 2 has no picture yet. Its weeks calendar is added as one more `screenshots`
-                 entry with `stop: 2` in panepilot.md. Until then this is plain empty space, so the
-                 numbers and headings of the four stops still line up in a row. No box, no placeholder. */
-              <div class="stop__shot stop__shot--none" aria-hidden="true" />
             ) : null}
-            <span class="stop__num" aria-hidden="true">{i + 1}</span>
-            <h3>{stop.title}</h3>
-            <p>{stop.text}</p>
           </li>
           );
         })
@@ -113,41 +111,44 @@ const stops = [
     list-style: none;
   }
 
+  /* Number, heading, text, then the picture. The gaps are margins, not grid gaps, so they hold in
+     both layouts. */
   .stop {
     display: flex;
     flex-direction: column;
-    gap: 12px;
     min-width: 0;
   }
 
-  /* One frame shape for every stop, so the row lines up: 780 x 935 source pixels, the width of a
-     screenshot and the height that shows "Finished 8:41 am" down to the ticked checklist. A stop with
-     two pictures splits it by their `weight`, with a 4 px gap between. Each picture is cropped by
-     its own `object-position`. On phones and tablets the frame stops growing at 420 px wide. */
-  .stop__shot {
-    display: grid;
-    gap: 4px;
+  .stop h3 {
+    margin: 12px 0 0;
+  }
+
+  /* Quiet on Panel, 8.9:1. */
+  .stop p {
+    margin: 12px 0 0;
+    font-size: 16px;
+    color: var(--site-text-quiet);
+  }
+
+  /* Each picture is shown whole at its own aspect ratio. Under 900 px it is no wider than 320 px,
+     so the tallest (the quote) is about one and a half screens tall at most. A stop with two
+     pictures stacks them with a 12 px gap. */
+  .stop__shots {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
     width: 100%;
-    max-width: 420px;
-    aspect-ratio: 780 / 935;
-    min-height: 0;
-    overflow: hidden;
+    max-width: 320px;
+    margin-top: 20px;
   }
 
   .stop__img {
     display: block;
     box-sizing: border-box;
     width: 100%;
-    height: 100%;
-    min-height: 0;
+    height: auto;
     border: 1px solid var(--site-rule);
     border-radius: 14px;
-    object-fit: cover;
-  }
-
-  /* A stop without a picture keeps the space only where the stops sit in a row. */
-  .stop__shot--none {
-    display: none;
   }
 
   /* Paper on Ink, 14.1:1. */
@@ -166,27 +167,29 @@ const stops = [
     font-variant-numeric: tabular-nums;
   }
 
-  .stop h3 {
-    margin: 0;
-  }
-
-  /* Quiet on Panel, 8.9:1. */
-  .stop p {
-    margin: 0;
-    font-size: 16px;
-    color: var(--site-text-quiet);
-  }
-
+  /* From 900 px the four stops are one grid and each stop is a subgrid of its four rows: number,
+     heading, text, picture. The rows are shared, so the numbers, headings and pictures' tops line
+     up even when one stop's text wraps to more lines than another's. The pictures' bottoms are
+     left uneven. A stop with no picture leaves its last row empty. Without subgrid support
+     `align-content: start` makes each stop a plain top-aligned stack. */
   @media (min-width: 900px) {
     .stops {
       display: grid;
       grid-template-columns: repeat(4, minmax(0, 1fr));
-      align-items: start;
+      grid-template-rows: repeat(4, auto);
       gap: 0 28px;
     }
 
-    .stop__shot--none {
-      display: block;
+    .stop {
+      display: grid;
+      grid-row: span 4;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: subgrid;
+      align-content: start;
+    }
+
+    .stop__shots {
+      align-self: start;
     }
   }
 </style>

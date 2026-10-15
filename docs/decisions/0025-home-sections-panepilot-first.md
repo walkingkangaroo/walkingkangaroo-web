@@ -1,6 +1,6 @@
 # 0025. After the hero, the home page shows how a visit goes, our own round, and the games as a list
 
-- **Status:** Accepted
+- **Status:** Accepted; the cropped screenshots are superseded by [0037](0037-visit-stops-show-whole-screenshots.md)
 - **Date:** 2026-10-14
 - **Issues:** KAN-893
 - **Round:** none: Grant's answers of 2026-10-14 in [sites/hub/design-plan.md](../../sites/hub/design-plan.md), recorded in [docs/rounds/hub-leads-with-panepilot.md](../rounds/hub-leads-with-panepilot.md)

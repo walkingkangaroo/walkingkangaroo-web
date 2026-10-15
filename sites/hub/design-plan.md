@@ -140,17 +140,18 @@ the lockup, the headline, the sentence, the meter, and full-width "Go to panepil
 how it works" buttons. On desktop the pane is 16:10.
 
 "How a visit goes" is four stops in order on a `--site-panel` band, with no footprints between
-them (Grant's note). The numbers are real here because it is a sequence. Each stop is a cropped
-phone screenshot, a heading and two lines.
+them (Grant's note). The numbers are real here because it is a sequence. Each stop is its
+number, a heading and two lines, then its phone screenshot shown whole, never cropped. On desktop
+the pictures' tops line up and their bottoms are left uneven (KAN-924).
 
 ```
  Desktop                                                 Phone
  ── How a visit goes ──────────────────────────────      How a visit goes
-  ①            ②            ③            ④                ① [screenshot]
- [quote]      [calendar]    [job card]    [invoice]           Quote per pane
- Quote per    The visits   Do it from   Invoice it,
- pane         come round   the phone    pay the crew       ② [screenshot]
-                                                             The visits come round
+  ①            ②            ③            ④                ① Quote per pane
+ Quote per    The visits   Do it from   Invoice it,          [screenshot]
+ pane         come round   the phone    pay the crew
+ [quote]      [calendar]   [time card]  [invoice]          ② The visits come round
+ [    ]                    [        ]                        [screenshot]
                                                            … (stacked)
 ```
 
