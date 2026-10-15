@@ -28,6 +28,12 @@ Recorded in [docs/rounds/hub-leads-with-panepilot.md](../../docs/rounds/hub-lead
 - **PanePilot's project page:** "Go to panepilot.au" first, then "Follow this project", with the
   lockup as its `h1` (0029).
 - **The nav's "PanePilot" link** goes to the hub's PanePilot page (0024).
+
+## Until Kit is connected, 2026-10-15
+
+The newsletter band, the header's "Get updates" and the project pages' "Follow this project" are
+hidden by `newsletterLive` in `src/lib/newsletter.ts` (0034). The Newsletter step turns them back
+on. The rest of this plan shows them as designed.
 - **The link label** to PanePilot's website is "Visit panepilot.au", not "Go to panepilot.au", on
   the buttons and in "Built on our own round" (0030, Grant on 2026-10-14).
 - **The steps strip:** it was only ever on the home page, so it is removed, not kept on the project

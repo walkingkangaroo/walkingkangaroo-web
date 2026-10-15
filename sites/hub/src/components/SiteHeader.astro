@@ -1,5 +1,6 @@
 ---
 import logo from '../assets/brand/walking-kangaroo-logo-horizontal-primary.svg';
+import { newsletterLive } from '../lib/newsletter';
 ---
 
 <header class="site-header">
@@ -13,7 +14,7 @@ import logo from '../assets/brand/walking-kangaroo-logo-horizontal-primary.svg';
         <li><a href="/#games">Games</a></li>
         <li><a href="/devlog/">Devlog</a></li>
         <li><a href="/about/">About</a></li>
-        <li><a class="site-nav__pill" href="/#news">Get updates</a></li>
+        {newsletterLive && <li><a class="site-nav__pill" href="/#news">Get updates</a></li>}
       </ul>
     </nav>
   </div>
