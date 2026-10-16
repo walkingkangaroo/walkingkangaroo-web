@@ -1,0 +1,1180 @@
+<!--
+  The approved prototype of panepilot.au's hero and five demos, as published to
+  https://claude.ai/artifact/GkN5Rm6DWhB541p34VFuT6 (v9). A reference for building the site,
+  not part of it. {{LOGO}}, {{COTTAGE}} (the shop drawing) and {{IMG:file}} were filled in at
+  publish time from PanePilot's public/brand/ and docs/screenshots/website/.
+-->
+<meta charset="utf-8">
+<title>panepilot.au site plan</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Geist:wght@400;500;600&family=Manrope:wght@700;800&display=swap">
+<style>
+/* Layout: a plain review document in PanePilot's own palette, opening on a working preview of the site's hero. */
+:root {
+  --glass: #f4f8f8;        /* site page background */
+  --deep-water: #0b2f33;   /* text, linework, pricing band */
+  --harbour: #0e7c86;      /* the one primary action */
+  --harbour-dark: #07646c; /* links on glass */
+  --muted: #52696d;
+  --mint: #e6fffb;
+  --frame: #d3dfe0;
+  --clean: #d9f2f5;        /* a counted pane */
+  --dusty: #e1e6e4;        /* an uncounted pane */
+  --white: #ffffff;
+
+  /* plan chrome, theme-aware */
+  --bg: var(--glass);
+  --fg: var(--deep-water);
+  --fg-muted: var(--muted);
+  --surface: var(--white);
+  --rule: var(--frame);
+  --link: var(--harbour-dark);
+  --chip: #e9f1f1;
+
+  --display: "Manrope", "Segoe UI", system-ui, sans-serif;
+  --text: "Geist", "Segoe UI", system-ui, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #071c1f; --fg: #e6fffb; --fg-muted: #8fb0b3; --surface: #0c272b; --rule: #1f4449; --link: #63b3bc; --chip: #123338;
+    color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #071c1f; --fg: #e6fffb; --fg-muted: #8fb0b3; --surface: #0c272b; --rule: #1f4449; --link: #63b3bc; --chip: #123338;
+  color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body { background: var(--bg); color: var(--fg); font: 400 16px/1.6 var(--text); }
+a { color: var(--link); text-underline-offset: 3px; }
+:focus-visible { outline: 3px solid #3595a0; outline-offset: 2px; }
+
+.doc { max-width: 1120px; margin: 0 auto; padding-inline: 16px; padding-block: 28px 64px; display: grid; gap: 56px; }
+.doc-head { display: grid; gap: 10px; max-width: 70ch; }
+.doc-head h1 { font: 800 clamp(1.9rem, 4.5vw, 2.6rem)/1.1 var(--display); letter-spacing: -0.03em; margin: 0; text-wrap: balance; }
+.doc-head p { margin: 0; color: var(--fg-muted); }
+.status { display: inline-flex; align-self: start; justify-self: start; gap: 8px; align-items: center; font-size: 0.875rem; font-weight: 500; padding: 4px 10px; border-radius: 999px; background: var(--chip); color: var(--fg); }
+.status::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #b7791f; }
+
+section.part { display: grid; gap: 18px; }
+section.part > h2 { font: 700 1.6rem/1.2 var(--display); letter-spacing: -0.02em; margin: 0; text-wrap: balance; }
+.lede { margin: 0; max-width: 68ch; color: var(--fg-muted); }
+.prose { max-width: 68ch; display: grid; gap: 12px; }
+.prose p { margin: 0; }
+
+/* ---------- the site preview (single light mood, as the site will be) ---------- */
+.preview-label { font-size: 0.875rem; color: var(--fg-muted); margin: 0; }
+.site {
+  background: var(--glass); color: var(--deep-water);
+  border: 1px solid var(--rule); border-radius: 14px; overflow: clip;
+  font-family: var(--text);
+}
+.site-nav { display: flex; align-items: center; gap: 24px; padding: 16px clamp(16px, 4vw, 36px); border-bottom: 1px solid var(--frame); background: var(--white); }
+.site-nav .logo { height: 30px; width: auto; display: block; }
+.site-nav ul { display: flex; gap: 22px; list-style: none; margin: 0 0 0 auto; padding: 0; font-weight: 500; font-size: 0.95rem; }
+.site-nav ul a { color: var(--deep-water); text-decoration: none; }
+.site-nav .signin { color: var(--harbour-dark); font-weight: 500; text-decoration: none; }
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 44px; padding: 0 18px; border-radius: 10px; font: 600 1rem/1 var(--text); text-decoration: none; border: 0; cursor: pointer; }
+.btn-primary { background: var(--harbour); color: var(--white); }
+.btn-primary:hover { background: var(--harbour-dark); }
+.btn-small { min-height: 40px; font-size: 0.95rem; padding: 0 14px; }
+
+.hero { display: grid; gap: 28px; padding: clamp(28px, 5vw, 56px) clamp(16px, 4vw, 36px) 0; }
+.hero-copy { display: grid; gap: 16px; max-width: 46rem; }
+.hero h2 { font: 800 clamp(2.3rem, 5.6vw, 3.9rem)/1.02 var(--display); letter-spacing: -0.035em; margin: 0; text-wrap: balance; }
+.hero-copy p { margin: 0; font-size: 1.125rem; line-height: 1.55; color: var(--muted); max-width: 40rem; }
+.cta-row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 16px; }
+.cta-row small { color: var(--muted); font-size: 0.95rem; }
+
+.counter { display: grid; grid-template-columns: minmax(0, 1fr) 340px; gap: 32px; align-items: start; }
+.stage { min-width: 0; display: grid; gap: 10px; }
+.stage-top { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px; }
+.stage-top strong { font: 700 1.05rem/1.3 var(--display); }
+.tabs { display: inline-flex; background: #e9f1f1; border-radius: 10px; padding: 3px; }
+.tabs button { font: 500 0.95rem/1 var(--text); color: var(--muted); background: none; border: 0; min-height: 38px; padding: 0 14px; border-radius: 8px; cursor: pointer; }
+.tabs button[aria-selected="true"] { background: var(--white); color: var(--deep-water); box-shadow: 0 1px 2px rgba(11,47,51,.12); }
+.drawing { width: 100%; height: auto; display: block; }
+.hint { margin: 0; font-size: 0.9rem; color: var(--muted); }
+
+/* panes in the drawing: an illustration that follows the quote lines, never a control */
+.p .pane { fill: var(--dusty); transition: fill .25s ease; }
+.p .smear { stroke: #c9d1ce; stroke-width: 1.5; fill: none; transition: opacity .25s ease; }
+.p .glint { stroke: var(--white); stroke-width: 3; stroke-linecap: round; opacity: 0; transition: opacity .25s ease; }
+.p.lit .pane { fill: var(--clean); }
+.p.lit .smear { opacity: 0; }
+.p.lit .glint { opacity: .95; }
+.frame { fill: none; stroke: var(--deep-water); stroke-width: 2; }
+.ladder { opacity: 0; transition: opacity .25s ease; }
+.ladder.on { opacity: 1; }
+
+/* the quote lines, in the app's own style */
+.quote { background: var(--white); border: 1px solid var(--frame); border-radius: 12px; padding: 18px 18px 14px; box-shadow: 0 1px 2px rgba(11,47,51,.06); display: grid; gap: 12px; margin: 0 0 28px; }
+.quote h3 { margin: 0; font: 600 1.05rem/1.3 var(--text); }
+.lines { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+.line { border: 1px solid var(--frame); border-radius: 8px; padding: 12px; display: grid; gap: 10px; }
+.line .desc { margin: 0; font-weight: 500; display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.line .remove { min-width: 36px; min-height: 36px; border: 0; border-radius: 8px; background: none; color: var(--muted); cursor: pointer; display: grid; place-items: center; }
+.line .remove:hover { background: #e9f1f1; color: var(--deep-water); }
+.nolines { margin: 0; font-size: 0.9rem; color: var(--muted); }
+.nolines[hidden] { display: none; }
+.addline { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; border-top: 1px solid var(--frame); padding-top: 12px; }
+.addline span { width: 100%; font-size: 0.875rem; font-weight: 500; }
+.addline .add { min-height: 40px; font-size: 0.9rem; padding: 0 12px; }
+.addline[hidden] { display: none; }
+.fields { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.fields label { display: grid; gap: 4px; font-size: 0.875rem; font-weight: 500; }
+.fields input { width: 100%; min-height: 44px; border: 1px solid var(--frame); border-radius: 8px; padding: 0 10px; font: 400 1rem var(--text); color: var(--deep-water); background: var(--white); font-variant-numeric: tabular-nums; }
+.fields input:focus-visible { outline: 3px solid #3595a0; outline-offset: 1px; }
+.chips { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: 0.875rem; font-weight: 500; }
+.chips span { width: 100%; }
+.chip { min-height: 36px; padding: 0 12px; border-radius: 999px; border: 1px solid var(--frame); background: var(--white); color: var(--deep-water); font: 500 0.875rem var(--text); cursor: pointer; }
+.chip[aria-pressed="true"] { background: #d9f2f5; border-color: var(--harbour); color: var(--harbour-dark); }
+.amount { margin: 0; display: flex; justify-content: space-between; align-items: baseline; gap: 10px; font-variant-numeric: tabular-nums; }
+.amount .includes { font-size: 0.78rem; color: var(--muted); }
+.amount strong { font-weight: 500; margin-left: auto; }
+.quote .total { display: flex; justify-content: flex-end; align-items: baseline; gap: 18px; font-variant-numeric: tabular-nums; }
+.quote .total span { font-weight: 500; }
+.quote .total strong { font: 700 1.35rem/1 var(--text); }
+.quote .fine { margin: 0; font-size: 0.8rem; line-height: 1.45; color: var(--muted); }
+
+@media (max-width: 760px) {
+  .site-nav ul { display: none; }
+  .site-nav .signin { margin-left: auto; }
+  .site-nav .btn-small { display: none; }
+  .counter { grid-template-columns: minmax(0, 1fr); gap: 12px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .p .pane, .p .smear, .p .glint, .ladder { transition: none; }
+}
+
+/* ---------- plan parts ---------- */
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(150px, 1fr)); gap: 12px; }
+.swatch { border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; background: var(--surface); }
+.swatch i { display: block; height: 64px; border-bottom: 1px solid var(--rule); }
+.swatch div { padding: 10px 12px; display: grid; gap: 2px; font-size: 0.875rem; }
+.swatch b { font-weight: 600; }
+.swatch code { font: 500 0.82rem var(--text); color: var(--fg-muted); }
+.swatch span { color: var(--fg-muted); line-height: 1.35; }
+
+.pairs { display: flex; flex-wrap: wrap; gap: 10px; }
+.pair { display: inline-flex; align-items: center; gap: 10px; padding: 8px 12px; border-radius: 10px; font-size: 0.875rem; font-weight: 500; font-variant-numeric: tabular-nums; }
+
+.type { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; }
+.specimen { background: var(--surface); border: 1px solid var(--rule); border-radius: 12px; padding: 18px; display: grid; gap: 8px; min-width: 0; }
+.specimen .big { font: 800 2.6rem/1.05 var(--display); letter-spacing: -0.035em; }
+.specimen .body { font: 400 1.0625rem/1.6 var(--text); }
+.specimen small { color: var(--fg-muted); font-size: 0.875rem; }
+
+.steps { overflow-x: auto; padding-bottom: 6px; }
+.steps ol { list-style: none; margin: 0; padding: 0; display: grid; grid-auto-flow: column; grid-auto-columns: minmax(190px, 1fr); gap: 14px; min-width: 980px; }
+.steps li { display: grid; grid-template-rows: auto auto 1fr; gap: 6px; align-content: start; }
+.steps .n { font: 800 1.8rem/1 var(--display); color: var(--harbour); }
+.steps h3 { margin: 0; font: 700 1.05rem/1.25 var(--display); }
+.steps p { margin: 0; font-size: 0.9rem; color: var(--fg-muted); line-height: 1.45; }
+.shot { margin: 0; border: 1px solid var(--rule); border-radius: 10px; overflow: hidden; background: var(--white); align-self: start; }
+.shot img { display: block; width: 100%; height: auto; }
+
+.outline { margin: 0; padding: 0; list-style: none; display: grid; gap: 0; border-top: 1px solid var(--rule); counter-reset: s; }
+.outline li { display: grid; grid-template-columns: 2.2rem minmax(0, 1fr); gap: 4px 12px; padding: 12px 0; border-bottom: 1px solid var(--rule); counter-increment: s; }
+.outline li::before { content: counter(s); font: 700 1rem/1.5 var(--display); color: var(--fg-muted); }
+.outline b { font-weight: 600; }
+.outline span { color: var(--fg-muted); }
+.outline div { min-width: 0; }
+
+.compare { overflow-x: auto; }
+.compare table { width: 100%; min-width: 560px; border-collapse: collapse; font-size: 0.95rem; }
+.compare th, .compare td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.compare thead th { font-weight: 600; }
+.compare tbody th { font-weight: 500; color: var(--fg-muted); width: 8rem; }
+
+.refs { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; }
+.ref { border: 1px solid var(--rule); border-radius: 12px; padding: 16px; background: var(--surface); display: grid; gap: 8px; align-content: start; }
+.ref h3 { margin: 0; font: 700 1rem/1.3 var(--display); }
+.ref p { margin: 0; font-size: 0.92rem; }
+.ref .take { color: var(--fg); }
+.ref .leave { color: var(--fg-muted); }
+
+.qs { display: grid; gap: 14px; }
+.q { border: 1px solid var(--rule); border-radius: 12px; padding: 16px 18px; background: var(--surface); display: grid; gap: 8px; }
+.q h3 { margin: 0; font: 700 1.05rem/1.3 var(--display); }
+.q ul { margin: 0; padding-left: 1.1rem; display: grid; gap: 4px; }
+.q .rec { font-size: 0.92rem; color: var(--fg-muted); margin: 0; }
+.q .rec b { color: var(--fg); font-weight: 600; }
+
+/* ---------- hero screens ---------- */
+.screens { display: grid; grid-template-columns: 2fr 1fr; grid-template-rows: auto auto; gap: 14px; padding-bottom: clamp(28px, 5vw, 48px); }
+.browser { margin: 0; border: 1px solid var(--frame); border-radius: 10px; overflow: hidden; background: var(--white); min-width: 0; }
+.browser.main { grid-row: span 2; }
+.browser .bar { display: flex; align-items: center; gap: 6px; padding: 8px 10px; border-bottom: 1px solid var(--frame); background: #e9f1f1; }
+.browser .bar i { width: 9px; height: 9px; border-radius: 50%; background: #c4d2d3; }
+.browser .bar span { margin-left: 8px; font-size: 0.75rem; color: var(--muted); background: var(--white); border-radius: 6px; padding: 2px 10px; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.browser img { display: block; width: 100%; height: auto; }
+.browser .slot { display: grid; place-content: center; text-align: center; aspect-ratio: 16 / 10; padding: 12px; font-weight: 500; color: var(--muted); background: repeating-linear-gradient(135deg, #f4f8f8 0 10px, #eef3f3 10px 20px); font-size: 0.9rem; line-height: 1.4; }
+.browser .slot small { font-weight: 400; font-size: 0.8rem; }
+
+/* ---------- process tabs ---------- */
+.how { border-top: 1px solid var(--frame); background: var(--white); padding: clamp(28px, 5vw, 48px) clamp(16px, 4vw, 36px); display: grid; gap: 18px; }
+.how-h { margin: 0; font: 800 clamp(1.7rem, 3.4vw, 2.3rem)/1.1 var(--display); letter-spacing: -0.03em; }
+.ptabs { display: flex; gap: 6px; overflow-x: auto; scrollbar-width: none; border-bottom: 1px solid var(--frame); margin: 0 calc(-1 * clamp(16px, 4vw, 36px)); padding: 0 clamp(16px, 4vw, 36px); }
+.ptabs::-webkit-scrollbar { display: none; }
+.ptabs button { flex: none; min-height: 44px; padding: 0 14px; border: 0; border-bottom: 3px solid transparent; background: none; font: 500 1rem var(--text); color: var(--muted); cursor: pointer; }
+.ptabs button[aria-selected="true"] { color: var(--harbour-dark); border-bottom-color: var(--harbour); }
+.ppanel { display: grid; grid-template-columns: minmax(0, 17rem) minmax(0, 1fr); gap: 28px; align-items: start; padding-top: 6px; }
+.ppanel[hidden] { display: none; }
+.pcopy { display: grid; gap: 10px; }
+.pcopy h3 { margin: 0; font: 700 1.4rem/1.2 var(--display); letter-spacing: -0.02em; }
+.pcopy p { margin: 0; color: var(--muted); }
+.pcopy .next { font-size: 0.9rem; color: var(--deep-water); background: #e9f1f1; border-radius: 8px; padding: 8px 10px; }
+.card { background: var(--white); border: 1px solid var(--frame); border-radius: 12px; padding: 16px; display: grid; gap: 12px; align-content: start; min-width: 0; }
+.card h4 { margin: 0; font: 600 1.05rem/1.3 var(--text); }
+.ppanel .counter { display: grid; grid-template-columns: minmax(0, 1fr) 300px; gap: 24px; align-items: start; }
+.ppanel .quote { margin: 0; box-shadow: none; }
+.shot.phone { max-width: 300px; margin: 0; border: 1px solid var(--frame); border-radius: 12px; overflow: hidden; }
+.shot.phone img { display: block; width: 100%; height: auto; }
+.site select { min-height: 44px; border: 1px solid var(--frame); border-radius: 8px; padding: 0 10px; font: 400 1rem var(--text); color: var(--deep-water); background: var(--white); width: 100%; }
+
+/* scheduling */
+.sched { display: grid; grid-template-columns: minmax(0, 1fr); gap: 16px; align-items: start; }
+.sched-controls { grid-template-columns: repeat(4, minmax(0, 1fr)); align-items: end; column-gap: 14px; }
+.sched-controls .run-h { grid-column: 2 / -1; grid-row: 1; margin: 0; padding: 0; border: 0; align-self: start; }
+.sched-controls .ctl:first-child { grid-row: 1 / span 2; align-self: end; padding-right: 14px; border-right: 1px solid var(--frame); }
+@media (max-width: 900px) {
+  .sched-controls { grid-template-columns: minmax(0, 1fr); }
+  .sched-controls .run-h { grid-column: auto; grid-row: auto; margin-top: 6px; padding-top: 10px; border-top: 1px solid var(--frame); }
+  .sched-controls .ctl:first-child { grid-row: auto; padding-right: 0; border-right: 0; }
+}
+.ctl { display: grid; gap: 4px; font-size: 0.875rem; font-weight: 500; }
+.run-h { margin: 6px 0 0; padding-top: 10px; border-top: 1px solid var(--frame); font-weight: 600; font-size: 0.95rem; }
+#p-sched { grid-template-columns: minmax(0, 1fr); }
+#p-sched .pcopy { max-width: 42rem; }
+.cal { gap: 10px; }
+.cal-bar { display: flex; align-items: center; gap: 6px; }
+.cal-bar .nav { width: 36px; height: 36px; border: 1px solid var(--frame); border-radius: 8px; background: var(--white); color: var(--deep-water); font: 500 1.2rem/1 var(--text); cursor: pointer; }
+.cal-bar strong { margin-left: 6px; font-weight: 600; font-variant-numeric: tabular-nums; }
+.month { display: grid; gap: 4px; }
+.mhead { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); text-align: center; font-size: 0.75rem; font-weight: 500; color: var(--muted); }
+.mgrid { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 1px; background: var(--frame); border: 1px solid var(--frame); border-radius: 10px; overflow: hidden; }
+.mcell { background: var(--white); min-height: 6.5rem; padding: 4px; display: grid; gap: 2px; align-content: start; min-width: 0; }
+.mcell.out { background: #e9f1f1; }
+.mcell .dn { font-size: 0.75rem; padding: 2px 4px; color: var(--deep-water); font-variant-numeric: tabular-nums; justify-self: start; }
+.mcell.out .dn { color: var(--muted); }
+.mcell .dn.today { background: var(--harbour); color: var(--white); border-radius: 999px; min-width: 22px; text-align: center; font-weight: 600; }
+.chip-v, .chip-r { display: flex; align-items: center; gap: 4px; min-width: 0; border: 0; border-left: 2px solid var(--frame); border-radius: 3px; background: none; padding: 2px 6px; font: 400 0.75rem/1.35 var(--text); text-align: left; color: var(--muted); white-space: nowrap; overflow: hidden; }
+.chip-v b, .chip-r b { color: var(--deep-water); font-weight: 500; font-variant-numeric: tabular-nums; }
+.chip-v span, .chip-r span { overflow: hidden; text-overflow: ellipsis; }
+.chip-r { border-left-color: #1d4ed8; cursor: pointer; }
+.chip-v { border-left-color: #d6dde0; }
+.chip-v.paid { border-left-color: #15803d; }
+.chip-v.approve { border-left-color: #b45309; }
+.badge.approve { background: #fef3c7; border-color: #fde68a; color: #b45309; }
+.sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+.chip-r:hover, .chip-r[aria-expanded="true"] { background: #e9f1f1; }
+.chip-r svg { flex: none; color: var(--muted); }
+.more { font-size: 0.75rem; font-weight: 500; color: var(--harbour-dark); text-decoration: underline; text-underline-offset: 2px; padding: 0 6px; }
+.runsheet { border: 1px solid var(--frame); border-left: 4px solid #2f5bd3; border-radius: 10px; padding: 10px 12px; display: grid; gap: 4px; }
+.runsheet[hidden] { display: none; }
+.runsheet h5 { margin: 0; font: 600 0.95rem/1.3 var(--text); }
+.runsheet p { margin: 0; font-size: 0.85rem; color: var(--muted); }
+.phone-only { display: none; }
+.strip { grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 4px; }
+.strip button { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 2px; min-height: 56px; border: 1px solid var(--frame); border-radius: 8px; background: var(--white); color: var(--deep-water); font: 400 0.875rem var(--text); cursor: pointer; padding: 0; }
+.strip button .wd { font-size: 0.72rem; color: var(--muted); }
+.strip button b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.strip button i { width: 4px; height: 4px; border-radius: 50%; background: transparent; }
+.strip button.work i { background: var(--harbour); }
+.strip button[aria-current="date"] { background: var(--harbour); border-color: var(--harbour); color: var(--white); }
+.strip button[aria-current="date"] .wd { color: var(--white); }
+.strip button[aria-current="date"].work i { background: var(--white); }
+.dayview { gap: 10px; }
+.dayview h5 { margin: 0; font: 500 0.875rem/1.3 var(--text); color: var(--muted); }
+.dayview .empty { margin: 0; font-size: 0.9rem; color: var(--muted); }
+.day { display: grid; gap: 8px; align-content: start; min-width: 0; }
+.day h5 { margin: 0; font: 600 0.95rem/1.3 var(--text); color: var(--muted); font-variant-numeric: tabular-nums; }
+.day .empty { display: none; }
+.vc, .rb { display: grid; gap: 2px; border: 1px solid var(--frame); border-radius: 10px; background: var(--white); padding: 8px; min-width: 0; text-align: left; font: inherit; color: inherit; }
+.vc .top, .rb .top { display: flex; justify-content: space-between; align-items: baseline; gap: 6px; }
+.vc .time { font-weight: 600; font-variant-numeric: tabular-nums; font-size: 0.9rem; white-space: nowrap; }
+.vc .top { flex-wrap: wrap; column-gap: 6px; row-gap: 0; }
+.vc .dur { font-size: 0.72rem; color: var(--muted); white-space: nowrap; }
+.vc .who, .rb .name { font-weight: 500; font-size: 0.9rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.vc .where, .rb .meta, .crew { font-size: 0.78rem; color: var(--muted); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rb .meta { color: var(--deep-water); white-space: normal; }
+.vc .badge { justify-self: start; margin-top: 4px; font-size: 0.72rem; padding: 1px 8px; }
+.crew { margin-top: 4px; }
+.rb { border-left: 4px solid #2f5bd3; cursor: pointer; }
+.rb .name { font-weight: 600; display: flex; align-items: center; gap: 4px; }
+.rb .name svg { flex: none; }
+.rb .chev { color: var(--muted); transition: transform .2s ease; }
+.rb[aria-expanded="true"] .chev { transform: rotate(180deg); }
+.stops { list-style: none; margin: 4px 0 0; padding: 0; border-top: 1px solid var(--frame); }
+.stops li { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 0 8px; padding: 5px 0; border-bottom: 1px solid #edf2f2; font-size: 0.78rem; }
+.stops li b { font-weight: 600; font-variant-numeric: tabular-nums; }
+.stops li span { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+@media (max-width: 640px) {
+  .wide-only { display: none; }
+  .phone-only { display: grid; }
+  .cal-bar.phone-only { display: flex; }
+  .runsheet { display: none; }
+}
+@media (prefers-reduced-motion: reduce) { .rb .chev { transition: none; } }
+
+/* visits: the job card */
+.jobcard { max-width: 380px; width: 100%; display: grid; gap: 12px; background: #f4f8f8; border: 1px solid var(--frame); border-radius: 16px; padding: 14px; justify-self: start; }
+.jc-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.jc-head h4 { margin: 0; font: 600 1.15rem/1.3 var(--text); }
+.jc-head h5, .jobcard h5 { margin: 0; font: 600 1rem/1.3 var(--text); }
+.jc-flash { margin: 0; font-size: 0.875rem; background: #dcfce7; color: #166534; border-radius: 8px; padding: 8px 10px; }
+.jc-flash[hidden] { display: none; }
+.jc-where { display: flex; justify-content: space-between; align-items: center; gap: 10px; font-size: 0.95rem; }
+.jc-nav { flex: none; border: 1px solid var(--frame); border-radius: 8px; padding: 6px 10px; color: var(--harbour-dark); font-weight: 500; background: var(--white); font-size: 0.875rem; }
+.jc-when { margin: 0; font-size: 0.95rem; }
+.jc-when span { color: var(--muted); font-size: 0.875rem; }
+.jc-notes p { margin: 0; display: grid; font-size: 0.9rem; }
+.jc-notes small { color: var(--muted); font-weight: 500; font-size: 0.8rem; }
+.hazard { display: grid; gap: 2px; background: #fef3c7; border: 1px solid #fde68a; border-radius: 8px; padding: 8px 10px; font-size: 0.9rem; }
+.hazard b { color: #b45309; font-weight: 600; }
+.payable { margin: 0; font: 700 1.25rem/1.25 var(--text); }
+.jc-buttons, .jc-bar { display: flex; flex-wrap: wrap; gap: 8px; }
+.jc-buttons .btn, .jc-bar .btn { flex: 1; }
+.btn:disabled { opacity: .5; cursor: default; }
+.tick { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 12px; border: 1px solid var(--frame); border-radius: 8px; background: var(--white); font: 400 0.95rem var(--text); color: var(--deep-water); text-align: left; cursor: pointer; }
+.tick::before { content: ""; flex: none; width: 18px; height: 18px; border: 1.5px solid #9fb1b3; border-radius: 4px; }
+.tick[aria-pressed="true"] { background: #dcfce7; border-color: #bbf7d0; color: #15803d; }
+.tick[aria-pressed="true"]::before { border-color: #15803d; content: "✓"; display: grid; place-items: center; font-size: 0.75rem; line-height: 1; }
+.badge.progress { background: #e3ecfd; border-color: #bdd0f7; color: #1d4ed8; }
+.badge.done { background: #dcfce7; border-color: #bbf7d0; color: #15803d; }
+
+/* workers' pay: time review */
+.review { display: grid; gap: 12px; max-width: 520px; }
+.rv-top { display: grid; gap: 4px; }
+.rv-top h4 { margin: 0; font: 600 1.15rem/1.3 var(--text); }
+.rv-top strong { font-weight: 600; font-variant-numeric: tabular-nums; }
+.rv-card h4 { margin: 0; font: 600 1.1rem/1.3 var(--text); }
+.rv-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; }
+.entries { list-style: none; margin: 0; padding: 0; display: grid; gap: 0; }
+.entry { display: grid; gap: 6px; padding: 12px 0; border-top: 1px solid var(--frame); }
+.entry .row1 { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
+.entry .row1 b { font-weight: 500; }
+.entry .times { display: flex; gap: 8px; align-items: end; flex-wrap: wrap; }
+.entry .times label { display: grid; gap: 2px; font-size: 0.8rem; font-weight: 500; color: var(--muted); }
+.entry input[type="time"] { min-height: 40px; border: 1px solid var(--frame); border-radius: 8px; padding: 0 8px; font: 400 0.95rem var(--text); color: var(--deep-water); background: var(--white); }
+.entry input:disabled { background: #f4f8f8; color: var(--muted); }
+.entry .calc { margin: 0; font-size: 0.9rem; font-variant-numeric: tabular-nums; }
+.entry .calc small { display: block; color: var(--muted); font-size: 0.8rem; }
+.entry .approve-btn { min-height: 40px; font-size: 0.9rem; }
+
+/* invoicing */
+.inv { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 15rem); gap: 16px; align-items: start; }
+.inv-top { display: flex; justify-content: space-between; align-items: start; gap: 10px; }
+.muted { margin: 2px 0 0; color: var(--muted); font-size: 0.9rem; }
+.badge { flex: none; font-size: 0.8rem; font-weight: 500; padding: 3px 10px; border-radius: 999px; border: 1px solid #d3dfe0; background: #e9f1f1; color: #3e5559; }
+.badge.sent { background: #e3ecfd; border-color: #bdd0f7; color: #2448a8; }
+.badge.paid { background: #e3f5e8; border-color: #b9e2c5; color: #1e6b3a; }
+.flash { margin: 0; font-size: 0.875rem; background: #e3f5e8; color: #1e5a33; border-radius: 8px; padding: 8px 10px; }
+.inv-lines { width: 100%; border-collapse: collapse; font-variant-numeric: tabular-nums; }
+.inv-lines td { padding: 9px 0; border-bottom: 1px solid var(--frame); vertical-align: top; }
+.inv-lines td:last-child { text-align: right; }
+.inv-lines small { display: block; color: var(--muted); font-size: 0.82rem; }
+.inv-lines small[hidden] { display: none; }
+.inv-actions { display: flex; flex-wrap: wrap; gap: 10px; }
+.btn-ghost { background: var(--white); color: var(--deep-water); border: 1px solid var(--frame); }
+.btn[hidden] { display: none; }
+.pay { display: grid; gap: 10px; border-top: 1px solid var(--frame); padding-top: 12px; }
+.pay[hidden] { display: none; }
+.sw { display: flex; align-items: center; gap: 10px; min-height: 40px; font-weight: 500; cursor: pointer; }
+.sw input { width: 20px; height: 20px; accent-color: var(--harbour); }
+
+@media (max-width: 900px) {
+  .ppanel, .ppanel .counter, .sched, .inv { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .screens { grid-template-columns: 1fr 1fr; }
+  .browser.main { grid-column: span 2; grid-row: auto; }
+  .browser .bar span { display: none; }
+}
+</style>
+
+<main class="doc">
+  <header class="doc-head">
+    <span class="status">New layout from Grant's idea: waiting for his OK</span>
+    <h1>panepilot.au: design plan</h1>
+    <p>PanePilot's own website, to tell window cleaners what it does and start their free trial. Drafted 15 October 2026. Nothing is built yet: this is the direction to approve before any code.</p>
+  </header>
+
+    <section class="part" aria-labelledby="h-hero">
+    <h2 id="h-hero">The layout: real screens first, then try each step</h2>
+    <p class="lede">Grant's idea (16 October). The hero shows the real app in a wide browser window. Below it, one tab per step of the round, each with a small working copy of that part of PanePilot. Every control in a demo is one the app really has, and the drawings only follow the numbers. All five work in this preview.</p>
+
+    <div class="site" role="region" aria-label="Preview of the panepilot.au home page">
+      <nav class="site-nav" aria-label="Site preview navigation">
+        {{LOGO}}
+        <ul>
+          <li><a href="#how">How it works</a></li>
+          <li><a href="#h-sections">Pricing</a></li>
+          <li><a href="#h-sections">Questions</a></li>
+        </ul>
+        <a class="signin" href="#h-hero">Sign in</a>
+        <a class="btn btn-primary btn-small" href="#h-hero">Start your free trial</a>
+      </nav>
+
+      <div class="hero">
+        <div class="hero-copy">
+          <h2>Quoting, scheduling and invoicing for window cleaners.</h2>
+          <p>Count the panes once. PanePilot books the round, runs the visit on your phone, invoices it and works out your workers' pay.</p>
+          <div class="cta-row">
+            <a class="btn btn-primary" href="#h-hero">Start your free trial</a>
+            <small>30 days free, no card. A$49 a month after that.</small>
+          </div>
+        </div>
+
+        <div class="screens">
+          <figure class="browser main">
+            <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>app.panepilot.au/calendar</span></div>
+            <img src="{{IMG:calendar-wide.png}}" alt="PanePilot's week calendar on a wide screen, with the menu on the left and the Shops run shown as one block on Thursday" width="1440" height="900">
+          </figure>
+          <figure class="browser todo">
+            <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>app.panepilot.au/quotes</span></div>
+            <div class="slot">A quote on a wide screen<br><small>To capture from the demo business</small></div>
+          </figure>
+          <figure class="browser todo">
+            <div class="bar" aria-hidden="true"><i></i><i></i><i></i><span>app.panepilot.au/invoices</span></div>
+            <div class="slot">A paid invoice on a wide screen<br><small>To capture from the demo business</small></div>
+          </figure>
+        </div>
+      </div>
+
+      <div class="how" id="how">
+        <h2 class="how-h">Try each step of the round</h2>
+        <div class="ptabs" role="tablist" aria-label="Steps of the round">
+          <button role="tab" id="t-quote" aria-controls="p-quote" aria-selected="true">Quoting</button>
+          <button role="tab" id="t-sched" aria-controls="p-sched" aria-selected="false" tabindex="-1">Scheduling</button>
+          <button role="tab" id="t-visit" aria-controls="p-visit" aria-selected="false" tabindex="-1">Visits</button>
+          <button role="tab" id="t-inv" aria-controls="p-inv" aria-selected="false" tabindex="-1">Invoicing</button>
+          <button role="tab" id="t-pay" aria-controls="p-pay" aria-selected="false" tabindex="-1">Workers' pay</button>
+        </div>
+
+        <!-- Quoting -->
+        <div class="ppanel" id="p-quote" role="tabpanel" aria-labelledby="t-quote">
+          <div class="pcopy">
+            <h3>Quote it per pane</h3>
+            <p>Your price book holds your pane types and rates. Add a line for each, type the count, and tap the surcharges you've named yourself, like a ladder for the upstairs windows.</p>
+          </div>
+          <div class="counter">
+            <div class="stage">
+              <strong>Try it: quote this shop</strong>
+              {{COTTAGE}}
+              <p class="hint" id="counted" aria-live="polite"></p>
+            </div>
+            <form class="quote card" id="quote" aria-labelledby="quote-h" onsubmit="return false">
+              <h4 id="quote-h">What is quoted</h4>
+              <ul class="lines" id="lines"></ul>
+              <p class="nolines" id="nolines">Nothing quoted yet. Add a line from the price book.</p>
+              <div class="addline" role="group" aria-labelledby="add-h">
+                <span id="add-h">Add from the price book</span>
+                <button type="button" class="btn btn-ghost add" data-kind="standard">+ Standard pane · $7.50</button>
+                <button type="button" class="btn btn-ghost add" data-kind="large">+ Large pane · $10.00</button>
+              </div>
+              <div class="total" aria-live="polite"><span>Total</span><strong id="quote-total">$0.00</strong></div>
+              <p class="fine">PanePilot's own quote lines. A new line starts at a count of 1. The shop only shows what's being counted. Example prices.</p>
+            </form>
+          </div>
+        </div>
+
+        <!-- Scheduling -->
+        <div class="ppanel" id="p-sched" role="tabpanel" aria-labelledby="t-sched" hidden>
+          <div class="pcopy">
+            <h3>Book it in once</h3>
+            <p>Set how often a customer comes and the visits fill the calendar. Shops you do together go on one run, in your order, and a shop can come every run or every 2nd or 3rd run. Step through the months to see it. On a phone, pick a day from the strip, as in the app.</p>
+          </div>
+          <div class="sched">
+            <div class="card sched-controls">
+              <div class="ctl">
+                <label for="jo-freq">Jo Example, 11 Sample Rd: how often</label>
+                <select id="jo-freq">
+                  <option value="w1">Weekly</option>
+                  <option value="w2">Fortnightly</option>
+                  <option value="w4" selected>Every 4 weeks</option>
+                  <option value="m1">Monthly, on a date</option>
+                  <option value="m3">Every 3 months</option>
+                </select>
+              </div>
+              <p class="run-h">Shops run, every Thursday</p>
+              <div class="ctl"><label for="c-bakery">Example Bakery comes</label><select id="c-bakery" class="cad"><option value="1" selected>Every run</option><option value="2">Every 2nd run</option><option value="3">Every 3rd run</option></select></div>
+              <div class="ctl"><label for="c-cafe">Mock Cafe comes</label><select id="c-cafe" class="cad"><option value="1">Every run</option><option value="2" selected>Every 2nd run</option><option value="3">Every 3rd run</option></select></div>
+              <div class="ctl"><label for="c-deli">Test Deli comes</label><select id="c-deli" class="cad"><option value="1">Every run</option><option value="2">Every 2nd run</option><option value="3" selected>Every 3rd run</option></select></div>
+            </div>
+            <div class="card cal">
+              <div class="cal-bar wide-only">
+                <button type="button" class="nav" id="mo-prev" aria-label="Previous month">‹</button>
+                <button type="button" class="nav" id="mo-next" aria-label="Next month">›</button>
+                <strong id="mo-label" aria-live="polite"></strong>
+              </div>
+              <div class="month wide-only">
+                <div class="mhead" aria-hidden="true"><span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span></div>
+                <div class="mgrid" id="mgrid"></div>
+              </div>
+              <div class="runsheet" id="runsheet" hidden></div>
+              <div class="cal-bar phone-only">
+                <button type="button" class="nav" id="wk-prev" aria-label="Previous week">‹</button>
+                <button type="button" class="nav" id="wk-next" aria-label="Next week">›</button>
+                <strong id="wk-label" aria-live="polite"></strong>
+              </div>
+              <nav class="strip phone-only" id="strip" aria-label="Days this week"></nav>
+              <section class="dayview phone-only" id="dayview" aria-live="polite"></section>
+              <p class="fine" id="sched-sum" aria-live="polite"></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Visits -->
+        <div class="ppanel" id="p-visit" role="tabpanel" aria-labelledby="t-visit" hidden>
+          <div class="pcopy">
+            <h3>Do the visit from your phone</h3>
+            <p>The address, the access and parking notes and the hazards are on the job card. Start your time when you arrive, tick the checklist as you go, and complete the visit. Its draft invoice is raised for you.</p>
+            <p class="fine">The clock here runs a minute every half second, so you can watch the rounding.</p>
+          </div>
+          <div class="jobcard" id="jobcard">
+            <div class="jc-head"><h4>Example Bakery</h4><span class="badge" id="jc-badge">Scheduled</span></div>
+            <p class="jc-flash" id="jc-flash" aria-live="polite" hidden></p>
+            <div class="jc-where"><span>1 Example St, Clare, SA, 5453</span><span class="jc-nav">Navigate</span></div>
+            <p class="jc-when"><b>Today</b> · 9:30 am – 10:45 am · 1 h 15 min<br><span>You and Sam Sample</span></p>
+            <div class="card jc-notes">
+              <h5>Access &amp; instructions</h5>
+              <div class="hazard"><b>Hazards</b><span>Dog in the yard. Ladder needed for the top windows.</span></div>
+              <p><small>Access</small>Back gate is open before 10 am.</p>
+              <p><small>Parking</small>Park in the loading zone.</p>
+            </div>
+            <div class="card jc-time">
+              <h5>Your time on site</h5>
+              <p class="fine">Paid for time on site only, rounded to the nearest 15 minutes. Travel between jobs is not paid.</p>
+              <p class="payable" id="jc-payable" aria-live="polite">Not started</p>
+              <p class="fine" id="jc-since"></p>
+              <div class="jc-buttons">
+                <button type="button" class="btn btn-primary" id="jc-start">Start</button>
+                <button type="button" class="btn btn-ghost" id="jc-break" hidden>Break</button>
+                <button type="button" class="btn btn-primary" id="jc-finish" hidden>Finish</button>
+              </div>
+            </div>
+            <div class="card jc-check">
+              <div class="jc-head"><h5>Checklist</h5><span class="fine" id="jc-count">0 of 3 done</span></div>
+              <button type="button" class="tick" aria-pressed="false">Front windows, inside and out</button>
+              <button type="button" class="tick" aria-pressed="false">Door glass</button>
+              <button type="button" class="tick" aria-pressed="false">Upstairs windows</button>
+            </div>
+            <div class="jc-bar">
+              <button type="button" class="btn btn-primary" id="jc-complete" disabled>Complete visit</button>
+              <button type="button" class="btn btn-ghost" id="jc-reset" hidden>Start again</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Invoicing -->
+        <div class="ppanel" id="p-inv" role="tabpanel" aria-labelledby="t-inv" hidden>
+          <div class="pcopy">
+            <h3>Invoice it from the visit</h3>
+            <p>Completing a visit raises its draft invoice at the agreed price. Choose what your customer sees on each line, email it, and record the bank transfer or cash when it comes in.</p>
+          </div>
+          <div class="inv">
+            <div class="card inv-card">
+              <div class="inv-top">
+                <div><h4>Invoice INV-1043</h4><p class="muted">Example Bakery, 1 Example St, Clare</p></div>
+                <span class="badge" id="inv-badge">Draft</span>
+              </div>
+              <p class="flash" id="inv-flash" aria-live="polite">Visit completed. Draft invoice INV-1043 is ready to review.</p>
+              <table class="inv-lines">
+                <tbody>
+                  <tr><td>Standard pane<small class="det" data-line="std"></small></td><td>$135.00</td></tr>
+                  <tr><td>Large pane<small class="det" data-line="lg"></small></td><td>$40.00</td></tr>
+                </tbody>
+              </table>
+              <div class="total"><span>Total</span><strong>$175.00</strong></div>
+              <p class="fine" id="inv-due">Due 7 days after it's sent. No GST: this business is not registered for GST, so none is charged.</p>
+              <div class="inv-actions">
+                <button type="button" class="btn btn-primary" id="inv-primary">Email invoice</button>
+                <button type="button" class="btn btn-ghost" id="inv-reset" hidden>Start again</button>
+              </div>
+              <form class="pay" id="pay" hidden onsubmit="return false">
+                <div class="fields">
+                  <label for="pay-amt">Amount<input id="pay-amt" inputmode="decimal" value="175.00"></label>
+                  <label for="pay-how">How it was paid<select id="pay-how"><option>Bank transfer</option><option>Cash</option></select></label>
+                </div>
+                <button type="button" class="btn btn-primary" id="pay-save">Save payment</button>
+              </form>
+            </div>
+            <div class="card inv-switches">
+              <h4>What the customer sees on each line</h4>
+              <p class="fine">The description and the line's total always show.</p>
+              <label class="sw"><input type="checkbox" id="sw-qty" checked> Pane count</label>
+              <label class="sw"><input type="checkbox" id="sw-rate" checked> Price each</label>
+              <label class="sw"><input type="checkbox" id="sw-sur" checked> Surcharge note</label>
+              <p class="fine">Set once for the business. A customer can have their own.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Workers' pay -->
+        <div class="ppanel" id="p-pay" role="tabpanel" aria-labelledby="t-pay" hidden>
+          <div class="pcopy">
+            <h3>Pay your workers what they worked</h3>
+            <p>Workers log their time against each visit, and you check it here. Correct a time before you approve it; once approved it's final. Pay is by the hour, or a share of the visit's price, and payable time is rounded to the nearest 15 minutes.</p>
+            <div class="ctl">
+              <label for="pay-basis">Sam Sample is paid</label>
+              <select id="pay-basis">
+                <option value="hourly" selected>By the hour, $32.00/h</option>
+                <option value="share">A share of the visit, 40%</option>
+              </select>
+            </div>
+          </div>
+          <div class="review">
+            <div class="rv-top"><h4>Time review</h4><p class="fine">Each worker's time for the week, to check and approve.</p><strong id="rv-week"></strong></div>
+            <div class="card rv-card">
+              <h4>Sam Sample</h4>
+              <p class="muted" id="rv-sum" aria-live="polite"></p>
+              <div class="rv-actions"><button type="button" class="btn btn-ghost" id="rv-pay" disabled></button><span class="fine" id="rv-paynote"></span></div>
+              <ol class="entries" id="entries"></ol>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <p class="preview-label">Quoting uses Grant's example prices: $7.50 a standard pane and $10.00 a large one, with Ladder +50% on the standard line. The names and addresses are the invented demo business's.</p>
+  </section>
+
+<section class="part" aria-labelledby="h-sections">
+    <h2 id="h-sections">The whole page, in order</h2>
+    <p class="lede">One page and a 404. Privacy and terms stay in the app, where Google's consent screen and the subscription law already point.</p>
+    <ol class="outline">
+      <li><div><b>Header.</b> <span>Lockup, How it works, Pricing, Questions, Sign in, and "Start your free trial" as the one filled button.</span></div></li>
+      <li><div><b>Hero.</b> <span>The headline, one line, the trial button with its terms, and the real app in a wide browser window: the week calendar, a quote and a paid invoice.</span></div></li>
+      <li><div><b>Try each step of the round.</b> <span>Five tabs: Quoting, Scheduling, Visits, Invoicing and Workers' pay, each with a small working copy of that part of the app.</span></div></li>
+      <li><div><b>Made for window cleaning.</b> <span>What the general tools don't do: your own surcharges that stack on any line; runs of shops in your order, some every 2nd or 3rd run; every n weeks or months; reminders for customers who like to be asked first; access and hazard notes; a glass-scratch acknowledgement signed by typed name; "Invoice" with no GST line for a business that isn't registered.</span></div></li>
+      <li><div><b>Your workers.</b> <span>The time card. They sign in with their own Google or Microsoft account or an emailed code, see only their own visits, time and estimated pay. No cost per worker.</span></div></li>
+      <li><div><b>Built by a window cleaner.</b> <span>The story, drafted by Claude and rewritten by Grant, naming Clare Valley Window Cleaning. No photo.</span></div></li>
+      <li><div><b>Pricing,</b> <span>on a Deep Water band: one plan, A$49 a month, no GST, unlimited workers, every feature, 30 days free with no card, cancel online. A free setup call, and a spreadsheet import for your customers.</span></div></li>
+      <li><div><b>What it doesn't do yet</b> <span>(kept): card payments, Xero or MYOB, route planning, an App Store app.</span></div></li>
+      <li><div><b>Questions.</b> <span>Where my data is kept, bringing customers from Fergus or a spreadsheet, whether workers pay, phones, GST, cancelling, and what happens to my data if I stop.</span></div></li>
+      <li><div><b>Footer.</b> <span>Privacy, terms, a contact address (to come), and the Walking Kangaroo signature.</span></div></li>
+    </ol>
+  </section>
+
+  <section class="part" aria-labelledby="h-palette">
+    <h2 id="h-palette">Palette</h2>
+    <p class="lede">PanePilot's own Harbour palette, taken from the app's tokens, so the site and the app read as one product. One light mood with one deep band for pricing.</p>
+    <div class="swatches">
+      <div class="swatch"><i style="background:#F4F8F8"></i><div><b>Glass</b><code>#F4F8F8</code><span>Page background</span></div></div>
+      <div class="swatch"><i style="background:#0B2F33"></i><div><b>Deep Water</b><code>#0B2F33</code><span>Text, linework, pricing band</span></div></div>
+      <div class="swatch"><i style="background:#0E7C86"></i><div><b>Harbour</b><code>#0E7C86</code><span>The one primary button, counted frames</span></div></div>
+      <div class="swatch"><i style="background:#07646C"></i><div><b>Harbour Dark</b><code>#07646C</code><span>Hover, links on Glass</span></div></div>
+      <div class="swatch"><i style="background:#52696D"></i><div><b>Muted</b><code>#52696D</code><span>Secondary text</span></div></div>
+      <div class="swatch"><i style="background:#E6FFFB"></i><div><b>Mint</b><code>#E6FFFB</code><span>Text on Deep Water</span></div></div>
+      <div class="swatch"><i style="background:#D3DFE0"></i><div><b>Frame</b><code>#D3DFE0</code><span>Hairlines, screenshot borders</span></div></div>
+    </div>
+    <div class="pairs" aria-label="Contrast checks">
+      <span class="pair" style="background:#F4F8F8;color:#0B2F33;border:1px solid #D3DFE0">Deep Water on Glass 13.4:1</span>
+      <span class="pair" style="background:#F4F8F8;color:#52696D;border:1px solid #D3DFE0">Muted on Glass 5.5:1</span>
+      <span class="pair" style="background:#F4F8F8;color:#07646C;border:1px solid #D3DFE0">Harbour Dark on Glass 6.4:1</span>
+      <span class="pair" style="background:#0E7C86;color:#FFFFFF">White on Harbour 4.95:1</span>
+      <span class="pair" style="background:#0B2F33;color:#E6FFFB">Mint on Deep Water 13.7:1</span>
+      <span class="pair" style="background:#0B2F33;color:#63B3BC">Link teal on Deep Water 5.9:1</span>
+    </div>
+  </section>
+
+  <section class="part" aria-labelledby="h-type">
+    <h2 id="h-type">Type</h2>
+    <div class="type">
+      <div class="specimen"><small>Manrope 700 and 800, headings</small><div class="big">Every pane, counted.</div><small>The face of PanePilot's wordmark, so headings sound like the lockup. Tracking -3% at 40 px and up.</small></div>
+      <div class="specimen"><small>Geist 400 and 500, everything else</small><div class="body">The shops on Example St go together as one run, in your order, and some can come every second run. Workers see only the visits they're on.</div><small>The app's own interface face, so the copy matches the screenshots. Body 17 px, scale ratio 1.25.</small></div>
+    </div>
+  </section>
+
+  <section class="part" aria-labelledby="h-refs">
+    <h2 id="h-refs">What we take from the three reference sites</h2>
+    <div class="refs">
+      <div class="ref"><h3>fergus.com</h3><p class="take">Take: the plain tradie voice, and an FAQ that answers the money questions (trial, no setup fee, no lock-in).</p><p class="leave">Leave: review badges, "25,000+ businesses", a promo banner, the sign-up form four times over.</p></div>
+      <div class="ref"><h3>Jobber, window cleaning</h3><p class="take">Take: organising by the job (quote, schedule, do the work, get paid) and the window-specific details like window counts.</p><p class="leave">Leave: the same feature blocks twice, a pressure-washing video, generic home-service copy.</p></div>
+      <div class="ref"><h3>Housecall Pro, window cleaning</h3><p class="take">Take: quotes "built around panes", storefront rounds, an FAQ written for window cleaners.</p><p class="leave">Leave: the growth-stats row, testimonials from carpet cleaners, a gift-card pop-up.</p></div>
+    </div>
+    <p class="lede">All three say "window cleaning" on a home-services page. PanePilot can show it: the pane count, the run of shops, the ladder on the top windows, an invoice with no GST line.</p>
+  </section>
+
+  <section class="part" aria-labelledby="h-diff">
+    <h2 id="h-diff">How it differs from the hub</h2>
+    <div class="compare">
+      <table>
+        <thead><tr><th scope="col"></th><th scope="col">walkingkangaroo.com</th><th scope="col">panepilot.au</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">Temperature</th><td>Warm: Paper, Rust, Ink</td><td>Cool: Glass, Harbour, Deep Water</td></tr>
+          <tr><th scope="row">Type</th><td>Outfit only</td><td>Manrope headings, Geist text</td></tr>
+          <tr><th scope="row">Signature</th><td>A fogged pane cleared by one squeegee sweep, played once on load</td><td>A shop that comes up clean as the visitor changes the app's quote lines</td></tr>
+          <tr><th scope="row">Hero</th><td>Text left, one image right</td><td>Text above a wide line drawing with a live quote</td></tr>
+          <tr><th scope="row">Sequence</th><td>Four stops on a band, numbers in circles</td><td>Five steps beside whole screenshots, numbers set large</td></tr>
+          <tr><th scope="row">Avoided</th><td colspan="2">Device mock-ups, feature icons, a stats row, testimonials, gradients, droplets and sparkles. There are no numbers or quotes to show yet, and none are made up.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <section class="part" aria-labelledby="h-qs">
+    <h2 id="h-qs">Grant's answers, 15 October</h2>
+    <div class="qs">
+      <div class="q"><h3>The signature moment</h3><p class="rec">Liked the quoting idea, but tapping windows on a picture would suggest the app works that way. <b>Revised:</b> the visitor uses the app's real quote lines, and the drawing only follows the count.</p></div>
+      <div class="q"><h3>When it goes live</h3><p class="rec"><b>With self-serve sign-up</b> (milestone 12), with "Start your free trial" from day one. Until then panepilot.au keeps redirecting to the app.</p></div>
+      <div class="q"><h3>The story</h3><p class="rec"><b>Names the business:</b> Clare Valley Window Cleaning built PanePilot and runs on it.</p></div>
+      <div class="q"><h3>What it doesn't do yet</h3><p class="rec"><b>Kept:</b> card payments, Xero or MYOB, route planning, an App Store app.</p></div>
+    </div>
+  </section>
+</main>
+
+<script>
+(() => {
+  const LADDER = 0.5;
+  const BOOK = {
+    standard: { name: "Standard pane", each: "7.50", id: "std" },
+    large: { name: "Large pane", each: "10.00", id: "lg" },
+  };
+  const r2 = n => Math.round(n * 100) / 100;
+  const money = n => "$" + n.toFixed(2);
+  const panes = kind => [...document.querySelectorAll(`.drawing .p[data-kind="${kind}"]`)];
+  const ladderArt = document.querySelector(".drawing .ladder");
+  const counted = document.getElementById("counted");
+  const list = document.getElementById("lines");
+  const BIN = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 6h18"/><path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6"/><path d="M8 6V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg>';
+
+  function lineHtml(kind) {
+    const b = BOOK[kind];
+    return `<li class="line" data-kind="${kind}">
+      <p class="desc">${b.name}<button type="button" class="remove" aria-label="Remove ${b.name}">${BIN}</button></p>
+      <div class="fields">
+        <label for="${b.id}-count">Count<input id="${b.id}-count" class="count" inputmode="numeric" autocomplete="off" value="1"></label>
+        <label for="${b.id}-each">Each<input id="${b.id}-each" class="each" inputmode="decimal" autocomplete="off" value="${b.each}"></label>
+      </div>
+      <div class="chips" role="group" aria-label="Surcharges, ${b.name.toLowerCase()}"><span>Surcharges</span><button type="button" class="chip" aria-pressed="false">Ladder +50%</button></div>
+      <p class="amount"><span class="includes"></span><strong class="line-total"></strong></p>
+    </li>`;
+  }
+
+  function read(li) {
+    const countText = li.querySelector(".count").value.trim();
+    const eachText = li.querySelector(".each").value.trim();
+    const count = /^\d{1,3}$/.test(countText) ? +countText : null;
+    const each = /^\d{1,4}(\.\d{1,2})?$/.test(eachText) ? +eachText : null;
+    const ladder = li.querySelector(".chip").getAttribute("aria-pressed") === "true";
+    return { kind: li.dataset.kind, count, each, ladder };
+  }
+
+  function phrase(kind, n, of) {
+    if (n <= 0) return `no ${kind} panes`;
+    if (n >= of) return of === 2 ? `both ${kind} panes` : `all ${of} ${kind} panes`;
+    return `${n} of its ${of} ${kind} ${of === 1 ? "pane" : "panes"}`;
+  }
+
+  function render() {
+    let total = 0, valid = true, ladderOn = false;
+    const shown = { standard: 0, large: 0 };
+    const lines = [...list.querySelectorAll(".line")];
+    for (const li of lines) {
+      const { kind, count, each, ladder } = read(li);
+      const out = li.querySelector(".line-total"), inc = li.querySelector(".includes");
+      if (count === null || each === null) {
+        out.textContent = "—"; inc.textContent = ""; valid = false;
+        continue;
+      }
+      const unit = ladder ? r2(each * (1 + LADDER)) : each;
+      const amount = r2(unit * count);
+      total += amount;
+      out.textContent = money(amount);
+      inc.textContent = ladder && count > 0 ? `Includes Ladder +50% · ${money(r2((unit - each) * count))}.` : "";
+      if (ladder && count > 0) ladderOn = true;
+      shown[kind] = count;
+    }
+    for (const kind of Object.keys(shown)) panes(kind).forEach((p, i) => p.classList.toggle("lit", i < shown[kind]));
+    document.querySelectorAll(".addline .add").forEach(b => {
+      const has = !!list.querySelector(`.line[data-kind="${b.dataset.kind}"]`);
+      b.hidden = has;
+    });
+    document.querySelector(".addline").hidden = [...document.querySelectorAll(".addline .add")].every(b => b.hidden);
+    document.getElementById("nolines").hidden = lines.length > 0;
+    document.getElementById("quote-total").textContent = valid ? money(r2(total)) : "—";
+    ladderArt?.classList.toggle("on", ladderOn);
+    counted.textContent = `Counted on the shop: ${phrase("standard", shown.standard, panes("standard").length)} and ${phrase("large", shown.large, panes("large").length)}.`;
+  }
+
+  document.querySelectorAll(".addline .add").forEach(b => b.addEventListener("click", () => {
+    const kind = b.dataset.kind;
+    if (list.querySelector(`.line[data-kind="${kind}"]`)) return;
+    // keep the price book's order: standard above large
+    const html = lineHtml(kind);
+    if (kind === "standard") list.insertAdjacentHTML("afterbegin", html); else list.insertAdjacentHTML("beforeend", html);
+    render();
+    const input = document.getElementById(`${BOOK[kind].id}-count`);
+    input.focus(); input.select();
+  }));
+  list.addEventListener("input", e => { if (e.target.matches("input")) render(); });
+  list.addEventListener("click", e => {
+    const chip = e.target.closest(".chip");
+    if (chip) { chip.setAttribute("aria-pressed", chip.getAttribute("aria-pressed") === "true" ? "false" : "true"); render(); return; }
+    const rm = e.target.closest(".remove");
+    if (rm) {
+      const kind = rm.closest(".line").dataset.kind;
+      rm.closest(".line").remove();
+      render();
+      document.querySelector(`.addline .add[data-kind="${kind}"]`)?.focus();
+    }
+  });
+  render();
+})();
+</script>
+<script>
+(() => {
+  /* process tabs */
+  const tabs = [...document.querySelectorAll(".ptabs [role=tab]")];
+  function show(t) {
+    tabs.forEach(x => {
+      const on = x === t;
+      x.setAttribute("aria-selected", String(on));
+      x.tabIndex = on ? 0 : -1;
+      document.getElementById(x.getAttribute("aria-controls")).hidden = !on;
+    });
+  }
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => show(t));
+    t.addEventListener("keydown", e => {
+      const d = e.key === "ArrowRight" ? 1 : e.key === "ArrowLeft" ? -1 : 0;
+      if (!d) return;
+      const n = tabs[(i + d + tabs.length) % tabs.length];
+      show(n); n.focus(); n.scrollIntoView({ block: "nearest", inline: "nearest" });
+    });
+  });
+
+  /* scheduling: the app's month view on wide screens, its day view and week strip on phones */
+  const DAY = 864e5;
+  const today = new Date(); today.setHours(12, 0, 0, 0);
+  const at = (y, m, d) => new Date(y, m, d, 12);
+  const addDays = (d, n) => at(d.getFullYear(), d.getMonth(), d.getDate() + n);
+  const key = d => d.toDateString();
+  const mondayOf = d => addDays(d, -((d.getDay() + 6) % 7));
+  const MONTHS = 3;                                      // this month and the next two
+  const firstMonth = at(today.getFullYear(), today.getMonth(), 1);
+  const start = mondayOf(firstMonth);                    // schedules run from the month's first grid row
+  const thisWeek = mondayOf(today);
+  // The app's badges: earlier weeks are paid, earlier this week waits for approval, the rest is booked.
+  const STATUS = {
+    paid: { label: "Paid", cls: "paid" },
+    approve: { label: "To approve", cls: "approve" },
+    booked: { label: "Scheduled", cls: "" },
+  };
+  const statusOf = d => d < thisWeek ? STATUS.paid : d < today ? STATUS.approve : STATUS.booked;
+  const lastDay = at(today.getFullYear(), today.getMonth() + MONTHS, 0);
+  const horizon = addDays(mondayOf(lastDay), 7);         // through the last grid row
+  const WEEKS = Math.round((horizon - start) / (7 * DAY));
+  const clock = mins => { const h = Math.floor(mins / 60), m = mins % 60; return `${((h + 11) % 12) + 1}:${String(m).padStart(2, "0")} ${h < 12 ? "am" : "pm"}`; };
+  const dm = d => d.toLocaleDateString("en-AU", { day: "numeric", month: "short" });
+  const longDay = d => d.toLocaleDateString("en-AU", { weekday: "long", day: "numeric", month: "long" });
+  const REPEAT = '<svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m17 2 4 4-4 4"/><path d="M3 11v-1a4 4 0 0 1 4-4h14"/><path d="m7 22-4-4 4-4"/><path d="M21 13v1a4 4 0 0 1-4 4H3"/></svg>';
+  const CHEV = '<svg class="chev" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m6 9 6 6 6-6"/></svg>';
+  const SHOPS = [
+    { id: "c-bakery", name: "Example Bakery" },
+    { id: "c-cafe", name: "Mock Cafe" },
+    { id: "c-deli", name: "Test Deli" },
+  ];
+  const RUN_START = 9 * 60 + 30, STOP_MIN = 50;
+  // Two fixed customers from the demo business, so the month reads like a real one.
+  const FIXED = [
+    { who: "Demo Motel", where: "9 Demo Lane, Clare", start: 7 * 60 + 30, dur: "1 h 15 min", crew: "Alex Example, Sam Sample", weekday: 1, every: 1 },
+    { who: "Chris Test", where: "8 Test Ave, Clare", start: 10 * 60, dur: "1 h", crew: "Sam Sample", weekday: 2, every: 4 },
+  ];
+
+  function joDates(freq) {
+    const out = [];
+    if (freq[0] === "w") { for (let d = start; d < horizon; d = addDays(d, +freq.slice(1) * 7)) out.push(d); }
+    else { for (let m = 0; ; m += +freq.slice(1)) { const d = at(start.getFullYear(), start.getMonth() + m, start.getDate()); if (d >= horizon) break; out.push(d); } }
+    return out;
+  }
+
+  // Everything on each day, by date key: visits sorted by time, and the run as one item.
+  function schedule() {
+    const map = new Map();
+    const put = (d, item) => { const k = key(d); (map.get(k) || map.set(k, []).get(k)).push(item); };
+    for (const d of joDates(document.getElementById("jo-freq").value))
+      put(d, { kind: "visit", start: 8 * 60, who: "Jo Example", where: "11 Sample Rd, Clare", dur: "1 h 30 min", crew: "Sam Sample" });
+    FIXED.forEach(f => { for (let w = 0; w < WEEKS; w += f.every) put(addDays(start, w * 7 + f.weekday), { kind: "visit", ...f }); });
+    const cads = SHOPS.map(s => +document.getElementById(s.id).value);
+    for (let w = 0; w < WEEKS; w++) {
+      const stops = SHOPS.filter((s, k) => w % cads[k] === 0);
+      if (stops.length) put(addDays(start, w * 7 + 3), { kind: "run", start: RUN_START, stops, id: w });
+    }
+    map.forEach((list, k) => { const d = new Date(k); d.setHours(12); list.forEach(it => { it.status = statusOf(d); it.past = d < today; }); list.sort((a, b) => a.start - b.start); });
+    return map;
+  }
+
+  let month = 0, week = Math.round((thisWeek - start) / (7 * DAY)), pick = (today.getDay() + 6) % 7, openRun = null;
+  const openCards = new Set();
+
+  function runSheet(item, d) {
+    const el = document.getElementById("runsheet");
+    if (!item) { el.hidden = true; return; }
+    const endM = RUN_START + item.stops.length * STOP_MIN;
+    el.hidden = false;
+    el.innerHTML = `<h5>Shops run</h5><p>${longDay(d)} · ${item.stops.length} ${item.stops.length === 1 ? "shop" : "shops"} · ${clock(RUN_START)}–${clock(endM)}</p>
+      <ol class="stops" aria-label="Stops on the Shops run, in order">${item.stops.map((s, i) => `<li><b>${clock(RUN_START + i * STOP_MIN)}</b><span>${s.name}</span></li>`).join("")}</ol>`;
+  }
+
+  function renderMonth(map) {
+    const first = at(firstMonth.getFullYear(), firstMonth.getMonth() + month, 1);
+    const gridStart = mondayOf(first);
+    const lastOf = at(first.getFullYear(), first.getMonth() + 1, 0);
+    const rows = Math.ceil((((first.getDay() + 6) % 7) + lastOf.getDate()) / 7);
+    let html = "", openItem = null, openDay = null;
+    for (let i = 0; i < rows * 7; i++) {
+      const d = addDays(gridStart, i);
+      const items = map.get(key(d)) || [];
+      const shown = items.slice(0, 3), hidden = items.length - shown.length;
+      const isToday = key(d) === key(today);
+      const chips = shown.map(it => {
+        if (it.kind === "run") {
+          const open = openRun === key(d);
+          if (open) { openItem = it; openDay = d; }
+          return `<button type="button" class="chip-r" data-day="${key(d)}" aria-expanded="${open}" aria-label="Shops run, ${it.stops.length} shops, ${clock(RUN_START)}. Shows its stops">${REPEAT}<span><b>Shops</b></span><b>· ${it.stops.length}</b></button>`;
+        }
+        return `<span class="chip-v ${it.status.cls}"><span><b>${clock(it.start)}</b> ${it.who}</span><span class="sr-only"> · ${it.status.label}</span></span>`;
+      }).join("");
+      html += `<div class="mcell${d.getMonth() === first.getMonth() ? "" : " out"}"><span class="dn${isToday ? " today" : ""}"${isToday ? ' aria-label="Today"' : ""}>${d.getDate()}</span>${chips}${hidden > 0 ? `<span class="more">+${hidden} more</span>` : ""}</div>`;
+    }
+    document.getElementById("mgrid").innerHTML = html;
+    document.getElementById("mo-label").textContent = first.toLocaleDateString("en-AU", { month: "long", year: "numeric" });
+    document.getElementById("mo-prev").disabled = month === 0;
+    document.getElementById("mo-next").disabled = month === MONTHS - 1;
+    runSheet(openItem, openDay);
+  }
+
+  function visitCard(v) {
+    return `<div class="vc"><div class="top"><span class="time">${clock(v.start)}</span><span class="dur">${v.dur}</span></div>
+      <span class="who">${v.who}</span><span class="where">${v.where}</span>
+      <span class="badge ${v.status.cls}">${v.status.label}</span><span class="crew">${v.crew}</span></div>`;
+  }
+  function runCard(it) {
+    const open = openCards.has(it.id), endM = RUN_START + it.stops.length * STOP_MIN;
+    const list = open ? `<ol class="stops" aria-label="Stops on the Shops run, in order">${it.stops.map((s, i) => `<li><b>${clock(RUN_START + i * STOP_MIN)}</b><span>${s.name}</span></li>`).join("")}</ol>` : "";
+    return `<button type="button" class="rb" data-run="${it.id}" aria-expanded="${open}">
+      <span class="top"><span class="name">${REPEAT}Shops run</span>${CHEV}</span>
+      <span class="meta">${it.stops.length} ${it.stops.length === 1 ? "shop" : "shops"} · ${clock(RUN_START)}–${clock(endM)}</span>
+      <span class="meta">${it.past ? it.stops.length : 0} of ${it.stops.length} done</span><span class="crew">Alex Example, Sam Sample</span>${list}</button>`;
+  }
+
+  function renderPhone(map) {
+    const wk = addDays(start, week * 7);
+    let strip = "";
+    for (let i = 0; i < 7; i++) {
+      const d = addDays(wk, i), n = (map.get(key(d)) || []).length;
+      const wdName = d.toLocaleDateString("en-AU", { weekday: "short" });
+      strip += `<button type="button" data-i="${i}" class="${n ? "work" : ""}"${i === pick ? ' aria-current="date"' : ""} aria-label="${longDay(d)}, ${n} ${n === 1 ? "item" : "items"}"><span class="wd" aria-hidden="true">${wdName}</span><b aria-hidden="true">${d.getDate()}</b><i aria-hidden="true"></i></button>`;
+    }
+    document.getElementById("strip").innerHTML = strip;
+    const d = addDays(wk, pick), items = map.get(key(d)) || [];
+    document.getElementById("dayview").innerHTML = `<h5>${longDay(d)}</h5>${items.map(it => it.kind === "run" ? runCard(it) : visitCard(it)).join("") || '<p class="empty">No visits on this day.</p>'}`;
+    const f = x => x.toLocaleDateString("en-AU", { weekday: "short", day: "numeric", month: "short" });
+    document.getElementById("wk-label").textContent = `${f(wk)} – ${f(addDays(wk, 6))}`;
+    document.getElementById("wk-prev").disabled = week === 0;
+    document.getElementById("wk-next").disabled = week === WEEKS - 1;
+  }
+
+  function renderSched() {
+    const map = schedule();
+    renderMonth(map);
+    renderPhone(map);
+    const next = joDates(document.getElementById("jo-freq").value).filter(d => d >= today).slice(0, 3).map(dm);
+    document.getElementById("sched-sum").textContent = `Jo Example's next visits: ${next.join(", ")}. Tap the run to see its stops in order.`;
+  }
+
+  document.getElementById("mgrid").addEventListener("click", e => {
+    const b = e.target.closest(".chip-r"); if (!b) return;
+    openRun = openRun === b.dataset.day ? null : b.dataset.day;
+    renderSched();
+    document.querySelector(`.chip-r[data-day="${b.dataset.day}"]`)?.focus();
+  });
+  document.getElementById("dayview").addEventListener("click", e => {
+    const b = e.target.closest(".rb"); if (!b) return;
+    const id = +b.dataset.run;
+    openCards.has(id) ? openCards.delete(id) : openCards.add(id);
+    renderSched();
+  });
+  document.getElementById("strip").addEventListener("click", e => {
+    const b = e.target.closest("button[data-i]"); if (!b) return;
+    pick = +b.dataset.i; renderSched();
+    document.querySelector(`#strip button[data-i="${pick}"]`)?.focus();
+  });
+  document.getElementById("mo-prev").addEventListener("click", () => { if (month > 0) { month--; openRun = null; renderSched(); } });
+  document.getElementById("mo-next").addEventListener("click", () => { if (month < MONTHS - 1) { month++; openRun = null; renderSched(); } });
+  document.getElementById("wk-prev").addEventListener("click", () => { if (week > 0) { week--; renderSched(); } });
+  document.getElementById("wk-next").addEventListener("click", () => { if (week < WEEKS - 1) { week++; renderSched(); } });
+  document.querySelectorAll("#jo-freq, .cad").forEach(s => s.addEventListener("change", renderSched));
+  renderSched();
+
+  /* visits: the job card, with a sped-up clock */
+  (() => {
+    const $ = id => document.getElementById(id);
+    const badge = $("jc-badge"), flash = $("jc-flash"), payable = $("jc-payable"), since = $("jc-since");
+    const start = $("jc-start"), brk = $("jc-break"), finish = $("jc-finish"), complete = $("jc-complete"), reset = $("jc-reset");
+    const ticks = [...document.querySelectorAll("#jobcard .tick")];
+    const ARRIVE = 9 * 60 + 31;
+    let state = "notStarted", worked = 0, timer = null, finishedAt = null;
+    const clock = m => { const h = Math.floor(m / 60), mm = m % 60; return `${((h + 11) % 12) + 1}:${String(mm).padStart(2, "0")} ${h < 12 ? "am" : "pm"}`; };
+    const len = m => { const h = Math.floor(m / 60), mm = m % 60; return h ? (mm ? `${h} h ${mm} min` : `${h} h`) : `${mm} min`; };
+    const round15 = m => Math.round(m / 15) * 15;
+    function summary() {
+      const p = round15(worked);
+      return worked === 0 ? "0 min so far" : `${len(p)} payable (${len(worked)} worked, rounded to the nearest 15 min)`;
+    }
+    function draw() {
+      start.hidden = state !== "notStarted";
+      brk.hidden = finish.hidden = !(state === "running" || state === "onBreak");
+      brk.textContent = state === "onBreak" ? "Back to work" : "Break";
+      complete.disabled = state === "notStarted" || state === "completed";
+      complete.hidden = state === "completed";
+      reset.hidden = state === "notStarted";
+      ticks.forEach(b => b.disabled = state === "completed");
+      payable.textContent = state === "notStarted" ? "Not started" : summary();
+      since.textContent = state === "notStarted" ? "" : state === "finished" || state === "completed" ? `Finished ${clock(finishedAt)}` : state === "onBreak" ? "On a break" : `Started ${clock(ARRIVE)}`;
+      const b = { notStarted: ["Scheduled", ""], running: ["In progress", "progress"], onBreak: ["In progress", "progress"], finished: ["In progress", "progress"], completed: ["Completed", "done"] }[state];
+      badge.textContent = b[0]; badge.className = "badge " + b[1];
+      $("jc-count").textContent = `${ticks.filter(x => x.getAttribute("aria-pressed") === "true").length} of 3 done`;
+    }
+    let breakMins = 0;
+    function run() { clearInterval(timer); timer = setInterval(() => { if (state === "running") { worked++; draw(); } else if (state === "onBreak") breakMins++; }, 500); }
+    function stop() { clearInterval(timer); timer = null; finishedAt = ARRIVE + worked + breakMins; }
+    start.addEventListener("click", () => { state = "running"; worked = 0; breakMins = 0; flash.hidden = true; run(); draw(); });
+    brk.addEventListener("click", () => { state = state === "onBreak" ? "running" : "onBreak"; draw(); });
+    finish.addEventListener("click", () => { stop(); state = "finished"; draw(); });
+    complete.addEventListener("click", () => {
+      if (state === "running" || state === "onBreak") stop();
+      state = "completed";
+      flash.hidden = false;
+      flash.textContent = "Visit completed. Draft invoice INV-1044 is ready to review.";
+      draw();
+    });
+    reset.addEventListener("click", () => { stop(); state = "notStarted"; worked = 0; flash.hidden = true; ticks.forEach(b => b.setAttribute("aria-pressed", "false")); draw(); });
+    ticks.forEach(b => b.addEventListener("click", () => { b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); draw(); }));
+    // stop the clock when the tab is left
+    document.querySelectorAll(".ptabs [role=tab]").forEach(tab => tab.addEventListener("click", () => { if (tab.id !== "t-visit" && state === "running") { state = "onBreak"; draw(); } }));
+    draw();
+  })();
+
+  /* workers' pay: last week's time review for Sam Sample */
+  (() => {
+    const $ = id => document.getElementById(id);
+    const RATE = 32, SHARE = 0.4;
+    const lastMon = addDays(mondayOf(today), -7);
+    const ENTRIES = [
+      { day: 0, who: "Jo Example, Clare", start: "08:02", finish: "09:29", price: 95 },
+      { day: 2, who: "Example Bakery, Clare", start: "09:30", finish: "10:45", price: 100 },
+      { day: 4, who: "Mock Cafe, Clare", start: "14:00", finish: "14:44", price: 60 },
+    ].map(e => ({ ...e, approved: false }));
+    let paid = false;
+    const mins = s => { const [h, m] = s.split(":").map(Number); return h * 60 + m; };
+    const len = m => { const h = Math.floor(m / 60), mm = m % 60; return h ? (mm ? `${h} h ${mm} min` : `${h} h`) : `${mm} min`; };
+    const ampm = s => { const m = mins(s), h = Math.floor(m / 60), mm = m % 60; return `${((h + 11) % 12) + 1}:${String(mm).padStart(2, "0")} ${h < 12 ? "am" : "pm"}`; };
+    const money = n => "$" + n.toFixed(2);
+    const f = d => d.toLocaleDateString("en-AU", { weekday: "short", day: "numeric", month: "short" });
+    function calc(e) {
+      const worked = mins(e.finish) - mins(e.start);
+      if (!(worked > 0)) return null;
+      const payable = Math.round(worked / 15) * 15;
+      const hourly = $("pay-basis").value === "hourly";
+      const pay = hourly ? Math.round(payable / 60 * RATE * 100) / 100 : Math.round(e.price * SHARE * 100) / 100;
+      const how = hourly ? `at $${RATE.toFixed(2)}/h` : `40% of the visit's ${money(e.price)}`;
+      return { worked, payable, pay, how };
+    }
+    function render() {
+      $("rv-week").textContent = `${f(lastMon)} – ${f(addDays(lastMon, 6))}`;
+      let total = 0, totalMins = 0, html = "", allOk = true;
+      ENTRIES.forEach((e, i) => {
+        const c = calc(e);
+        if (c) { total += c.pay; totalMins += c.payable; } else allOk = false;
+        const d = addDays(lastMon, e.day);
+        html += `<li class="entry">
+          <div class="row1"><b>${f(d)} · ${e.who}</b><span class="badge ${e.approved ? "done" : "approve"}">${e.approved ? "Approved" : "To approve"}</span></div>
+          <div class="times">
+            <label for="t${i}s">Start<input type="time" id="t${i}s" data-i="${i}" data-k="start" value="${e.start}"${e.approved ? " disabled" : ""}></label>
+            <label for="t${i}f">Finish<input type="time" id="t${i}f" data-i="${i}" data-k="finish" value="${e.finish}"${e.approved ? " disabled" : ""}></label>
+            ${e.approved ? "" : `<button type="button" class="btn btn-ghost approve-btn" data-i="${i}"${c ? "" : " disabled"}>Approve</button>`}
+          </div>
+          <p class="calc">${c ? `${len(c.payable)} payable · ${money(c.pay)} ${c.how}<small>${len(c.worked)} worked, rounded to the nearest 15 min. ${ampm(e.start)} – ${ampm(e.finish)}</small>` : "The finish must be after the start."}</p>
+        </li>`;
+      });
+      $("entries").innerHTML = html;
+      $("rv-sum").textContent = `${len(totalMins)} payable · ${money(total)} base pay`;
+      const allApproved = ENTRIES.every(e => e.approved);
+      const pay = $("rv-pay");
+      pay.textContent = paid ? `Paid ${money(total)}` : `Pay ${money(total)}`;
+      pay.disabled = paid || !allApproved || !allOk;
+      $("rv-paynote").textContent = paid ? "Recorded. Approved time is final." : allApproved ? "" : "Approve each visit's time first.";
+      $("pay-basis").disabled = paid;
+    }
+    $("entries").addEventListener("change", e => {
+      const el = e.target; if (!el.matches("input[type=time]")) return;
+      ENTRIES[+el.dataset.i][el.dataset.k] = el.value; render();
+      document.getElementById(el.id)?.focus();
+    });
+    $("entries").addEventListener("click", e => {
+      const b = e.target.closest(".approve-btn"); if (!b) return;
+      ENTRIES[+b.dataset.i].approved = true; render();
+    });
+    $("rv-pay").addEventListener("click", () => { paid = true; render(); });
+    $("pay-basis").addEventListener("change", render);
+    render();
+  })();
+
+  /* invoicing */
+  const LINES = { std: { q: 12, rate: 7.5, sur: "Includes Ladder +50%" }, lg: { q: 4, rate: 10, sur: null } };
+  const sw = id => document.getElementById(id).checked;
+  function renderDetails() {
+    document.querySelectorAll(".det").forEach(el => {
+      const l = LINES[el.dataset.line], parts = [];
+      if (sw("sw-qty")) parts.push(`× ${l.q}`);
+      if (sw("sw-rate")) parts.push(`$${l.rate.toFixed(2)} each`);
+      if (sw("sw-sur") && l.sur) parts.push(l.sur);
+      el.textContent = parts.join(" · ");
+      el.hidden = parts.length === 0;
+    });
+  }
+  ["sw-qty", "sw-rate", "sw-sur"].forEach(id => document.getElementById(id).addEventListener("change", renderDetails));
+  renderDetails();
+
+  const badge = document.getElementById("inv-badge"), flash = document.getElementById("inv-flash"),
+    primary = document.getElementById("inv-primary"), pay = document.getElementById("pay"),
+    due = document.getElementById("inv-due"), reset = document.getElementById("inv-reset");
+  const long = d => d.toLocaleDateString("en-AU", { weekday: "short", day: "numeric", month: "short" });
+  const DRAFT_DUE = due.textContent;
+  let state = "draft";
+  function setState(s) {
+    state = s;
+    badge.className = "badge" + (s === "draft" ? "" : " " + s);
+    badge.textContent = { draft: "Draft", sent: "Sent", paid: "Paid" }[s];
+    pay.hidden = true;
+    primary.hidden = s === "paid";
+    reset.hidden = s === "draft";
+    if (s === "draft") {
+      flash.textContent = "Visit completed. Draft invoice INV-1043 is ready to review.";
+      primary.textContent = "Email invoice";
+      due.textContent = DRAFT_DUE;
+    }
+    if (s === "sent") {
+      flash.textContent = "Emailed to accounts@example.com.";
+      primary.textContent = "Record payment";
+      due.textContent = `Sent ${long(today)}. Due ${long(new Date(today.getTime() + 7 * DAY))}. No GST: this business is not registered for GST, so none is charged.`;
+    }
+  }
+  primary.addEventListener("click", () => {
+    if (state === "draft") setState("sent");
+    else if (state === "sent") { pay.hidden = false; document.getElementById("pay-amt").focus(); }
+  });
+  document.getElementById("pay-save").addEventListener("click", () => {
+    const how = document.getElementById("pay-how").value;
+    setState("paid");
+    flash.textContent = `Payment of $175.00 by ${how.toLowerCase()} recorded. INV-1043 is paid.`;
+  });
+  reset.addEventListener("click", () => setState("draft"));
+})();
+</script>
