@@ -25,6 +25,8 @@ Run by the orchestrator, by the implementer before it reports, and by the review
 
 1. `pnpm build`: completes with no errors.
 2. `pnpm check`: 0 errors, 0 warnings.
+3. When a change touches `sites/panepilot/` or `packages/shared/`, the same two for that site:
+   `pnpm --filter panepilot build` and `pnpm --filter panepilot check`, once the site exists.
 
 Baseline: run these once before changing anything.
 
