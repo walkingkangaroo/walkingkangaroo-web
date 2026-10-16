@@ -38,6 +38,9 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0034](decisions/0034-newsletter-hidden-until-kit.md) | The newsletter band and the links to it are hidden until Kit is connected | Accepted |
 | [0037](decisions/0037-visit-stops-show-whole-screenshots.md) | Each stop in "How a visit goes" shows its screenshot whole, below its text | Accepted |
 | [0038](decisions/0038-hero-shows-wide-screen-and-phone-over-the-swoops.md) | The home hero shows PanePilot on a wide screen and a phone, over the swoops without the mark | Accepted |
+| [0039](decisions/0039-panepilot-site-follows-its-design-plan.md) | panepilot.au is built to its approved design plan: real screens, then five working demos | Accepted |
+| [0041](decisions/0041-panepilot-contact-address.md) | panepilot.au's contact address is hello@panepilot.au | Accepted |
+| [0042](decisions/0042-demo-seed-uses-the-sites-example-prices.md) | The demo business's price book changes to the site's example prices before the wide screenshots | Accepted |
 
 ## Platform, code and process
 
@@ -55,6 +58,8 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0033](decisions/0033-hub-goes-live-on-its-azure-address-first.md) | The hub goes live on its Azure address before the domain points at it | Accepted |
 | [0035](decisions/0035-pull-requests-get-preview-links.md) | Pull requests from this repo get a public preview link | Accepted |
 | [0036](decisions/0036-apex-uses-alias-or-an-a-record.md) | An apex domain uses an ALIAS record, or else an A record, never forwarding | Accepted |
+| [0040](decisions/0040-panepilot-site-live-on-azure-first.md) | panepilot.au's site goes live on its Azure address first, and the domain switches when sign-up ships | Accepted |
+| [0043](decisions/0043-app-front-page-sends-visitors-to-panepilot-au.md) | Once panepilot.au is live, the app's front page sends signed-out visitors there | Accepted |
 
 ## Open questions
 

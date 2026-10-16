@@ -65,5 +65,9 @@ Studios' 2017 game; Grant has confirmed it is cleared to show.
 6. **Newsletter**: Kit's free plan, its form embedded; Kit's sending records and an SPF record
    added at VentraIP. It brings the band and its links back (0034).
 
+7. **panepilot.au**: PanePilot's own site in `sites/panepilot/`, to its design plan (0039). It
+   goes live on its Azure address first and moves to panepilot.au when PanePilot's sign-up
+   ships (0040). Shaped in [rounds/panepilot-au-site.md](rounds/panepilot-au-site.md).
+
 Later: gameplay clips (0015), release pages (the "Released product page" board), Steam wishlist buttons once store
 pages exist, a press kit.

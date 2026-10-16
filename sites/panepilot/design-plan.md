@@ -5,6 +5,21 @@ moment to change (below). Nothing is built yet. Once it's approved, the build go
 through `/shape` like the hub did, and where a decision record later disagrees with this plan, the
 record wins.
 
+## Decided in the shape round, 2026-10-16
+
+Recorded in [docs/rounds/panepilot-au-site.md](../../docs/rounds/panepilot-au-site.md). Where this
+plan and a decision record disagree, the record wins.
+
+- **This plan is the design** ([0039](../../docs/decisions/0039-panepilot-site-follows-its-design-plan.md)).
+- **Going live** ([0040](../../docs/decisions/0040-panepilot-site-live-on-azure-first.md)): live on its
+  Azure address from the deploy issue on, and at panepilot.au once PanePilot's sign-up ships.
+- **Contact** ([0041](../../docs/decisions/0041-panepilot-contact-address.md)): `hello@panepilot.au`,
+  shown as `[TODO: contact address]` until Grant confirms it receives mail.
+- **Screenshot prices** ([0042](../../docs/decisions/0042-demo-seed-uses-the-sites-example-prices.md)):
+  the demo business switches to $7.50, $10.00 and Ladder +50% before the wide screenshots.
+- **The app's front page** ([0043](../../docs/decisions/0043-app-front-page-sends-visitors-to-panepilot-au.md))
+  sends signed-out visitors to panepilot.au once it's live.
+
 ## Brief
 
 - **What it is:** PanePilot's own website at `panepilot.au`. It tells window cleaners what
@@ -264,7 +279,7 @@ point (`app.panepilot.au/privacy` and `/terms`), and the footer links to them.
    in the database itself.) Can I bring my customers from Fergus or a spreadsheet? (A CSV import.)
    Do my workers pay? Does it work on my phone? (It installs to the home screen.) I'm not
    registered for GST; is that a problem? Can I cancel? What happens to my data if I stop?
-10. **Footer:** the lockup, privacy, terms, contact `[TODO: contact address]`, and the Walking
+10. **Footer:** the lockup, privacy, terms, contact `hello@panepilot.au` (0041; a placeholder until it receives mail), and the Walking
     Kangaroo signature from `packages/shared/`.
 
 `SoftwareApplication` JSON-LD with the A$49 offer, `en-AU`, Open Graph image of the wide calendar

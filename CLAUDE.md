@@ -43,6 +43,8 @@ The repo is `walkingkangaroo/walkingkangaroo-web`, one repo for the web
 
 - Rules for the hub only (brand assets, colours and tints, PanePilot's assets, type) are in
   [.claude/rules/hub.md](.claude/rules/hub.md).
+- Rules for PanePilot's own site, `sites/panepilot/` (its palette, type, assets and the demos), are in
+  [.claude/rules/panepilot-site.md](.claude/rules/panepilot-site.md), from [0039](docs/decisions/0039-panepilot-site-follows-its-design-plan.md).
 - The repo is public: no secrets, keys or unpublished plans for other projects.
 
 ## Workflow
