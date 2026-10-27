@@ -292,8 +292,9 @@ Review, and ask Grant.
    carve-out, say what was excluded, why, and which issue tracks it.
 6. **Watch for the merge**, so Grant never has to say he merged. Start
    `bash .claude/scripts/wait-for-merge.sh <number>` with `run_in_background`. It checks every
-   two minutes and exits when the PR is merged or closed, which wakes this session. **Merged:**
-   run Cleanup. **Closed without merging:** stop and ask Grant. If the session ends first, the
+   two minutes and exits when the PR is merged or closed, which wakes this session. On a merge
+   it runs the cleanup script first, so the default branch in the main checkout is already up to
+   date, and prints what that did. **Merged:** run Cleanup. **Closed without merging:** stop and ask Grant. If the session ends first, the
    `SessionStart` hook cleans up the local branch next time.
 7. **Report to Grant:** the PR link, what you looked at, the numbered checks, and anything that
    needs his decision.
@@ -320,7 +321,8 @@ deleted. Some of the cleanup may already have happened:
 
 - GitHub deletes the head branch on merge where that setting is on.
 - Linear's GitHub integration moves the issue to Done.
-- The hook may already have deleted the local branch.
+- The merge watcher or the hook may already have deleted the local branch and fast-forwarded the
+  default branch.
 
 1. **Branches.**
    - `checkout` mode:
@@ -339,6 +341,10 @@ deleted. Some of the cleanup may already have happened:
      In an app-made worktree the session itself sits in,
      `git checkout --detach origin/<default>` first so the branch can be deleted; the app removes
      that worktree.
+
+   Then, in both modes, run `bash .claude/scripts/cleanup-merged-branches.sh`. It brings the
+   default branch in the main checkout up to date without switching its branch, which nothing
+   above does in `worktree` mode. If it says the default branch was left behind, tell Grant why.
 
    If `git branch -d` refuses (squash merge), confirm the PR is merged, then use `-D`. Before
    deleting a remote branch, run `gh pr list --base <branch> --state open`: if a pull request is
