@@ -1,13 +1,14 @@
 #!/usr/bin/env bash
-# Tidies up after pull requests that merged while no session was watching them.
-# Run by the SessionStart hook in .claude/settings.json; safe to run by hand.
+# Tidies up after pull requests that merged, and brings the default branch up to date.
+# Run by the SessionStart hook in .claude/settings.json, by wait-for-merge.sh when a PR merges,
+# and by /do Cleanup; safe to run by hand.
 # Comes from process-template and is the same in every project. Don't edit it in a project.
 #
 # Reads two facts from docs/process/project.env:
 #   DEFAULT_BRANCH  main or master. Falls back to origin/HEAD, then main, then master.
 #   WORKING_COPY    checkout or worktree. Falls back to worktree, the careful mode.
 #
-# For each local feature/*, shape/* and retro/* branch whose PR is merged on GitHub:
+# For each local feature/*, shape/*, retro/* and chore/* branch whose PR is merged on GitHub:
 #   - keep it if its tip isn't exactly the commit the PR merged (there's unmerged work)
 #   - checkout mode: if it's the current branch and the tree is clean, switch to the default
 #     branch first; keep it if the tree has uncommitted changes
@@ -15,8 +16,8 @@
 #     branches and never remove a worktree
 #   - either mode: keep it if it's checked out in any worktree (a session may still be there)
 #   - otherwise delete it, and its remote branch if GitHub kept it and no open PR is based on it
-# Then fast-forward the default branch where that is safe. Prints a summary only when it did
-# something; the hook adds that to Claude's context so the session can finish the rest of the
+# Then fast-forward the default branch where that is safe, and say why when it can't. Prints a
+# summary only when it did something or something needs Grant; the hook adds that to Claude's context so the session can finish the rest of the
 # Cleanup phase.
 set -u
 
@@ -58,7 +59,7 @@ deleted=()
 kept=()
 
 for branch in $(git for-each-ref --format='%(refname:short)' \
-  'refs/heads/feature/*' 'refs/heads/shape/*' 'refs/heads/retro/*'); do
+  'refs/heads/feature/*' 'refs/heads/shape/*' 'refs/heads/retro/*' 'refs/heads/chore/*'); do
   pr=$(gh pr view "$branch" --json number,state,headRefOid \
     --jq '"\(.number) \(.state) \(.headRefOid)"' 2>/dev/null) || continue
   read -r number state head <<<"$pr"
@@ -110,8 +111,14 @@ note=""
 tree=$(git worktree list --porcelain |
   awk -v ref="branch refs/heads/$default" '/^worktree /{path=substr($0,10)} $0==ref{print path}')
 before=$(git rev-parse --short "$default" 2>/dev/null)
-if [ -z "$tree" ]; then
-  git fetch --quiet origin "$default:$default" 2>/dev/null
+# Commits on the default branch that origin doesn't have can't be fast-forwarded past. They were
+# committed straight to it, which the process never does, so leave them for Grant.
+ahead=$(git rev-list --count "origin/$default..$default" 2>/dev/null || echo 0)
+if [ "$ahead" != 0 ]; then
+  note="$default has $ahead commit(s) that origin/$default doesn't, so it was left at $before. Ask Grant whether to open a pull request for them or drop them"
+elif [ -z "$tree" ]; then
+  git fetch --quiet origin "$default:$default" 2>/dev/null ||
+    note="$default could not fast-forward to origin/$default"
 elif [ -z "$(git -C "$tree" status --porcelain --untracked-files=no)" ]; then
   git -C "$tree" merge --ff-only --quiet "origin/$default" >/dev/null 2>&1 ||
     note="$default in $tree could not fast-forward to origin/$default"
@@ -124,7 +131,7 @@ if [ -z "$note" ] && [ "$before" != "$after" ]; then
 fi
 
 if [ ${#deleted[@]} -gt 0 ] || [ ${#kept[@]} -gt 0 ] || [ -n "$note" ]; then
-  echo "Merged-PR cleanup (SessionStart hook, .claude/scripts/cleanup-merged-branches.sh):"
+  echo "Merged-PR cleanup (.claude/scripts/cleanup-merged-branches.sh):"
   [ -n "$note" ] && echo "- $note"
   for line in ${deleted[@]+"${deleted[@]}"}; do echo "- deleted local branch $line"; done
   for line in ${kept[@]+"${kept[@]}"}; do echo "- kept $line"; done
