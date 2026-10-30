@@ -94,8 +94,8 @@ fact, check it yourself: open the page, read the file, run the command.
    topic in words, create an issue in this project, in Discovery, titled `Shape: <topic>`, so the
    queue has something to show.
 3. **Understand.** Read `CLAUDE.md`, the decision index, the spec or brief, and the code the
-   topic touches. Dispatch research in parallel. Give each agent one question and ask for
-   sources.
+   topic touches. Dispatch research one agent at a time, as in `/do`. Give each agent one
+   question and ask for sources.
 4. **Write `docs/research/<slug>.md`** from [research-template.md](research-template.md): what
    exists today, two to four options with their cost and risk, what can't be known without
    building, and the sources.

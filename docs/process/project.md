@@ -57,8 +57,7 @@ Baseline: run these once before changing anything.
 
 ## Parallel rule
 
-Parallel implementers only with disjoint files; otherwise one after another. One checkout, no
-worktrees: the repo is small.
+One subagent at a time, in every project (see `/do`). One checkout, no worktrees: the repo is small.
 
 ## CI
 

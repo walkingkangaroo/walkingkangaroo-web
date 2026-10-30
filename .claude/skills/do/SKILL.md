@@ -108,9 +108,10 @@ reason in the Linear plan comment. These two rows apply in every project:
   verify. Small issues go to `implementer` on `haiku` or `sonnet`, with a short brief. The one
   exception is a fix of a few lines with no new logic, where writing the brief would cost more
   than the change: do that directly, and still run the review loop.
-- **Parallel work follows the project's parallel rule.** Where it allows more than one
-  implementer, they never share a file: state each agent's file list in its brief, and if the
-  split isn't clean, run them one after another.
+- **One subagent at a time, of any kind.** Grant's machine runs several sessions at once and
+  runs short of memory. Wait for one to finish before dispatching the next, background ones
+  included. `settings.json` caps this too, so a second dispatch fails with "Concurrent subagent
+  limit reached": wait, don't retry.
 - **Fix rounds go back to the same agent** via `SendMessage`, so it keeps its context.
 - If `implementer` or `reviewer` is missing from the agent list, tell Grant to restart the
   session (agent files only register at startup). Don't substitute a general-purpose agent.
@@ -193,7 +194,7 @@ Then check GitHub: `gh pr list --head <branch> --state all --json number,state,u
 3. **Linear → In Progress**, assignee `me`, before anything is dispatched.
 4. **Understand before planning.** Read the issue in full, `CLAUDE.md`, everything the project
    facts list under **Read before planning**, the decision records for its area, and the code it
-   touches. Use Explore agents in parallel for anything broad.
+   touches. Use Explore agents one after another for anything broad.
 5. **Sanity-check sizing.** If the real scope is far larger than the issue suggests, split it
    into two implementer runs and two commits on the same branch, and tell Grant you split it and
    why.
