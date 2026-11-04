@@ -48,6 +48,8 @@ against PanePilot's `master` and its decisions 0056 to 0062. Most held. These di
 - The demo issues (KAN-940 to KAN-944) use the app's current labels: "Complete job" and
   "Job completed. …" on the job card and invoice, "visit" on the calendar.
 - The plan's "Visits" demo tab is a copy of the job card. Whether it becomes "Jobs" is Grant's
-  call when KAN-942 is built.
+  call when KAN-942 is built. At KAN-942 (2026-11-04) he kept "Visits": the tabs name the steps
+  of the round, and a worker runs the day from "Today's visits". The card inside says
+  "Complete job".
 - When the app renames something again, the site follows, and its README's "Screens to check
   when the app changes" is where that's caught.
