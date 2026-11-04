@@ -1,7 +1,8 @@
 # Hosting and DNS
 
 What each site is hosted on and which DNS records point at it, written down when the site goes
-live. Each section also has the checks to rerun, so the next site can copy them.
+live. Each section also has the checks to rerun, so the next site can copy them. The hub is on
+its domain; PanePilot's site is on its Azure address until its domain moves.
 
 No token and no validation code is in this file. The repo is public.
 
@@ -191,3 +192,52 @@ redirects pull-request preview links
 (`jolly-bay-0fa6cd900-<PR>.eastasia.6.azurestaticapps.net`,
 [0035](decisions/0035-pull-requests-get-preview-links.md)) is not known yet. The next pull
 request that deploys a preview will show.
+
+## PanePilot's site: panepilot.au
+
+`sites/panepilot/`, on its own Azure Static Web App. It serves at the app's Azure address only:
+every merge to `main` that touches it deploys there, and the address isn't linked from anywhere.
+
+### The app
+
+| | |
+| --- | --- |
+| Service | Azure Static Web App, Free plan, in Grant's subscription |
+| App name | `panepilot-site` |
+| Default address | `https://calm-water-0d51c3900.3.azurestaticapps.net` |
+| Region | East Asia, the same as the hub |
+| Deployed by | `.github/workflows/deploy-panepilot.yml` (KAN-908) |
+| Configured by | `sites/panepilot/public/staticwebapp.config.json` |
+| Deploy token | The repo secret `AZURE_STATIC_WEB_APPS_API_TOKEN_PANEPILOT`. Only its name is here. |
+
+Decisions: [0031](decisions/0031-product-sites-on-azure-static-web-apps.md) (product sites on
+Azure, one app each), [0035](decisions/0035-pull-requests-get-preview-links.md) (preview links),
+[0040](decisions/0040-panepilot-site-live-on-azure-first.md) (live on the Azure address first).
+
+### The domain
+
+Not yet. panepilot.au and `www.panepilot.au` move to this app in the launch issue (KAN-948),
+after PanePilot's sign-up ships ([0040](decisions/0040-panepilot-site-live-on-azure-first.md)).
+That issue follows the hub's [order that worked](#the-order-that-worked) and reruns the hub's
+[checks](#the-checks) with this site's `DOMAIN` and `APP`.
+
+### The checks
+
+For Git Bash, against the Azure address.
+
+```bash
+APP=calm-water-0d51c3900.3.azurestaticapps.net
+
+# The home page serves. Expect 200.
+curl -sSI --max-time 15 https://$APP/ | grep -iE '^HTTP'
+
+# A missing path serves the site's 404 page. Expect 404.
+curl -sSI --max-time 15 https://$APP/no-such-page/ | grep -iE '^HTTP'
+
+# The three security headers. Expect nosniff, strict-origin-when-cross-origin and DENY.
+curl -sSI --max-time 15 https://$APP/ | grep -iE '^(x-content-type-options|referrer-policy|x-frame-options)'
+
+# Built assets cache for a year. Expect public, max-age=31536000, immutable.
+ASSET=$(curl -sS --max-time 15 https://$APP/ | grep -oE '/_astro/[^"]+' | head -1)
+curl -sSI --max-time 15 https://$APP$ASSET | grep -iE '^(HTTP|cache-control)'
+```
