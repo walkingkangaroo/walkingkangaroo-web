@@ -21,6 +21,22 @@
   --drawing-ridge: #C4D2D3; /* the ridges drawn on the awning */
   --drawing-smear: #C9D1CE; /* the faint smear of dust on an uncounted pane */
 
+  /* The app's status colours, named after the app's own tokens. Used only in the Scheduling demo's
+     badges and chip edges. */
+  --status-success: #15803D; /* Paid: badge text and chip edge (4.57:1 on its soft fill) */
+  --status-success-soft: #DCFCE7; /* Paid badge fill */
+  --status-success-border: #BBF7D0; /* Paid badge border */
+  --status-attention: #B45309; /* To approve: badge text and chip edge (4.51:1 on its soft fill) */
+  --status-attention-soft: #FEF3C7; /* To approve badge fill */
+  --status-attention-border: #FDE68A; /* To approve badge border */
+  --status-neutral: #475569; /* Scheduled badge text (6.72:1 on its soft fill) */
+  --status-neutral-soft: #EEF2F3; /* Scheduled badge fill */
+  --status-neutral-border: #D6DDE0; /* Scheduled chip edge, and the Scheduled badge's border */
+  --status-active: #1D4ED8; /* the Shops run's chip edge and card edge */
+
+  /* The Scheduling demo's calendar. */
+  --calendar-shade: #E9F1F1; /* the other months' days in the month view, and a hovered run chip */
+
   /* Type */
   --font-display: 'Manrope', 'Segoe UI', system-ui, sans-serif;
   --font-text: 'Geist', 'Segoe UI', system-ui, sans-serif;

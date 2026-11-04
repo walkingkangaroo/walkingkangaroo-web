@@ -53,7 +53,7 @@ in the detail.
 ## Screens to check when the app changes
 
 Each demo is a simplified copy of a part of PanePilot, so when the app's screen changes, check its demo
-still matches. Quoting is built (KAN-940); the other four follow in KAN-941 to KAN-944. This is the list they're held to.
+still matches. Quoting (KAN-940) and Scheduling (KAN-941) are built; the other three follow in KAN-942 to KAN-944. This is the list they're held to.
 
 | Demo | The app screens it copies |
 | --- | --- |

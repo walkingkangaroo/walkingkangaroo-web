@@ -1,0 +1,653 @@
+---
+// The Scheduling demo (KAN-941): choose how often Jo Example comes and how often each shop on the
+// Shops run comes, and a copy of the app's calendar fills in: the month view on wide screens, the day
+// view and its seven-day strip on phones (the switch is CSS, at 640 px).
+//
+// The calendar depends on today's date, which the build doesn't know, so none of it is written here.
+// Without JavaScript the panel shows its copy and one line saying the calendar needs a script; the
+// controls and the calendar stay hidden, so nothing reads wrongly. scheduling.ts reveals them.
+import { CADENCES, DEFAULTS, JO_FREQUENCIES, SHOPS } from '../../scripts/scheduling';
+---
+
+<div class="scheduling">
+  <div class="copy">
+    <h3>Book it in once</h3>
+    <p>
+      Set how often a customer comes and the visits fill the calendar. Shops you do together go on one
+      run, in your order, and a shop can come every run or every 2nd or 3rd run. Step through the months
+      to see it. On a phone, pick a day from the strip, as in the app.
+    </p>
+  </div>
+
+  <p class="needs-js" data-needs-js>The calendar fills in for today's date, so it needs JavaScript.</p>
+
+  <div class="sched" data-sched hidden>
+    <div class="card controls">
+      <div class="ctl jo">
+        <label for="sched-jo">Jo Example, 11 Sample Rd: how often</label>
+        <select id="sched-jo" data-jo>
+          {JO_FREQUENCIES.map((f) => <option value={f.value} selected={f.value === DEFAULTS.jo}>{f.label}</option>)}
+        </select>
+      </div>
+      <div class="run" role="group" aria-labelledby="sched-run-heading">
+        <p class="run-heading" id="sched-run-heading">Shops run, every Thursday</p>
+        {
+          SHOPS.map((shop) => (
+            <div class="ctl">
+              <label for={`sched-shop-${shop.id}`}>{shop.name} comes</label>
+              <select id={`sched-shop-${shop.id}`} data-shop={shop.id}>
+                {CADENCES.map((c) => (
+                  <option value={c.value} selected={c.value === DEFAULTS.cadence[shop.id]}>
+                    {c.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+          ))
+        }
+      </div>
+    </div>
+
+    <div class="card cal">
+      <div class="cal-bar wide-only">
+        <button type="button" class="nav" data-mo-prev aria-label="Previous month">‹</button>
+        <button type="button" class="nav" data-mo-next aria-label="Next month">›</button>
+        <h4 class="cal-title" data-mo-label data-live></h4>
+      </div>
+      <div class="month wide-only">
+        <div class="mhead" aria-hidden="true">
+          <span>Mon</span><span>Tue</span><span>Wed</span><span>Thu</span><span>Fri</span><span>Sat</span><span>Sun</span>
+        </div>
+        <div class="mgrid" data-mgrid></div>
+      </div>
+      <div class="runsheet wide-only" id="sched-runsheet" data-runsheet hidden></div>
+
+      <div class="cal-bar phone-only">
+        <button type="button" class="nav" data-wk-prev aria-label="Previous week">‹</button>
+        <button type="button" class="nav" data-wk-next aria-label="Next week">›</button>
+        <h4 class="cal-title" data-wk-label data-live></h4>
+      </div>
+      <nav class="strip phone-only" data-strip aria-label="Days this week"></nav>
+      <div class="dayview phone-only" data-dayview></div>
+
+      <p class="fine" data-sum data-live></p>
+    </div>
+  </div>
+</div>
+
+<!-- Global, and every rule under .scheduling: most of the markup is written by scheduling.ts, which
+     scoped styles can't reach. -->
+<style is:global>
+  .scheduling {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    padding-top: var(--space-2);
+  }
+
+  .scheduling .copy h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .scheduling .copy p,
+  .scheduling .needs-js {
+    margin: 0;
+    max-width: 42rem;
+    color: var(--muted);
+  }
+
+  .scheduling .sched {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    min-width: 0;
+  }
+
+  .scheduling .card {
+    min-width: 0;
+    display: grid;
+    gap: var(--space-3);
+    padding: var(--space-3);
+    background: var(--white);
+    border: 1px solid var(--frame);
+    border-radius: 12px;
+  }
+
+  @media (min-width: 641px) {
+    .scheduling .card {
+      padding: var(--space-4);
+    }
+  }
+
+  /* The controls: stacked below 900 px, one row above the calendar from 900 px. */
+  .scheduling .ctl {
+    display: grid;
+    gap: var(--space-1);
+    min-width: 0;
+    font-size: var(--text-small);
+    font-weight: 500;
+  }
+
+  .scheduling .ctl select {
+    width: 100%;
+    min-height: var(--tap);
+    padding: 0 10px;
+    border: 1px solid var(--frame);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--deep-water);
+    font: 400 1rem var(--font-text);
+  }
+
+  .scheduling .run {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-3);
+    padding-top: var(--space-3);
+    border-top: 1px solid var(--frame);
+  }
+
+  .scheduling .run-heading {
+    margin: 0;
+    font-weight: 500;
+  }
+
+  @media (min-width: 900px) {
+    .scheduling .controls {
+      grid-template-columns: minmax(0, 1fr) minmax(0, 3fr);
+      column-gap: var(--space-4);
+      align-items: end;
+    }
+
+    .scheduling .controls .jo {
+      padding-right: var(--space-4);
+      border-right: 1px solid var(--frame);
+    }
+
+    .scheduling .run {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      column-gap: 14px;
+      padding-top: 0;
+      border-top: 0;
+    }
+
+    .scheduling .run-heading {
+      grid-column: 1 / -1;
+    }
+  }
+
+  /* The calendar's bar: previous and next, then the heading. */
+  .scheduling .cal {
+    gap: 10px;
+  }
+
+  .scheduling .cal-bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .scheduling .nav {
+    flex: none;
+    width: var(--tap);
+    height: var(--tap);
+    border: 1px solid var(--frame);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--deep-water);
+    font: 500 1.2rem/1 var(--font-text);
+    cursor: pointer;
+  }
+
+  .scheduling .nav:hover:not(:disabled) {
+    background: var(--glass);
+  }
+
+  .scheduling .nav:disabled {
+    opacity: 0.45;
+    cursor: default;
+  }
+
+  .scheduling .cal-title {
+    min-width: 0;
+    margin: 0 0 0 var(--space-2);
+    font: 700 1.05rem/1.2 var(--font-display);
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The month view. Its chips are small, as in the app: pointer-sized (24 px), where the day view
+     below has the 44 px targets. */
+  .scheduling .month {
+    display: grid;
+    gap: 4px;
+  }
+
+  .scheduling .mhead {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    text-align: center;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--muted);
+  }
+
+  .scheduling .mgrid {
+    display: grid;
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 1px;
+    background: var(--frame);
+    border: 1px solid var(--frame);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  .scheduling .mcell {
+    display: grid;
+    gap: 2px;
+    align-content: start;
+    min-width: 0;
+    min-height: 6.5rem;
+    padding: 4px;
+    background: var(--white);
+  }
+
+  .scheduling .mcell.out {
+    background: var(--calendar-shade);
+  }
+
+  .scheduling .dn {
+    justify-self: start;
+    padding: 2px 4px;
+    font-size: 0.75rem;
+    font-variant-numeric: tabular-nums;
+    color: var(--deep-water);
+  }
+
+  .scheduling .mcell.out .dn {
+    color: var(--muted);
+  }
+
+  .scheduling .dn.today {
+    min-width: 22px;
+    border-radius: 999px;
+    background: var(--harbour);
+    color: var(--white);
+    text-align: center;
+    font-weight: 500;
+  }
+
+  .scheduling .chip-v,
+  .scheduling .chip-r {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    min-width: 0;
+    min-height: 24px;
+    padding: 2px 6px;
+    border: 0;
+    border-left: 2px solid var(--status-neutral-border);
+    border-radius: 3px;
+    background: none;
+    color: var(--muted);
+    font: 400 0.75rem/1.35 var(--font-text);
+    text-align: left;
+    overflow: hidden;
+  }
+
+  .scheduling .chip-v {
+    white-space: nowrap;
+  }
+
+  .scheduling .chip-v > span:first-child {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .scheduling .chip-v b {
+    color: var(--deep-water);
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .scheduling .chip-v.paid {
+    border-left-color: var(--status-success);
+  }
+
+  .scheduling .chip-v.approve {
+    border-left-color: var(--status-attention);
+  }
+
+  .scheduling .chip-r {
+    border-left-color: var(--status-active);
+    color: var(--deep-water);
+    font-weight: 500;
+    white-space: nowrap;
+    cursor: pointer;
+  }
+
+  /* The grid clips at its edge, so the focus ring sits inside the chip. */
+  .scheduling .chip-r:focus-visible {
+    outline-offset: -2px;
+  }
+
+  .scheduling .chip-r svg {
+    flex: none;
+    color: var(--muted);
+  }
+
+  /* Between 641 and 899 px a cell is too narrow for the icon and "Shops · 3"; the count matters more. */
+  @media (max-width: 899px) {
+    .scheduling .chip-r svg {
+      display: none;
+    }
+  }
+
+  .scheduling .chip-r span {
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .scheduling .chip-r:hover,
+  .scheduling .chip-r[aria-expanded='true'] {
+    background: var(--calendar-shade);
+  }
+
+  .scheduling .mcell.out .chip-r:hover,
+  .scheduling .mcell.out .chip-r[aria-expanded='true'] {
+    background: var(--white);
+  }
+
+  .scheduling .more {
+    padding: 0 6px;
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--harbour-dark);
+  }
+
+  /* A run's stops, in order: under the month grid, and inside a run card on a phone. */
+  .scheduling .runsheet {
+    display: grid;
+    gap: 4px;
+    padding: 10px 12px;
+    border: 1px solid var(--frame);
+    border-left: 4px solid var(--status-active);
+    border-radius: 10px;
+  }
+
+  .scheduling .runsheet h4 {
+    margin: 0;
+    font: 500 0.95rem/1.3 var(--font-text);
+  }
+
+  .scheduling .runsheet p {
+    margin: 0;
+    font-size: 0.85rem;
+    color: var(--muted);
+  }
+
+  .scheduling .stops {
+    margin: 4px 0 0;
+    padding: 0;
+    list-style: none;
+    border-top: 1px solid var(--frame);
+  }
+
+  .scheduling .stops li {
+    display: grid;
+    grid-template-columns: auto minmax(0, 1fr);
+    gap: 0 8px;
+    padding: 5px 0;
+    border-bottom: 1px solid var(--frame);
+    font-size: 0.8rem;
+  }
+
+  .scheduling .stops li b {
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* The day view: the strip, then the chosen day's cards. */
+  .scheduling .strip {
+    grid-template-columns: repeat(7, minmax(0, 1fr));
+    gap: 3px; /* seven days at 390 px stay at least 44 px wide */
+  }
+
+  .scheduling .strip button {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 2px;
+    min-height: 56px;
+    padding: 0;
+    border: 1px solid var(--frame);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--deep-water);
+    font: 400 0.875rem var(--font-text);
+    cursor: pointer;
+  }
+
+  .scheduling .strip .wd {
+    font-size: 0.75rem;
+    color: var(--muted);
+  }
+
+  .scheduling .strip b {
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .scheduling .strip i {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: transparent;
+  }
+
+  .scheduling .strip .work i {
+    background: var(--harbour);
+  }
+
+  .scheduling .strip button[aria-current='date'] {
+    border-color: var(--harbour);
+    background: var(--harbour);
+    color: var(--white);
+  }
+
+  .scheduling .strip button[aria-current='date'] .wd {
+    color: var(--white);
+  }
+
+  .scheduling .strip button[aria-current='date'].work i {
+    background: var(--white);
+  }
+
+  .scheduling .dayview {
+    display: grid;
+    gap: 8px;
+    align-content: start;
+    min-width: 0;
+  }
+
+  .scheduling .dayview h4 {
+    margin: 0;
+    font: 500 0.95rem/1.3 var(--font-text);
+    color: var(--muted);
+  }
+
+  .scheduling .dayview .empty {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .scheduling .vc,
+  .scheduling .rb {
+    display: grid;
+    gap: 2px;
+    min-width: 0;
+    padding: 8px 10px;
+    border: 1px solid var(--frame);
+    border-radius: 10px;
+    background: var(--white);
+  }
+
+  .scheduling .vc .top {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    column-gap: 6px;
+  }
+
+  .scheduling .vc .time {
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+  }
+
+  .scheduling .vc .dur {
+    font-size: 0.75rem;
+    color: var(--muted);
+    white-space: nowrap;
+  }
+
+  .scheduling .vc .who {
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .scheduling .vc .where,
+  .scheduling .crew {
+    font-size: 0.8rem;
+    color: var(--muted);
+  }
+
+  .scheduling .crew {
+    margin-top: 4px;
+  }
+
+  /* The app's badges: a soft fill and border, with the status colour as text. */
+  .scheduling .badge {
+    justify-self: start;
+    margin-top: 4px;
+    padding: 1px 8px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .scheduling .badge.scheduled {
+    border-color: var(--status-neutral-border);
+    background: var(--status-neutral-soft);
+    color: var(--status-neutral);
+  }
+
+  .scheduling .badge.paid {
+    border-color: var(--status-success-border);
+    background: var(--status-success-soft);
+    color: var(--status-success);
+  }
+
+  .scheduling .badge.approve {
+    border-color: var(--status-attention-border);
+    background: var(--status-attention-soft);
+    color: var(--status-attention);
+  }
+
+  /* The run's card: its head is the button, so the whole head is the tap target. */
+  .scheduling .rb {
+    padding: 0;
+    border-left: 4px solid var(--status-active);
+  }
+
+  .scheduling .rb-head {
+    display: grid;
+    gap: 2px;
+    min-height: var(--tap);
+    padding: 8px 10px;
+    border: 0;
+    border-radius: 10px;
+    background: none;
+    color: inherit;
+    font: inherit;
+    text-align: left;
+    cursor: pointer;
+  }
+
+  .scheduling .rb-head .top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 6px;
+  }
+
+  .scheduling .rb-head .name {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.9rem;
+    font-weight: 500;
+  }
+
+  .scheduling .rb-head .name svg {
+    flex: none;
+  }
+
+  .scheduling .rb-head .meta {
+    font-size: 0.8rem;
+  }
+
+  .scheduling .rb-head .chev {
+    flex: none;
+    color: var(--muted);
+    transition: transform 0.2s ease;
+  }
+
+  .scheduling .rb-head[aria-expanded='true'] .chev {
+    transform: rotate(180deg);
+  }
+
+  .scheduling .rb .stops {
+    margin: 0 10px 8px;
+  }
+
+  .scheduling .fine {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  /* Wide screens (over 640 px) get the month view, phones (640 px and narrower) the day view. */
+  .scheduling .phone-only {
+    display: none;
+  }
+
+  @media (max-width: 640px) {
+    .scheduling .wide-only {
+      display: none;
+    }
+
+    .scheduling .phone-only {
+      display: grid;
+    }
+
+    .scheduling .cal-bar.phone-only {
+      display: flex;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .scheduling .rb-head .chev {
+      transition: none;
+    }
+  }
+
+  /* Last, so it beats the display rules above. */
+  .scheduling [hidden] {
+    display: none;
+  }
+</style>
