@@ -1,0 +1,37 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { site } from '../data/site';
+
+const title = 'PanePilot: quoting, scheduling and invoicing for window cleaners';
+const description =
+  "Count the panes once. PanePilot books the round, runs each visit on your phone, invoices it and works out your workers' pay. Made for Australian window cleaners.";
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: site.name,
+  url: site.url,
+  description,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Any device with a web browser',
+  inLanguage: 'en-AU',
+  offers: {
+    '@type': 'Offer',
+    price: String(site.price.amount),
+    priceCurrency: site.price.currency,
+    description: `${site.trialDays} days free, then ${site.price.display} a month, no GST`,
+    url: site.trialUrl,
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: String(site.price.amount),
+      priceCurrency: site.price.currency,
+      unitText: 'MONTH',
+    },
+  },
+};
+---
+
+<BaseLayout title={title} description={description}>
+  <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+  {/* The next issue adds the hero, the five demos and the other sections here. */}
+</BaseLayout>

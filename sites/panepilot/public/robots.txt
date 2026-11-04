@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://panepilot.au/sitemap-index.xml

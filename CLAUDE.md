@@ -23,6 +23,7 @@ pnpm install    # one pnpm-lock.yaml, at the root
 pnpm build      # astro build into sites/hub/dist/
 pnpm check      # astro check of the hub
 pnpm dev        # local preview on http://localhost:4321
+pnpm panepilot:build   # the same for PanePilot's site (also panepilot:check, panepilot:dev)
 ```
 
 ## Layout
