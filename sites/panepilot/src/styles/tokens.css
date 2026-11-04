@@ -1,0 +1,43 @@
+/* Design tokens (design-plan.md, decision 0039). The only file in the site that writes a hex
+   value: components use these names. Small teal text is --harbour-dark, never --harbour. */
+:root {
+  /* Palette: PanePilot's Harbour palette, taken from the app's tokens. */
+  --glass: #F4F8F8; /* page background */
+  --deep-water: #0B2F33; /* text, linework, the pricing band */
+  --harbour: #0E7C86; /* the one primary button; large text only (4.62:1 on Glass) */
+  --harbour-dark: #07646C; /* primary hover, links and small teal text on Glass */
+  --muted: #52696D; /* secondary text */
+  --mint: #E6FFFB; /* text on Deep Water, the fill of a counted pane */
+  --frame: #D3DFE0; /* hairlines, screenshot borders */
+  --white: #FFFFFF; /* the quote card and screenshot frames */
+  --link-on-deep-water: #63B3BC; /* links in the pricing band, 5.93:1 on Deep Water */
+
+  /* Type */
+  --font-display: 'Manrope', 'Segoe UI', system-ui, sans-serif;
+  --font-text: 'Geist', 'Segoe UI', system-ui, sans-serif;
+  --text-display: clamp(2.5rem, 6vw, 4rem);
+  --text-h2: 2.25rem;
+  --text-h3: 1.4rem;
+  --text-body: 1.0625rem; /* 17 px */
+  --text-small: 0.875rem;
+  --leading-body: 1.6;
+  --leading-heading: 1.1;
+  --tracking-display: -0.03em; /* headings at 40 px and up */
+
+  /* Spacing */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+
+  /* Layout */
+  --page-max: 1200px;
+  --gutter: clamp(16px, 4vw, 36px);
+  --radius: 10px;
+  --tap: 44px; /* minimum height of anything tappable */
+}

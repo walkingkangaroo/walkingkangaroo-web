@@ -1,0 +1,144 @@
+@import './tokens.css';
+@import './fonts.css';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--glass);
+  color: var(--deep-water);
+  font-family: var(--font-text);
+  font-weight: 400;
+  font-size: var(--text-body);
+  line-height: var(--leading-body);
+}
+
+main {
+  flex: 1 0 auto;
+}
+
+/* Content width: 1200 px at most, 16 px gutters on a phone. Use on any block in the page column. */
+.container {
+  max-width: var(--page-max);
+  margin: 0 auto;
+  padding-inline: var(--gutter);
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--font-display);
+  font-weight: 800;
+  line-height: var(--leading-heading);
+  margin: 0 0 0.5em;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: var(--text-display);
+}
+
+h2 {
+  font-size: var(--text-h2);
+}
+
+h3 {
+  font-size: var(--text-h3);
+  font-weight: 700;
+}
+
+/* Tracking -3% on headings at 40 px and up: the display size only (h2 is 36 px). */
+h1 {
+  letter-spacing: var(--tracking-display);
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+a {
+  color: var(--harbour-dark);
+  text-underline-offset: 3px;
+}
+
+:focus-visible {
+  outline: 3px solid var(--harbour);
+  outline-offset: 2px;
+}
+
+small {
+  font-size: var(--text-small);
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+/* Buttons: one filled primary, 44 px tall at least. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--tap);
+  padding: 0 18px;
+  border: 0;
+  border-radius: var(--radius);
+  font: 500 1rem/1 var(--font-text);
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.btn-primary {
+  background: var(--harbour);
+  color: var(--white);
+}
+
+.btn-primary:hover {
+  background: var(--harbour-dark);
+  color: var(--white);
+}
+
+.btn-small {
+  font-size: 0.95rem;
+  padding: 0 14px;
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+.skip-link {
+  position: absolute;
+  left: var(--space-2);
+  top: var(--space-2);
+  z-index: 10;
+  padding: var(--space-2) var(--space-4);
+  background: var(--white);
+  border-radius: var(--radius);
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}

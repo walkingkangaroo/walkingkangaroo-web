@@ -1,0 +1,92 @@
+---
+import { site } from '../data/site';
+---
+
+<header class="site-header">
+  <nav class="container site-header__inner" aria-label="Main">
+    <a class="site-header__logo" href="/">
+      <img src="/brand/logo-horizontal.svg" width="129" height="30" alt="PanePilot" />
+    </a>
+    <ul class="site-header__links">
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#pricing">Pricing</a></li>
+      <li><a href="#questions">Questions</a></li>
+    </ul>
+    <a class="site-header__signin" href={site.signInUrl}>Sign in</a>
+    <a class="btn btn-primary btn-small site-header__trial" href={site.trialUrl}>Start your free trial</a>
+  </nav>
+</header>
+
+<style>
+  .site-header {
+    background: var(--white);
+    border-bottom: 1px solid var(--frame);
+  }
+
+  .site-header__inner {
+    display: flex;
+    align-items: center;
+    gap: var(--space-5);
+    padding-block: var(--space-4);
+  }
+
+  .site-header__logo {
+    display: block;
+    line-height: 0;
+  }
+
+  .site-header__logo img {
+    display: block;
+    height: 30px;
+    width: auto;
+  }
+
+  .site-header__links {
+    display: flex;
+    gap: var(--space-4);
+    list-style: none;
+    margin: 0 0 0 auto;
+    padding: 0;
+    font-size: 0.95rem;
+    font-weight: 500;
+  }
+
+  .site-header__links a,
+  .site-header__signin {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+
+  .site-header__links a {
+    color: var(--deep-water);
+    text-decoration: none;
+  }
+
+  .site-header__links a:hover {
+    text-decoration: underline;
+  }
+
+  .site-header__signin {
+    color: var(--harbour-dark);
+    font-size: 0.95rem;
+    font-weight: 500;
+    text-decoration: none;
+  }
+
+  .site-header__signin:hover {
+    text-decoration: underline;
+  }
+
+  /* At 760 px and narrower: the lockup and "Sign in" only. */
+  @media (max-width: 760px) {
+    .site-header__links,
+    .site-header__trial {
+      display: none;
+    }
+
+    .site-header__signin {
+      margin-left: auto;
+    }
+  }
+</style>

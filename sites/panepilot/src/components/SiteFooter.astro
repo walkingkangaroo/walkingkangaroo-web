@@ -1,0 +1,101 @@
+---
+import WkSignature from '@walkingkangaroo/shared/WkSignature.astro';
+import { site } from '../data/site';
+---
+
+<footer class="site-footer">
+  <div class="container site-footer__inner">
+    <a class="site-footer__logo" href="/">
+      <img src="/brand/logo-horizontal.svg" width="129" height="30" alt="PanePilot" />
+    </a>
+    <div class="site-footer__info">
+      <ul class="site-footer__links">
+        <li><a href={site.privacyUrl}>Privacy</a></li>
+        <li><a href={site.termsUrl}>Terms</a></li>
+      </ul>
+      <p class="site-footer__contact">Contact: {site.contact}</p>
+    </div>
+    <WkSignature variant="primary" class="site-footer__signature" />
+  </div>
+</footer>
+
+<style>
+  .site-footer {
+    border-top: 1px solid var(--frame);
+  }
+
+  /* Desktop: lockup left, links and contact in the middle, the signature right, on one row.
+     760 px and narrower (so 390 px): one left-aligned column in the same order. */
+  .site-footer__inner {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    padding-block: var(--space-6);
+  }
+
+  .site-footer__logo {
+    display: block;
+    line-height: 0;
+  }
+
+  .site-footer__logo img {
+    display: block;
+    height: 30px;
+    width: auto;
+  }
+
+  .site-footer__info {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-1) var(--space-5);
+  }
+
+  .site-footer__links {
+    display: flex;
+    gap: var(--space-5);
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    font-size: var(--text-small);
+    font-weight: 500;
+  }
+
+  .site-footer__links a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+
+  .site-footer__contact {
+    margin: 0;
+    font-size: var(--text-small);
+    color: var(--muted);
+  }
+
+  /* The signature keeps a foot of clear space (about 17 px) around the logo. The negative margin
+     lines the logo itself up with the page edge. */
+  .site-footer :global(.site-footer__signature) {
+    margin-inline-end: -17px;
+  }
+
+  @media (max-width: 760px) {
+    .site-footer__inner {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: var(--space-4);
+    }
+
+    .site-footer__info {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .site-footer :global(.site-footer__signature) {
+      margin-inline-end: 0;
+      margin-inline-start: -16px;
+    }
+  }
+</style>

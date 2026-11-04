@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="PanePilot">
+  <title>PanePilot</title>
+  <defs>
+    <clipPath id="tile"><rect width="64" height="64" rx="16"/></clipPath>
+  </defs>
+  <g clip-path="url(#tile)">
+    <rect width="64" height="64" fill="#0e7c86"/>
+    <path d="M0 0H64V4C54 26 26 54 4 64H0Z" fill="#4d9ea5"/>
+    <path d="M66 2C54 26 26 54 2 66" fill="none" stroke="#e6fffb" stroke-width="7"/>
+  </g>
+</svg>
