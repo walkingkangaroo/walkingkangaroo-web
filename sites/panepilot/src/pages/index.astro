@@ -1,6 +1,15 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import Hero from '../components/Hero.astro';
+import HowSection from '../components/HowSection.astro';
+import MadeFor from '../components/MadeFor.astro';
+import Workers from '../components/Workers.astro';
+import Story from '../components/Story.astro';
+import Pricing from '../components/Pricing.astro';
+import NotYet from '../components/NotYet.astro';
+import Questions from '../components/Questions.astro';
 import { site } from '../data/site';
+import { offer } from '../data/offer';
 
 const title = 'PanePilot: quoting, scheduling and invoicing for window cleaners';
 const description =
@@ -17,14 +26,14 @@ const jsonLd = {
   inLanguage: 'en-AU',
   offers: {
     '@type': 'Offer',
-    price: String(site.price.amount),
-    priceCurrency: site.price.currency,
-    description: `${site.trialDays} days free, then ${site.price.display} a month, no GST`,
+    price: String(offer.price),
+    priceCurrency: offer.currency,
+    description: offer.schemaDescription,
     url: site.trialUrl,
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
-      price: String(site.price.amount),
-      priceCurrency: site.price.currency,
+      price: String(offer.price),
+      priceCurrency: offer.currency,
       unitText: 'MONTH',
     },
   },
@@ -33,5 +42,13 @@ const jsonLd = {
 
 <BaseLayout title={title} description={description}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
-  {/* The next issue adds the hero, the five demos and the other sections here. */}
+  <Hero />
+  {/* KAN-940 to KAN-944 put the five tabs and their demos in this section's slot. */}
+  <HowSection />
+  <MadeFor />
+  <Workers />
+  <Story />
+  <Pricing />
+  <NotYet />
+  <Questions />
 </BaseLayout>

@@ -1,0 +1,66 @@
+---
+// A plain browser frame around one screen: three dots and an address, no tilt, no shadow, and
+// nothing drawn over the content. The address is decoration, so it's hidden from screen readers.
+interface Props {
+  /** The address shown in the bar, e.g. "app.panepilot.au/calendar". */
+  address: string;
+  class?: string;
+}
+
+const { address, class: className } = Astro.props;
+---
+
+<figure class:list={['browser', className]}>
+  <div class="browser__bar" aria-hidden="true">
+    <i></i><i></i><i></i><span>{address}</span>
+  </div>
+  <slot />
+</figure>
+
+<style>
+  .browser {
+    margin: 0;
+    min-width: 0;
+    border: 1px solid var(--frame);
+    border-radius: var(--radius);
+    overflow: hidden;
+    background: var(--white);
+  }
+
+  .browser__bar {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: var(--space-2) 10px;
+    border-bottom: 1px solid var(--frame);
+    background: var(--glass);
+  }
+
+  .browser__bar i {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: var(--frame);
+  }
+
+  .browser__bar span {
+    flex: 1;
+    min-width: 0;
+    margin-left: var(--space-2);
+    padding: 2px 10px;
+    overflow: hidden;
+    border-radius: 6px;
+    background: var(--white);
+    color: var(--muted);
+    font-size: 0.75rem;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+  }
+
+  /* 760 px and narrower: dots only, no address. */
+  @media (max-width: 760px) {
+    .browser__bar span {
+      display: none;
+    }
+  }
+</style>

@@ -1,4 +1,5 @@
-// Facts the pages share. Pricing and the links to the app read from here so a change is one edit.
+// Facts the pages share: the links to the app and the contact line. The price and the trial are in
+// offer.ts.
 
 export const APP_URL = 'https://app.panepilot.au';
 
@@ -12,12 +13,4 @@ export const site = {
   termsUrl: `${APP_URL}/terms`,
   /** Decision 0041: the launch issue swaps this for hello@panepilot.au once it receives mail. */
   contact: '[TODO: contact address]',
-  price: {
-    /** Whole dollars a month, no GST. */
-    amount: 49,
-    currency: 'AUD',
-    /** How the price is written on the page. */
-    display: 'A$49',
-  },
-  trialDays: 30,
 } as const;

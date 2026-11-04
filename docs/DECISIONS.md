@@ -41,6 +41,7 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0039](decisions/0039-panepilot-site-follows-its-design-plan.md) | panepilot.au is built to its approved design plan: real screens, then five working demos | Accepted |
 | [0041](decisions/0041-panepilot-contact-address.md) | panepilot.au's contact address is hello@panepilot.au | Accepted |
 | [0042](decisions/0042-demo-seed-uses-the-sites-example-prices.md) | The demo business's price book changes to the site's example prices before the wide screenshots | Accepted |
+| [0044](decisions/0044-panepilot-site-says-job-like-the-app.md) | panepilot.au says "job" and "visit" as the app does, and claims only what the app does; amends 0039's plan | Accepted |
 
 ## Platform, code and process
 
