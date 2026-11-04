@@ -17,6 +17,8 @@ plan and a decision record disagree, the record wins.
   shown as `[TODO: contact address]` until Grant confirms it receives mail.
 - **Screenshot prices** ([0042](../../docs/decisions/0042-demo-seed-uses-the-sites-example-prices.md)):
   the demo business switches to $7.50, $10.00 and Ladder +50% before the wide screenshots.
+- **"Job", like the app** ([0044](../../docs/decisions/0044-panepilot-site-says-job-like-the-app.md)):
+  the site says "job" and "visit" as the app does, and claims only what the app or its decisions 0056 to 0062 support (2026-11-04).
 - **The app's front page** ([0043](../../docs/decisions/0043-app-front-page-sends-visitors-to-panepilot-au.md))
   sends signed-out visitors to panepilot.au once it's live.
 
@@ -87,9 +89,9 @@ listed in the site's README as a screen to check when the app changes.
 | --- | --- | --- |
 | Quoting | Starts with nothing quoted. Adds Standard pane and Large pane from the price book (a new line starts at a count of 1, each with a remove button), changes Count and Each, and taps the Ladder chip; a two-storey shop comes up clean pane by pane | The quote line editor: Add from the price book, Count, Each, surcharge chips, remove, "Includes Ladder +50% · $22.50." |
 | Scheduling | Picks how often Jo Example comes (Weekly, Fortnightly, Every 4 weeks, Monthly on a date, Every 3 months) and whether each shop on the Shops run comes every run, every 2nd or every 3rd run, then steps through 12 weeks on a copy of the app's calendar. Wider screens get the app's month view: Mon to Sun, the other months' days shaded, today in a teal disc, up to three chips a day ("8:00 am Jo Example" with a status-coloured left edge) then "+N more", and the run as one chip with its shop count that shows its stops in order. Earlier weeks show as Paid, earlier this week as To approve, the rest as Scheduled. Two fixed demo customers (Demo Motel weekly, Chris Test every 4 weeks) fill out the month | Recurring services (the editor's frequency options), runs (0019 to 0024) and the calendar's month view, day view, week strip, visit card and run block |
-| Visits | A copy of the job card for Example Bakery: address, access, parking and hazard notes; Start, then Break and Finish, with a sped-up clock (a minute every half second) showing "1 h 15 min payable (1 h 10 min worked, rounded to the nearest 15 min)"; tick the checklist ("1 of 3 done"); Complete visit raises "Draft invoice INV-1044 is ready to review." The badge goes Scheduled, In progress, Completed | The job card, the time-on-site card and its buttons, the checklist, completing a visit |
-| Invoicing | Reads "Visit completed. Draft invoice INV-1043 is ready to review.", turns the Pane count, Price each and Surcharge note switches on and off, taps Email invoice (Draft to Sent, due in 7 days), then Record payment and Save payment by bank transfer or cash (Paid) | Draft on completion, the invoice's primary action, line details (0027, 0028), payments |
-| Workers' pay | A copy of Time review for Sam Sample's last week: three visits with Start and Finish times to correct, each showing payable time rounded to 15 minutes and its pay; switch between By the hour ($32.00/h) and A share of the visit (40%); Approve each (then its times lock), and Pay $112.00 once all are approved | Time review, 15-minute rounding, hourly or share pay, approval, approved time is final |
+| Visits | A copy of the job card for Example Bakery: address, access, parking and hazard notes; Start, then Break and Finish, with a sped-up clock (a minute every half second) showing "1 h 15 min payable (1 h 10 min worked, rounded to the nearest 15 min)"; tick the checklist ("1 of 3 done"); Complete job raises "Draft invoice INV-1044 is ready to review." The badge goes Scheduled, In progress, Completed | The job card, the time-on-site card and its buttons, the checklist, completing a visit |
+| Invoicing | Reads "Job completed. Draft invoice INV-1043 is ready to review.", turns the Pane count, Price each and Surcharge note switches on and off, taps Email invoice (Draft to Sent, due in 7 days), then Record payment and Save payment by bank transfer or cash (Paid) | Draft on completion, the invoice's primary action, line details (0027, 0028), payments |
+| Workers' pay | A copy of Time review for Sam Sample's last week: three jobs with Start and Finish times to correct, each showing payable time rounded to 15 minutes and its pay; switch between By the hour ($32.00/h) and A share of the invoice (40%); Approve each (then its times lock), and Pay $112.00 once all are approved | Time review, 15-minute rounding, hourly or share pay, approval, approved time is final |
 
 ### Quoting, in detail
 
@@ -237,8 +239,10 @@ The screenshots sit flat in plain browser frames: no tilt, no shadow, no floatin
 
 ## Voice
 
-Plain, specific and Australian, in the language of the round: visit, pane, run, round, invoice.
-Never "job", "appointment" or "solution". It talks to the owner ("you", "your round"), and the
+Plain, specific and Australian, in the language of the round: job, pane, run, round, invoice.
+"Job" and "visit" as the app splits them ([0044](../../docs/decisions/0044-panepilot-site-says-job-like-the-app.md)):
+a job is quoted, completed and invoiced, and a visit is its booking on the calendar;
+never "appointment" or "solution". It talks to the owner ("you", "your round"), and the
 "Built by a window cleaner" section is first person plural, as on the app's home page today. No
 claims we can't show.
 
@@ -260,12 +264,13 @@ point (`app.panepilot.au/privacy` and `/terms`), and the footer links to them.
 4. **Made for window cleaning:** the things the generic tools don't do, each one line with no
    picture. Per-pane price book with your own surcharges (ladder, roof, buildup), which stack on
    any line. Runs of shops with a stop order and every 2nd or 3rd run. Every n weeks or months.
-   Reminders before a visit, for customers who like to be asked first. Access, parking and hazard
+   For customers who like to be asked first, a "due for a clean" email you check and send, which
+   they answer with Book it or Not this time (0044). Access, parking and hazard
    notes on the job card. A glass-scratch acknowledgement customers sign by typed name. Invoices
    labelled "Invoice" with no GST line, for a business that isn't registered.
 5. **Your workers:** one short paragraph beside the Workers' pay tab's subject. Workers sign in
-   with their own Google or Microsoft account or an emailed code, see only their own visits and
-   time, and see their estimated pay. No extra cost per worker.
+   with their own Google or Microsoft account or an emailed code, see only their own jobs and
+   time, and see their pay, marked not final until approved. No extra cost per worker.
 6. **Built by a window cleaner:** the story, in Grant's words (Claude drafts, Grant rewrites),
    naming Clare Valley Window Cleaning as the business that built it and runs on it. No photo.
 7. **Pricing** (the Deep Water band): one plan, A$49 a month, no GST, unlimited workers, every
