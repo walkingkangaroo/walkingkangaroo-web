@@ -1,0 +1,148 @@
+---
+// The five tabs under "Try each step of the round": Quoting, Scheduling, Visits, Invoicing and
+// Workers' pay, in the order of the round. The ARIA tabs pattern is in src/scripts/tabs.ts.
+//
+// Adding a demo (KAN-941 to KAN-944) is one entry in TABS plus its own script file. The entry
+// gets the demo component (`demo: Scheduling`) and the script's name (`script: 'scheduling'`, for
+// src/scripts/scheduling.ts, which exports init(panel)). The loaders are found by name, so
+// nothing else changes. Until a tab has a demo, its panel says "Coming soon".
+import Quoting from './Quoting.astro';
+
+interface Tab {
+  id: string;
+  label: string;
+  demo?: typeof Quoting;
+  /** The demo's script in src/scripts/ (no extension), loaded the first time the tab is shown. */
+  script?: string;
+}
+
+const TABS: Tab[] = [
+  { id: 'quote', label: 'Quoting', demo: Quoting, script: 'quoting' },
+  { id: 'schedule', label: 'Scheduling' },
+  { id: 'visits', label: 'Visits' },
+  { id: 'invoicing', label: 'Invoicing' },
+  { id: 'pay', label: "Workers' pay" },
+];
+---
+
+<div class="tabs" data-tabs>
+  <!-- Hidden until tabs.ts runs: without JavaScript every panel shows in turn instead. tabs.ts
+       also adds each panel's role and aria-labelledby, so without it no tab panels are announced. -->
+  <div class="tablist" role="tablist" aria-label="Steps of the round" hidden>
+    {
+      TABS.map((tab, i) => (
+        <button
+          type="button"
+          role="tab"
+          class="tab"
+          id={`tab-${tab.id}`}
+          data-tab={tab.id}
+          data-script={tab.script}
+          aria-controls={`panel-${tab.id}`}
+          aria-selected={i === 0 ? 'true' : 'false'}
+          tabindex={i === 0 ? 0 : -1}
+        >
+          {tab.label}
+        </button>
+      ))
+    }
+  </div>
+
+  {
+    TABS.map((tab) => {
+      const Demo = tab.demo;
+      return (
+        <div class="panel" id={`panel-${tab.id}`}>
+          {Demo ? (
+            <Demo />
+          ) : (
+            <div class="soon">
+              <h3>{tab.label}</h3>
+              <p>Coming soon</p>
+            </div>
+          )}
+        </div>
+      );
+    })
+  }
+</div>
+
+<script>
+  import { initTabs, type Demo } from '../../scripts/tabs';
+
+  // Every demo script in src/scripts/ except tabs.ts itself. Each is its own lazily loaded chunk,
+  // fetched the first time its tab is shown.
+  initTabs(import.meta.glob<Demo>(['../../scripts/*.ts', '!../../scripts/tabs.ts']));
+</script>
+
+<style>
+  .tabs {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+  }
+
+  /* The tab row. It scrolls sideways inside itself, with no scrollbar. */
+  .tablist {
+    display: flex;
+    gap: 6px;
+    overflow-x: auto;
+    scrollbar-width: none;
+    border-bottom: 1px solid var(--frame);
+  }
+
+  .tablist[hidden] {
+    display: none;
+  }
+
+  .tablist::-webkit-scrollbar {
+    display: none;
+  }
+
+  .tab {
+    flex: none;
+    min-height: var(--tap);
+    padding: 0 14px;
+    border: 0;
+    border-bottom: 3px solid transparent;
+    background: none;
+    color: var(--muted);
+    font: 500 1rem var(--font-text);
+    cursor: pointer;
+  }
+
+  .tab:hover {
+    color: var(--deep-water);
+  }
+
+  .tab[aria-selected='true'] {
+    color: var(--harbour-dark);
+    border-bottom-color: var(--harbour);
+  }
+
+  /* The row clips its children, so the focus ring sits inside the tab instead of outside it. */
+  .tab:focus-visible {
+    outline-offset: -3px;
+  }
+
+  .panel[hidden] {
+    display: none;
+  }
+
+  .soon h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .soon p {
+    margin: 0;
+    color: var(--muted);
+  }
+
+  /* 640 px and narrower: the row runs edge to edge and swipes sideways. */
+  @media (max-width: 640px) {
+    .tablist {
+      margin-inline: calc(-1 * var(--gutter));
+      padding-inline: var(--gutter);
+    }
+  }
+</style>

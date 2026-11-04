@@ -7,10 +7,19 @@
   --harbour: #0E7C86; /* the one primary button; large text only (4.62:1 on Glass) */
   --harbour-dark: #07646C; /* primary hover, links and small teal text on Glass */
   --muted: #52696D; /* secondary text */
-  --mint: #E6FFFB; /* text on Deep Water, the fill of a counted pane */
+  --mint: #E6FFFB; /* text on Deep Water */
   --frame: #D3DFE0; /* hairlines, screenshot borders */
   --white: #FFFFFF; /* the quote card and screenshot frames */
   --link-on-deep-water: #63B3BC; /* links in the pricing band, 5.93:1 on Deep Water */
+
+  /* The shop drawing in the Quoting demo (design-plan.md, "Quoting, in detail"). */
+  --pane-clean: #D9F2F5; /* a counted pane, and a pressed surcharge chip */
+  --pane-dusty: #E1E6E4; /* an uncounted pane */
+  --drawing-wall: #FBFCFA; /* the shop's front wall */
+  --drawing-trim: #EEF1ED; /* the cornice, the gable and the plinth under each downstairs window */
+  --drawing-awning: #EEF3F3; /* the corrugated awning over the downstairs */
+  --drawing-ridge: #C4D2D3; /* the ridges drawn on the awning */
+  --drawing-smear: #C9D1CE; /* the faint smear of dust on an uncounted pane */
 
   /* Type */
   --font-display: 'Manrope', 'Segoe UI', system-ui, sans-serif;
