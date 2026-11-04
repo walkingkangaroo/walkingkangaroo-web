@@ -1,0 +1,532 @@
+---
+// The Workers' pay demo (KAN-944): copy above or beside a copy of the app's Time review for Sam
+// Sample's last week. The visitor corrects a time, sees the 15-minute rounding, approves the entries
+// and pays what is approved. Written in the starting state for visitors without JavaScript: three
+// entries awaiting approval, paid by the hour, and no dates (the build does not know today, so each
+// entry says just "Mon", "Wed" or "Fri" and there is no week range). workers-pay.ts takes it from there.
+//
+// Words for Grant to check or rewrite (0014), not the app's:
+// - the panel copy (heading and paragraph) below;
+// - "Sam Sample's $32.00 an hour and 40% of the invoice are example figures.", the line under the radios;
+// - "The finish must be after the start.", which the app has no words for (it reads an earlier finish
+//   as a night shift), in workers-pay.ts;
+// - the buttons' accessible names, "Approve N entries for Sam Sample's week" and "Pay $X to Sam Sample
+//   for the week". The app's are "Approve Sam Sample's N entries for the week" and "Pay Sam Sample $X
+//   for the week", which do not start with the visible words ("Approve N entries", "Pay $X"), so a
+//   voice-control user saying the visible label would not match. Each of these starts with them.
+// Everything else on the card is the app's own words (workers/time/page.tsx, EditTimes and pay-fields.tsx).
+//
+// The demo simplifies the app's Time review: one worker, one week (no Previous week, This week or Next
+// week), no confirm sheet on Approve or Pay, and Pay marks the entries paid instead of making a
+// payment batch. No bonuses or deductions, no break field, no delete, and no status icons on the badges.
+import {
+  BASES,
+  BASIS_LEGEND,
+  CORRECT_INTRO,
+  CORRECT_LABEL,
+  DESCRIPTION,
+  ENTRIES,
+  EXAMPLE_FIGURES,
+  REASON_HINT,
+  REASON_LABEL,
+  RULE,
+  SAVE_LABEL,
+  START_BASIS,
+  TITLE,
+  WORKER,
+  approveAllAria,
+  approveAllText,
+  approveAria,
+  badgeFor,
+  basisLine,
+  entryTitle,
+  payLine,
+  summaryText,
+  timeValue,
+  timesText,
+} from '../../scripts/workers-pay';
+
+const entries = ENTRIES.map((e) => ({ ...e }));
+const count = entries.length;
+---
+
+<div class="workerspay">
+  <div class="copy">
+    <!-- Draft words for Grant to rewrite. -->
+    <h3>Pay your workers what they worked</h3>
+    <p>
+      Workers log their time against each visit, and you check it here. Correct a time before you approve
+      it; once approved it's final. Pay is by the hour, or a share of the invoice, and payable time is
+      rounded to the nearest 15 minutes.
+    </p>
+    <fieldset class="ctl" aria-describedby="pay-example">
+      <legend>{BASIS_LEGEND}</legend>
+      <div class="how">
+        {
+          BASES.map((b) => (
+            <label>
+              <input type="radio" name="pay-basis" value={b.value} checked={b.value === START_BASIS} />
+              {b.label}
+            </label>
+          ))
+        }
+      </div>
+      <!-- Draft words for Grant to rewrite. -->
+      <p class="fine" id="pay-example">{EXAMPLE_FIGURES}</p>
+    </fieldset>
+  </div>
+
+  <div class="review">
+    <div class="top">
+      <h4>{TITLE}</h4>
+      <p class="fine">{DESCRIPTION}</p>
+      <p class="range" data-range hidden></p>
+    </div>
+
+    <section class="card" aria-labelledby="pay-worker">
+      <div class="who">
+        <div class="name">
+          <h5 id="pay-worker">{WORKER}</h5>
+          <p class="sum" data-sum tabindex="-1">{summaryText(entries, START_BASIS)}</p>
+        </div>
+        <div class="actions" data-actions>
+          <button type="button" class="btn secondary" data-approve-all aria-label={approveAllAria(count)}>
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+            <span data-label>{approveAllText(count)}</span>
+          </button>
+          <button type="button" class="btn secondary" data-pay hidden>
+            <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="20" height="12" x="2" y="6" rx="2"></rect><circle cx="12" cy="12" r="2"></circle><path d="M6 12h.01M18 12h.01"></path></svg>
+            <span data-label>Pay $0.00</span>
+          </button>
+        </div>
+      </div>
+
+      <ul class="entries">
+        {
+          entries.map((e) => {
+            const badge = badgeFor(e.status);
+            const basis = basisLine(e, START_BASIS);
+            return (
+              <li class="entry" data-entry={e.id}>
+                <div class="row1">
+                  <div class="when">
+                    <p class="title" data-title tabindex="-1">{entryTitle(e, null)}</p>
+                    <p class="times" data-times>{timesText(e)}</p>
+                  </div>
+                  <span class={`badge ${badge.kind}`} data-badge>{badge.label}</span>
+                </div>
+
+                <p class="payline" data-payline>{payLine(e, START_BASIS)}</p>
+                <p class="basis" data-basis-line hidden={basis === ''}>{basis}</p>
+
+                <div class="entry-actions">
+                  <button type="button" class="btn secondary" data-approve aria-label={approveAria(e, null)}>
+                    <svg aria-hidden="true" viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><path d="m9 12 2 2 4-4"></path></svg>
+                    Approve
+                  </button>
+
+                  <details class="edit" data-edit>
+                    <summary>{CORRECT_LABEL}</summary>
+                    <!-- method="dialog" so that, without JavaScript, Save times does nothing at all. -->
+                    <form method="dialog" novalidate data-form>
+                      <p class="fine">{CORRECT_INTRO}</p>
+                      <div class="two">
+                        <div class="field">
+                          <label for={`pay-${e.id}-start`}>Start</label>
+                          <input
+                            type="time"
+                            id={`pay-${e.id}-start`}
+                            data-start
+                            value={timeValue(e.start)}
+                            aria-describedby={`pay-${e.id}-start-error`}
+                          />
+                          <p class="error" id={`pay-${e.id}-start-error`} data-error="start" hidden></p>
+                        </div>
+                        <div class="field">
+                          <label for={`pay-${e.id}-finish`}>Finish</label>
+                          <input
+                            type="time"
+                            id={`pay-${e.id}-finish`}
+                            data-finish
+                            value={timeValue(e.finish)}
+                            aria-describedby={`pay-${e.id}-finish-error`}
+                          />
+                          <p class="error" id={`pay-${e.id}-finish-error`} data-error="finish" hidden></p>
+                        </div>
+                      </div>
+                      <div class="field">
+                        <label for={`pay-${e.id}-reason`}>{REASON_LABEL}</label>
+                        <input
+                          type="text"
+                          id={`pay-${e.id}-reason`}
+                          data-reason
+                          autocomplete="off"
+                          aria-describedby={`pay-${e.id}-reason-hint pay-${e.id}-reason-error`}
+                        />
+                        <p class="fine" id={`pay-${e.id}-reason-hint`}>{REASON_HINT}</p>
+                        <p class="error" id={`pay-${e.id}-reason-error`} data-error="reason" hidden></p>
+                      </div>
+                      <button type="submit" class="btn btn-primary">{SAVE_LABEL}</button>
+                    </form>
+                  </details>
+                </div>
+              </li>
+            );
+          })
+        }
+      </ul>
+    </section>
+
+    <p class="rule">{RULE}</p>
+
+    <div class="bar">
+      <button type="button" class="btn secondary" data-reset hidden>Start again</button>
+    </div>
+  </div>
+
+  <!-- Told when something is approved, saved or paid, when the pay changes and on Start again. The
+       card's own lines are not the live region, so the same words are not read twice. -->
+  <div class="visually-hidden" data-announce data-live aria-atomic="true"></div>
+</div>
+
+<style>
+  /* Phone and tablet: one column, the copy above the card. */
+  .workerspay {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-4);
+    padding-top: var(--space-2);
+  }
+
+  .copy h3 {
+    margin-bottom: var(--space-2);
+  }
+
+  .copy > p {
+    margin: 0 0 var(--space-3);
+    max-width: 40rem;
+    color: var(--muted);
+  }
+
+  /* 1100 px and wider there is room for the copy on the left, as in the Quoting tab. The announcer
+     is out of the flow, so the two columns hold the copy and the card. */
+  @media (min-width: 1100px) {
+    .workerspay {
+      grid-template-columns: minmax(0, 17rem) minmax(0, 1fr);
+      gap: var(--space-6);
+      align-items: start;
+    }
+  }
+
+  /* The radios for how Sam Sample is paid. */
+  .ctl {
+    display: grid;
+    gap: var(--space-2);
+    min-width: 0;
+    max-width: 22rem;
+    margin: 0;
+    padding: 0;
+    border: 0;
+  }
+
+  .ctl legend {
+    padding: 0;
+    margin-bottom: var(--space-2);
+    font-size: var(--text-small);
+    font-weight: 500;
+  }
+
+  .how {
+    display: grid;
+    gap: var(--space-2);
+  }
+
+  .how label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-height: var(--tap);
+    padding: 0 12px;
+    border: 1px solid var(--frame);
+    border-radius: 8px;
+    background: var(--white);
+    font-size: 0.95rem;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .how label:hover {
+    background: var(--glass);
+  }
+
+  .how label:has(:checked) {
+    border-color: var(--harbour);
+  }
+
+  .how input {
+    flex: none;
+    width: 20px;
+    height: 20px;
+    margin: 0;
+    accent-color: var(--harbour);
+  }
+
+  .fine {
+    margin: 0;
+    font-size: 0.8rem;
+    line-height: 1.45;
+    color: var(--muted);
+  }
+
+  /* The review, as the app draws it: never wider than 520 px. */
+  .review {
+    display: grid;
+    gap: var(--space-3);
+    justify-self: start;
+    width: 100%;
+    max-width: 520px;
+    min-width: 0;
+    overflow-wrap: break-word;
+  }
+
+  .review h4,
+  .review h5 {
+    margin: 0;
+    font-family: var(--font-text);
+    font-weight: 500;
+    line-height: 1.3;
+    letter-spacing: normal;
+  }
+
+  .review h4 {
+    font-size: 1.15rem;
+  }
+
+  .review h5 {
+    font-size: 1.05rem;
+  }
+
+  .top {
+    display: grid;
+    gap: var(--space-1);
+  }
+
+  .range {
+    margin: var(--space-1) 0 0;
+    font-weight: 500;
+  }
+
+  .card {
+    display: grid;
+    gap: var(--space-3);
+    min-width: 0;
+    padding: var(--space-4);
+    background: var(--white);
+    border: 1px solid var(--frame);
+    border-radius: 12px;
+  }
+
+  .who {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-3);
+  }
+
+  .name {
+    min-width: 0;
+  }
+
+  .sum {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+    font-variant-numeric: tabular-nums;
+  }
+
+  .actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  [hidden] {
+    display: none;
+  }
+
+  .btn {
+    gap: 8px;
+  }
+
+  .btn svg {
+    flex: none;
+  }
+
+  .secondary {
+    border: 1px solid var(--frame);
+    background: var(--white);
+    color: var(--deep-water);
+  }
+
+  .secondary:hover {
+    background: var(--glass);
+  }
+
+  /* The entries, one under the other with a rule between them. */
+  .entries {
+    display: grid;
+    margin: 0;
+    padding: 0;
+    list-style: none;
+  }
+
+  .entry {
+    display: grid;
+    gap: var(--space-2);
+    padding: var(--space-3) 0;
+    border-top: 1px solid var(--frame);
+    font-size: 0.9rem;
+    font-variant-numeric: tabular-nums;
+  }
+
+  .entry:first-child {
+    padding-top: 0;
+    border-top: 0;
+  }
+
+  .entry:last-child {
+    padding-bottom: 0;
+  }
+
+  .entry p {
+    margin: 0;
+  }
+
+  .row1 {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-2);
+  }
+
+  .when {
+    min-width: 0;
+  }
+
+  .title {
+    font-weight: 500;
+  }
+
+  .times,
+  .basis {
+    color: var(--muted);
+  }
+
+  /* The app's badges: a soft fill and border, with the status colour as text. */
+  .badge {
+    flex: none;
+    padding: 1px 8px;
+    border: 1px solid transparent;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 500;
+  }
+
+  .badge.attention {
+    border-color: var(--status-attention-border);
+    background: var(--status-attention-soft);
+    color: var(--status-attention);
+  }
+
+  .badge.success {
+    border-color: var(--status-success-border);
+    background: var(--status-success-soft);
+    color: var(--status-success);
+  }
+
+  .entry-actions {
+    display: grid;
+    gap: var(--space-2);
+    justify-items: start;
+  }
+
+  /* The correction, folded away until it is wanted, as in the app. */
+  .edit {
+    width: 100%;
+    border: 1px solid var(--frame);
+    border-radius: 8px;
+  }
+
+  .edit summary {
+    display: flex;
+    align-items: center;
+    min-height: var(--tap);
+    padding: 0 12px;
+    font-weight: 500;
+    cursor: pointer;
+  }
+
+  .edit form {
+    display: grid;
+    gap: var(--space-3);
+    padding: 0 12px 12px;
+  }
+
+  .two {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: var(--space-3);
+  }
+
+  .field {
+    display: grid;
+    gap: var(--space-1);
+    min-width: 0;
+    align-content: start;
+  }
+
+  .field label {
+    font-weight: 500;
+  }
+
+  .field input {
+    box-sizing: border-box;
+    width: 100%;
+    min-width: 0;
+    min-height: var(--tap);
+    padding: 0 10px;
+    border: 1px solid var(--frame);
+    border-radius: 8px;
+    background: var(--white);
+    color: var(--deep-water);
+    font: 400 1rem var(--font-text);
+  }
+
+  .field input[aria-invalid='true'] {
+    border-color: var(--status-problem);
+  }
+
+  /* A form error is red, as in the app (field.tsx). */
+  .error {
+    color: var(--status-problem);
+    font-weight: 500;
+  }
+
+  .edit .btn {
+    justify-self: start;
+  }
+
+  .rule {
+    margin: 0;
+    font-size: 0.9rem;
+    color: var(--muted);
+  }
+
+  .bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+</style>

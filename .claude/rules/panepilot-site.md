@@ -12,7 +12,7 @@ paths: ["sites/panepilot/**"]
   - Muted `#52696D`, Mint `#E6FFFB`, Frame `#D3DFE0`, and white.
 
   Small teal text is Harbour Dark, never Harbour. The app's status colours appear only in the
-  demos' badges and chip edges, as the app uses them.
+  demos' badges, chip edges and form errors, as the app uses them.
 - Type: Manrope 700 and 800 for headings, Geist 400 and 500 for everything else. Both are
   self-hosted from Fontsource, Latin subset.
 - PanePilot's lockup, mark and favicons are copied unchanged from `C:\dev\panepilot\public\brand\`.

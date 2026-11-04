@@ -5,11 +5,13 @@
 // Adding a demo (KAN-941 to KAN-944) is one entry in TABS plus its own script file. The entry
 // gets the demo component (`demo: Scheduling`) and the script's name (`script: 'scheduling'`, for
 // src/scripts/scheduling.ts, which exports init(panel)). The loaders are found by name, so
-// nothing else changes. Until a tab has a demo, its panel says "Coming soon".
+// nothing else changes. A tab with no demo entry still gets a panel that says "Coming soon" (all
+// five tabs have a demo now).
 import Quoting from './Quoting.astro';
 import Scheduling from './Scheduling.astro';
 import Visits from './Visits.astro';
 import Invoicing from './Invoicing.astro';
+import WorkersPay from './WorkersPay.astro';
 
 interface Tab {
   id: string;
@@ -24,7 +26,7 @@ const TABS: Tab[] = [
   { id: 'schedule', label: 'Scheduling', demo: Scheduling, script: 'scheduling' },
   { id: 'visits', label: 'Visits', demo: Visits, script: 'visits' },
   { id: 'invoicing', label: 'Invoicing', demo: Invoicing, script: 'invoicing' },
-  { id: 'pay', label: "Workers' pay" },
+  { id: 'pay', label: "Workers' pay", demo: WorkersPay, script: 'workers-pay' },
 ];
 ---
 
