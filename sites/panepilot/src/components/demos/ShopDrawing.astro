@@ -1,0 +1,242 @@
+---
+// The Quoting demo's drawing: a two-storey shop, Example Bakery. It is one image that only follows
+// the quote lines, never a control (decision 0039). quoting.ts adds `lit` to the first n panes of a
+// kind, in the order they are written here, and `on` to the ladder.
+//
+// Downstairs: two display windows of 2 large panes each. Upstairs: four sash windows of 2 standard
+// panes each, which is the ladder work. Drawn from prototype-shop.svg.
+interface Props {
+  /** How many standard panes start clean (the no-JavaScript state). */
+  standard?: number;
+  /** How many large panes start clean. */
+  large?: number;
+  /** Whether the ladder starts leaning on the awning. */
+  ladder?: boolean;
+}
+
+const { standard = 0, large = 0, ladder = false } = Astro.props;
+
+const r = (n: number) => Math.round(n * 100) / 100;
+
+// A pane's smear and glint, placed in proportion to its size. `n` counts the panes of one kind in
+// the order they are drawn, which is the order they light.
+const drawn = { standard: 0, large: 0 };
+function pane(kind: 'standard' | 'large', x: number, y: number, w: number, h: number) {
+  return {
+    n: drawn[kind]++,
+    x,
+    y,
+    w,
+    h,
+    smear: `M${r(x + w * 0.2)} ${r(y + h * 0.7)} q${r(w * 0.25)} ${r(-h * 0.18)} ${r(w * 0.55)} ${r(-h * 0.05)}`,
+    glint: { x1: r(x + w * 0.22), y1: r(y + h * 0.42), x2: r(x + w * 0.48), y2: r(y + h * 0.16) },
+  };
+}
+
+// Each window is its frame plus its panes, panes in the order they light.
+const upstairs = [167, 288, 408, 529].map((x) => ({
+  frame: { x, y: 70, w: 64, h: 96 },
+  divider: { x1: x, y1: 118, x2: x + 64, y2: 118 },
+  panes: [pane('standard', x, 70, 64, 48), pane('standard', x, 118, 64, 48)],
+}));
+const downstairs = [134, 446].map((x) => ({
+  frame: { x, y: 226, w: 180, h: 88 },
+  divider: { x1: x + 90, y1: 226, x2: x + 90, y2: 314 },
+  panes: [pane('large', x, 226, 90, 88), pane('large', x + 90, 226, 90, 88)],
+}));
+
+// The ladder: two rails leaning on the awning and eight rungs between them.
+const rungs = Array.from({ length: 8 }, (_, i) => {
+  const k = i + 1;
+  const y = 330 - (130 / 9) * k;
+  const x1 = 92 + (20 / 9) * k;
+  return { x1: r(x1), x2: r(x1 + 16), y: r(y) };
+});
+
+---
+
+<svg
+  class="drawing"
+  viewBox="14 0 732 342"
+  role="img"
+  aria-label="A two-storey shop called Example Bakery, with large display windows downstairs and four sash windows upstairs. Its windows come up clean as the counts in the quote lines go up."
+>
+  <defs>
+    <pattern id="shop-ridges" width="11" height="10" patternUnits="userSpaceOnUse">
+      <line class="ridge" x1="0.5" y1="0" x2="0.5" y2="10"></line>
+    </pattern>
+  </defs>
+  <g class="line-art">
+    <rect class="wall" x="110" y="40" width="540" height="290"></rect>
+    <rect class="trim" x="100" y="26" width="560" height="18"></rect>
+    <polygon class="trim" points="330,26 380,6 430,26"></polygon>
+    <rect class="white" x="161" y="166" width="76" height="6"></rect>
+    <rect class="white" x="282" y="166" width="76" height="6"></rect>
+    <rect class="white" x="402" y="166" width="76" height="6"></rect>
+    <rect class="white" x="523" y="166" width="76" height="6"></rect>
+    <rect class="white" x="150" y="178" width="460" height="18"></rect>
+    <text class="sign" x="380" y="192" text-anchor="middle">Example Bakery</text>
+    <rect class="awning" x="90" y="196" width="580" height="14"></rect>
+    <rect class="ridges" x="90" y="196" width="580" height="14"></rect>
+    <rect class="white" x="350" y="226" width="60" height="104"></rect>
+    <rect class="thin" x="358" y="236" width="44" height="38"></rect>
+    <rect class="thin" x="358" y="282" width="44" height="40"></rect>
+    <circle class="knob" cx="398" cy="280" r="2.5"></circle>
+    <rect class="trim" x="134" y="314" width="180" height="16"></rect>
+    <rect class="trim" x="446" y="314" width="180" height="16"></rect>
+    <line x1="20" y1="330" x2="740" y2="330"></line>
+  </g>
+
+  {
+    upstairs.map((w) => (
+      <>
+        {w.panes.map((p) => (
+          <g class:list={['p', { lit: p.n < standard }]} data-kind="standard">
+            <rect class="pane" x={p.x} y={p.y} width={p.w} height={p.h} />
+            <path class="smear" d={p.smear} />
+            <line class="glint" x1={p.glint.x1} y1={p.glint.y1} x2={p.glint.x2} y2={p.glint.y2} />
+          </g>
+        ))}
+        <g class="frame">
+          <rect x={w.frame.x} y={w.frame.y} width={w.frame.w} height={w.frame.h} />
+          <line x1={w.divider.x1} y1={w.divider.y1} x2={w.divider.x2} y2={w.divider.y2} />
+        </g>
+      </>
+    ))
+  }
+  {
+    downstairs.map((w) => (
+      <>
+        {w.panes.map((p) => (
+          <g class:list={['p', { lit: p.n < large }]} data-kind="large">
+            <rect class="pane" x={p.x} y={p.y} width={p.w} height={p.h} />
+            <path class="smear" d={p.smear} />
+            <line class="glint" x1={p.glint.x1} y1={p.glint.y1} x2={p.glint.x2} y2={p.glint.y2} />
+          </g>
+        ))}
+        <g class="frame">
+          <rect x={w.frame.x} y={w.frame.y} width={w.frame.w} height={w.frame.h} />
+          <line x1={w.divider.x1} y1={w.divider.y1} x2={w.divider.x2} y2={w.divider.y2} />
+        </g>
+      </>
+    ))
+  }
+
+  <g class:list={['ladder', { on: ladder }]} data-ladder>
+    <line x1="92" y1="330" x2="112" y2="200"></line>
+    <line x1="108" y1="330" x2="128" y2="200"></line>
+    {rungs.map((rung) => <line x1={rung.x1} y1={rung.y} x2={rung.x2} y2={rung.y} />)}
+  </g>
+</svg>
+
+<style>
+  .drawing {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* The shop's linework: Deep Water, 2 px. */
+  .line-art,
+  .frame,
+  .ladder {
+    stroke: var(--deep-water);
+    stroke-width: 2;
+    stroke-linejoin: round;
+    stroke-linecap: round;
+    fill: none;
+  }
+
+  .wall {
+    fill: var(--drawing-wall);
+  }
+
+  .trim {
+    fill: var(--drawing-trim);
+  }
+
+  .white {
+    fill: var(--white);
+  }
+
+  .awning {
+    fill: var(--drawing-awning);
+  }
+
+  .ridges {
+    fill: url(#shop-ridges);
+    stroke: none;
+  }
+
+  .ridge {
+    stroke: var(--drawing-ridge);
+    stroke-width: 1.2;
+  }
+
+  .thin {
+    stroke-width: 1.4;
+  }
+
+  .knob {
+    fill: var(--deep-water);
+  }
+
+  .sign {
+    stroke: none;
+    fill: var(--deep-water);
+    font: 500 13px var(--font-text);
+  }
+
+  /* Panes: dusty until counted, then clean with a white glint. */
+  .p .pane {
+    fill: var(--pane-dusty);
+    stroke: none;
+    transition: fill 0.25s ease;
+  }
+
+  .p .smear {
+    stroke: var(--drawing-smear);
+    stroke-width: 1.5;
+    fill: none;
+    transition: opacity 0.25s ease;
+  }
+
+  .p .glint {
+    stroke: var(--white);
+    stroke-width: 3;
+    stroke-linecap: round;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .p.lit .pane {
+    fill: var(--pane-clean);
+  }
+
+  .p.lit .smear {
+    opacity: 0;
+  }
+
+  .p.lit .glint {
+    opacity: 0.95;
+  }
+
+  .ladder {
+    stroke-width: 2.5;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+  }
+
+  .ladder.on {
+    opacity: 1;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .p .pane,
+    .p .smear,
+    .p .glint,
+    .ladder {
+      transition: none;
+    }
+  }
+</style>

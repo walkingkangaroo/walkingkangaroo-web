@@ -139,7 +139,9 @@ one product. One mood, light, with one deep band for pricing.
 | `--harbour` | `#0E7C86` | The one primary button, the active nav item, counted window frames |
 | `--harbour-dark` | `#07646C` | Primary hover, links on Glass |
 | `--muted` | `#52696D` | Secondary text |
-| `--mint` | `#E6FFFB` | Text on Deep Water, and the fill of a counted pane |
+| `--mint` | `#E6FFFB` | Text on Deep Water |
+| `--pane-clean` | `#D9F2F5` | The fill of a counted pane, and a pressed surcharge chip (the prototype's, kept by KAN-940) |
+| `--pane-dusty` | `#E1E6E4` | The fill of an uncounted pane, with a faint smear |
 | `--frame` | `#D3DFE0` | Hairlines, screenshot borders, uncounted window frames |
 
 Plus white `#FFFFFF` for the quote card and screenshot frames, as in the app.
@@ -320,8 +322,8 @@ Changed after the check:
   screenshots or the one drawing.
 - **No stats row and no testimonials.** There are no numbers or quotes to show, and the reference
   sites' versions are the parts that read least true. Proof is the story and the real app.
-- **No gradients, droplets or sparkles.** Clean glass is shown as a flat mint fill in a drawn
-  frame.
+- **No gradients, droplets or sparkles.** Clean glass is shown as a flat pale-teal fill
+  (`--pane-clean`) in a drawn frame.
 - **The hero's screenshots are flat and real.** A wide-screen hero is where a tilted, floating
   dashboard usually creeps in. These sit square in plain browser frames, at their real
   proportions, with nothing drawn over them.

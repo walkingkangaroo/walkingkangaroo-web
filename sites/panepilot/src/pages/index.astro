@@ -2,6 +2,7 @@
 import BaseLayout from '../layouts/BaseLayout.astro';
 import Hero from '../components/Hero.astro';
 import HowSection from '../components/HowSection.astro';
+import ProcessTabs from '../components/demos/ProcessTabs.astro';
 import MadeFor from '../components/MadeFor.astro';
 import Workers from '../components/Workers.astro';
 import Story from '../components/Story.astro';
@@ -43,8 +44,7 @@ const jsonLd = {
 <BaseLayout title={title} description={description}>
   <script slot="head" type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
   <Hero />
-  {/* KAN-940 to KAN-944 put the five tabs and their demos in this section's slot. */}
-  <HowSection />
+  <HowSection><ProcessTabs /></HowSection>
   <MadeFor />
   <Workers />
   <Story />
