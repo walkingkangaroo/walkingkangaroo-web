@@ -21,14 +21,16 @@
   --drawing-ridge: #C4D2D3; /* the ridges drawn on the awning */
   --drawing-smear: #C9D1CE; /* the faint smear of dust on an uncounted pane */
 
-  /* The app's status colours, named after the app's own tokens. Used only in the Scheduling and
-     Visits demos: badges, chip edges, and the job card's hazard, ticks and completion message. */
+  /* The app's status colours, named after the app's own tokens. Used only in the demos: badges, chip
+     edges, the job card's hazard, ticks and completion messages (Scheduling, Visits, Invoicing and
+     Workers' pay), and the Workers' pay form's errors. */
   --status-success: #15803D; /* Paid: badge text and chip edge (4.57:1 on its soft fill) */
   --status-success-soft: #DCFCE7; /* Paid badge fill */
   --status-success-border: #BBF7D0; /* Paid badge border */
   --status-attention: #B45309; /* To approve: badge text and chip edge (4.51:1 on its soft fill) */
   --status-attention-soft: #FEF3C7; /* To approve badge fill */
   --status-attention-border: #FDE68A; /* To approve badge border */
+  --status-problem: #B91C1C; /* form errors in the Workers' pay demo: the message and the field's edge */
   --status-neutral: #475569; /* Scheduled badge text (6.72:1 on its soft fill) */
   --status-neutral-soft: #EEF2F3; /* Scheduled badge fill */
   --status-neutral-border: #D6DDE0; /* Scheduled chip edge, and the Scheduled badge's border */
