@@ -7,6 +7,7 @@
 // src/scripts/scheduling.ts, which exports init(panel)). The loaders are found by name, so
 // nothing else changes. Until a tab has a demo, its panel says "Coming soon".
 import Quoting from './Quoting.astro';
+import Scheduling from './Scheduling.astro';
 
 interface Tab {
   id: string;
@@ -18,7 +19,7 @@ interface Tab {
 
 const TABS: Tab[] = [
   { id: 'quote', label: 'Quoting', demo: Quoting, script: 'quoting' },
-  { id: 'schedule', label: 'Scheduling' },
+  { id: 'schedule', label: 'Scheduling', demo: Scheduling, script: 'scheduling' },
   { id: 'visits', label: 'Visits' },
   { id: 'invoicing', label: 'Invoicing' },
   { id: 'pay', label: "Workers' pay" },

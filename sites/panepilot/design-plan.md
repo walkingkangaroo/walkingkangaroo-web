@@ -156,8 +156,8 @@ Plus white `#FFFFFF` for the quote card and screenshot frames, as in the app.
 | `#63B3BC` on Deep Water | 5.93:1 | Links in the pricing band (the app's dark-mode link teal) |
 
 Harbour on Glass is 4.62:1, so it's fine for large text but never for small text; small teal text
-uses Harbour Dark. The app's status colours (amber, green and so on) appear only inside
-screenshots, never in the site's CSS.
+uses Harbour Dark. The app's status colours (amber, green and so on) appear only in screenshots
+and in the demos' badges and chip edges, as the app uses them. They are the `--status-*` tokens.
 
 ## Type
 
