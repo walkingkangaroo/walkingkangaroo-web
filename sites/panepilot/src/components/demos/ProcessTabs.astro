@@ -9,6 +9,7 @@
 import Quoting from './Quoting.astro';
 import Scheduling from './Scheduling.astro';
 import Visits from './Visits.astro';
+import Invoicing from './Invoicing.astro';
 
 interface Tab {
   id: string;
@@ -22,7 +23,7 @@ const TABS: Tab[] = [
   { id: 'quote', label: 'Quoting', demo: Quoting, script: 'quoting' },
   { id: 'schedule', label: 'Scheduling', demo: Scheduling, script: 'scheduling' },
   { id: 'visits', label: 'Visits', demo: Visits, script: 'visits' },
-  { id: 'invoicing', label: 'Invoicing' },
+  { id: 'invoicing', label: 'Invoicing', demo: Invoicing, script: 'invoicing' },
   { id: 'pay', label: "Workers' pay" },
 ];
 ---

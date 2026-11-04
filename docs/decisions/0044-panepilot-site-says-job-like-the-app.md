@@ -51,5 +51,10 @@ against PanePilot's `master` and its decisions 0056 to 0062. Most held. These di
   call when KAN-942 is built. At KAN-942 (2026-11-04) he kept "Visits": the tabs name the steps
   of the round, and a worker runs the day from "Today's visits". The card inside says
   "Complete job".
+- At KAN-943 (2026-11-04) the plan's Invoicing words had drifted from the app's invoice screen,
+  and Grant chose the app's. The words are now "What customers see on each line", the Record
+  payment form's "How did they pay?" (Bank transfer or Cash) and its "Record payment" button, the
+  Dates list ("Issued", "Due"), and the app's GST sentence. A recorded payment is listed under
+  Payments, as in the app, with no "Payment of … recorded" message, which the app doesn't show.
 - When the app renames something again, the site follows, and its README's "Screens to check
   when the app changes" is where that's caught.

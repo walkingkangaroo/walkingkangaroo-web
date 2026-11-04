@@ -53,14 +53,14 @@ in the detail.
 ## Screens to check when the app changes
 
 Each demo is a simplified copy of a part of PanePilot, so when the app's screen changes, check its demo
-still matches. Quoting (KAN-940), Scheduling (KAN-941) and Visits (KAN-942) are built; the other two follow in KAN-943 and KAN-944. This is the list they're held to.
+still matches. Quoting (KAN-940), Scheduling (KAN-941), Visits (KAN-942) and Invoicing (KAN-943) are built; Workers' pay follows in KAN-944. This is the list they're held to.
 
 | Demo | The app screens it copies |
 | --- | --- |
 | Quoting | The quote line editor: Add from the price book, Count, Each, surcharge chips, remove, "Includes Ladder +50%" |
 | Scheduling | The editor's frequency options for recurring services; runs; the calendar's month view, day view, week strip, visit card and run block |
 | Visits | The job card, the time-on-site card and its buttons and payable line, the checklist, "Complete job" and its message |
-| Invoicing | The draft invoice on completion, the invoice's primary action, line details, payments |
+| Invoicing | The invoice screen: the draft from "Complete job", its badge, the one filled button ("Email invoice", then "Record payment"), the Dates list (Issued, Due), the GST line, the Record payment form ("How did they pay?"), the Payments card; the line details switches ("What customers see on each line") |
 | Workers' pay | Time review: 15-minute rounding, hourly or share pay, approval, approved time is final |
 
 The hero's screenshots are the same kind of check: recapture them from the demo business when the
