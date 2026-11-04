@@ -1,0 +1,87 @@
+---
+import { offer } from '../data/offer';
+import { site } from '../data/site';
+
+// Native <details>, so every answer opens without JavaScript. The contact address is not mentioned
+// here (decision 0041): the footer has it. An answer is a list of parts: plain text, or a link.
+const questions = [
+  {
+    q: 'Where is my data kept?',
+    a: [
+      "In Australia. The app, the database, your files and the backups are in Microsoft's Australia East region, and each business is kept separate in the database itself. Sign-in and address lookup go through Microsoft and Google, which may handle your email address, or an address being looked up, outside Australia.",
+    ],
+  },
+  {
+    q: 'Can I bring my customers from Fergus or a spreadsheet?',
+    a: ["Yes. Bring them in from a CSV exported from Fergus or a spreadsheet. You match the columns and check every row before anything's saved."],
+  },
+  {
+    q: 'Do my workers pay?',
+    a: ["No. There's no extra cost per worker, and they sign in free."],
+  },
+  {
+    q: 'Does it work on my phone?',
+    a: ["Yes. It runs in your phone's browser and installs to your home screen. It isn't in the app stores yet."],
+  },
+  {
+    q: "I'm not registered for GST. Is that a problem?",
+    a: [
+      `No. While you're not registered, invoices are headed "Invoice" with no GST line. ${offer.gstNote} on PanePilot's ${offer.priceLine}.`,
+    ],
+  },
+  {
+    q: 'Can I cancel?',
+    a: ['Yes. Cancel online any time, from your subscription page.'],
+  },
+  {
+    q: 'What happens to my data if I stop?',
+    a: [
+      'If your trial or subscription lapses, your business locks rather than being deleted. You can still sign in and download your data as CSV, and subscribing again unlocks it as it was. ',
+      { href: site.termsUrl, text: 'Our terms' },
+      " say what happens to a lapsed business's data after 90 days.",
+    ],
+  },
+];
+---
+
+<section id="questions" class="section" aria-labelledby="questions-heading">
+  <div class="container">
+    <h2 id="questions-heading">Questions</h2>
+    <div class="questions measure">
+      {
+        questions.map(({ q, a }) => (
+          <details>
+            <summary>{q}</summary>
+            <p>
+              {a.map((part) =>
+                typeof part === 'string' ? part : <a href={part.href}>{part.text}</a>,
+              )}
+            </p>
+          </details>
+        ))
+      }
+    </div>
+  </div>
+</section>
+
+<style>
+  .questions {
+    border-bottom: 1px solid var(--frame);
+  }
+
+  details {
+    border-top: 1px solid var(--frame);
+  }
+
+  summary {
+    display: list-item;
+    min-height: var(--tap);
+    padding-block: var(--space-3);
+    cursor: pointer;
+    font-weight: 500;
+  }
+
+  details p {
+    margin: 0 0 var(--space-4);
+  }
+</style>

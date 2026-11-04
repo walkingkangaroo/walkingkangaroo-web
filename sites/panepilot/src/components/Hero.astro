@@ -1,0 +1,141 @@
+---
+import { Picture } from 'astro:assets';
+import calendarWide from '../assets/screenshots/calendar-wide.png';
+import { site } from '../data/site';
+import { offer } from '../data/offer';
+import BrowserFrame from './BrowserFrame.astro';
+---
+
+<section class="hero" aria-labelledby="hero-heading">
+  <div class="container">
+    <div class="hero__copy">
+      <h1 id="hero-heading">Quoting, scheduling and invoicing for window cleaners.</h1>
+      <p class="hero__line">
+        Count the panes once. PanePilot books the round, runs the visit on your phone, invoices it and
+        works out your workers' pay.
+      </p>
+      <div class="hero__cta">
+        <a class="btn btn-primary" href={site.trialUrl}>Start your free trial</a>
+        <small>{offer.trialLine}</small>
+      </div>
+    </div>
+
+    <div class="hero__screens">
+      <BrowserFrame class="hero__main" address="app.panepilot.au/calendar">
+        {/* 2880 x 1800 source. The frame is about 743 px wide on a wide screen and the full width
+             of the page at 760 px and narrower. */}
+        <Picture
+          src={calendarWide}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          widths={[640, 960, 1280, 1520]}
+          sizes="(max-width: 760px) 100vw, (max-width: 1272px) 66vw, 760px"
+          alt="PanePilot's week calendar on a wide screen, with the menu on the left and the Shops run shown as one block on Thursday"
+          loading="eager"
+          fetchpriority="high"
+          decoding="async"
+        />
+      </BrowserFrame>
+
+      {/* KAN-946 replaces these two panels with the quote and paid invoice screenshots. */}
+      <BrowserFrame address="app.panepilot.au/quotes">
+        <p class="hero__slot">A quote on a wide screen</p>
+      </BrowserFrame>
+      <BrowserFrame address="app.panepilot.au/invoices">
+        <p class="hero__slot">A paid invoice on a wide screen</p>
+      </BrowserFrame>
+    </div>
+  </div>
+</section>
+
+<style>
+  .hero {
+    padding-top: var(--space-5);
+    padding-bottom: var(--space-7);
+  }
+
+  .hero__copy {
+    max-width: 46rem;
+  }
+
+  .hero h1 {
+    margin-bottom: var(--space-4);
+  }
+
+  .hero__line {
+    max-width: 40rem;
+    margin: 0 0 var(--space-4);
+    color: var(--muted);
+    font-size: 1.125rem;
+    line-height: 1.55;
+  }
+
+  .hero__cta {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: var(--space-3) var(--space-4);
+  }
+
+  .hero__cta small {
+    color: var(--muted);
+    font-size: 0.95rem;
+  }
+
+  /* Desktop: the calendar spans two rows on the left, the two small frames stack on the right. */
+  .hero__screens {
+    display: grid;
+    grid-template-columns: 2fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 14px;
+    margin-top: var(--space-6);
+  }
+
+  .hero__screens :global(.hero__main) {
+    grid-row: span 2;
+  }
+
+  .hero__screens :global(.browser img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  /* The placeholder panels: plain Glass, same 16:10 shape as the screenshots, until KAN-946. */
+  .hero__slot {
+    display: grid;
+    place-content: center;
+    aspect-ratio: 16 / 10;
+    margin: 0;
+    padding: var(--space-3);
+    background: var(--glass);
+    color: var(--muted);
+    font-size: 0.9rem;
+    font-weight: 500;
+    line-height: 1.4;
+    text-align: center;
+  }
+
+  @media (min-width: 761px) {
+    .hero {
+      padding-top: var(--space-7);
+      padding-bottom: var(--space-8);
+    }
+
+    .hero__line {
+      font-size: 1.25rem;
+    }
+  }
+
+  /* 760 px and narrower: the calendar full width, the two small frames in a row of two under it. */
+  @media (max-width: 760px) {
+    .hero__screens {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .hero__screens :global(.hero__main) {
+      grid-column: span 2;
+      grid-row: auto;
+    }
+  }
+</style>

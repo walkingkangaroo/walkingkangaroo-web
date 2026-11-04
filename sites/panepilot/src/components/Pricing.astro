@@ -1,0 +1,51 @@
+---
+import { site } from '../data/site';
+import { offer } from '../data/offer';
+---
+
+<section id="pricing" class="pricing section" aria-labelledby="pricing-heading">
+  <div class="container">
+    <h2 id="pricing-heading">One plan, {offer.priceLine}</h2>
+    <ul class="list pricing__list measure">
+      <li>{offer.gstNote}. Unlimited workers and every feature.</li>
+      <li>
+        {offer.trialDays} days free from sign-up, with no card. To keep going after that, subscribe by card, billed monthly.
+        Cancel online any time, from your subscription page.
+      </li>
+      <li>A free setup call, offered on your "Get set up" checklist after you sign up.</li>
+      <li>
+        Bring your customers in from a spreadsheet (CSV): match the columns and check every row before
+        anything's saved.
+      </li>
+    </ul>
+    <a class="btn btn-primary" href={site.trialUrl}>Start your free trial</a>
+  </div>
+</section>
+
+<style>
+  /* The one deep band on the page: Mint text on Deep Water. */
+  .pricing {
+    background: var(--deep-water);
+    color: var(--mint);
+  }
+
+  .pricing a:not(.btn) {
+    color: var(--link-on-deep-water);
+  }
+
+  .pricing__list {
+    margin-bottom: var(--space-5);
+  }
+
+  /* The Harbour button is 2.89:1 against Deep Water, under the 3:1 a control's edge needs, so it
+     gets a 1 px Mint border (Mint is 13.66:1 on Deep Water). The Harbour fill still carries the
+     white label (4.95:1). */
+  .pricing .btn {
+    border: 1px solid var(--mint);
+  }
+
+  /* The page's Harbour focus ring is too dim on Deep Water: use Mint here. */
+  .pricing :focus-visible {
+    outline-color: var(--mint);
+  }
+</style>

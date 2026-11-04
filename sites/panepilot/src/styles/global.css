@@ -142,3 +142,29 @@ img {
 .skip-link:focus {
   transform: none;
 }
+
+/* One page section: the vertical rhythm every home-page section shares (spacing tokens only). */
+.section {
+  padding-block: var(--space-7);
+}
+
+@media (min-width: 761px) {
+  .section {
+    padding-block: var(--space-8);
+  }
+}
+
+/* Reading width: body lines of 60 to 70 characters. */
+.measure {
+  max-width: 65ch;
+}
+
+/* A plain bulleted list in a section: no icons, a little space between items. */
+.list {
+  margin: 0;
+  padding-left: 1.25em;
+}
+
+.list li + li {
+  margin-top: var(--space-3);
+}
