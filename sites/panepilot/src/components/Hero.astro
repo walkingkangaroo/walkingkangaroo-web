@@ -1,6 +1,8 @@
 ---
 import { Picture } from 'astro:assets';
 import calendarWide from '../assets/screenshots/calendar-wide.png';
+import quoteWide from '../assets/screenshots/quote-wide.png';
+import invoicePaidWide from '../assets/screenshots/invoice-paid-wide.png';
 import { site } from '../data/site';
 import { offer } from '../data/offer';
 import BrowserFrame from './BrowserFrame.astro';
@@ -37,12 +39,33 @@ import BrowserFrame from './BrowserFrame.astro';
         />
       </BrowserFrame>
 
-      {/* KAN-946 replaces these two panels with the quote and paid invoice screenshots. */}
+      {/* Both sources are 3360 x 2100. Each small frame is a third of the grid: about 30 vw from 761 px,
+           and a fixed 371 px once the page stops growing at 1200 px (sizes keeps the calendar's 1272 px
+           step, which only over-states it a little). At 760 px and narrower it is half the row, about
+           45 vw (sizes says 46). They sit below the fold on a phone, so they load lazily. */}
       <BrowserFrame address="app.panepilot.au/quotes">
-        <p class="hero__slot">A quote on a wide screen</p>
+        <Picture
+          src={quoteWide}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          widths={[480, 720, 960, 1120]}
+          sizes="(max-width: 760px) 46vw, (max-width: 1272px) 31vw, 372px"
+          alt="PanePilot's quote QTE-0057 for Placeholder Co on a wide screen: marked Sent, with buttons to email again, mark accepted or declined, and a table of 18 standard panes and 6 large panes totalling $225.00"
+          loading="lazy"
+          decoding="async"
+        />
       </BrowserFrame>
       <BrowserFrame address="app.panepilot.au/invoices">
-        <p class="hero__slot">A paid invoice on a wide screen</p>
+        <Picture
+          src={invoicePaidWide}
+          formats={['avif', 'webp']}
+          fallbackFormat="webp"
+          widths={[480, 720, 960, 1120]}
+          sizes="(max-width: 760px) 46vw, (max-width: 1272px) 31vw, 372px"
+          alt="PanePilot's invoice INV-1042 for Example Bakery on a wide screen: marked Paid, with the $225.00 bank transfer recorded under Payments and $0.00 still owed"
+          loading="lazy"
+          decoding="async"
+        />
       </BrowserFrame>
     </div>
   </div>
@@ -99,21 +122,6 @@ import BrowserFrame from './BrowserFrame.astro';
     display: block;
     width: 100%;
     height: auto;
-  }
-
-  /* The placeholder panels: plain Glass, same 16:10 shape as the screenshots, until KAN-946. */
-  .hero__slot {
-    display: grid;
-    place-content: center;
-    aspect-ratio: 16 / 10;
-    margin: 0;
-    padding: var(--space-3);
-    background: var(--glass);
-    color: var(--muted);
-    font-size: 0.9rem;
-    font-weight: 500;
-    line-height: 1.4;
-    text-align: center;
   }
 
   @media (min-width: 761px) {
