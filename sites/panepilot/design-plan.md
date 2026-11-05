@@ -54,8 +54,9 @@ plan and a decision record disagree, the record wins.
   and seven real-app screenshots from the invented demo business in
   `C:\dev\panepilot\docs\screenshots\website\` (job card, quote, time card, paid invoice,
   approved time, week calendar, wide owner screen). Each value in them is traced to the seed.
-- **Wide screenshots:** only `calendar-wide.png` exists at 1440 × 900. The hero also needs a
-  quote and a paid invoice captured wide from the demo business (a PanePilot issue).
+- **Wide screenshots:** `calendar-wide.png`, `quote-wide.png` and `invoice-paid-wide.png`, each
+  the whole owner screen at 1680 × 1050 (3360 × 2100 pixels), for the hero's three frames
+  (PanePilot KAN-933 and KAN-1101).
 - **Gaps:** no customer quotes (and there should be none until real businesses say something), no
   screen recordings, no contact address for the site, no link-preview image yet.
 

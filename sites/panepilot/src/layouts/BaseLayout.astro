@@ -23,7 +23,7 @@ const { title, description, noindex = false } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site);
 
-// The link preview: the wide calendar screenshot (2880 x 1800) scaled to 1200 wide and cropped to
+// The link preview: the wide calendar screenshot (3360 x 2100) scaled to 1200 wide and cropped to
 // 1200 x 630 from the top, so the app's header and the week's top rows stay in. Made at build time
 // from the one source file, so a recaptured screenshot updates it.
 const og = await getImage({
