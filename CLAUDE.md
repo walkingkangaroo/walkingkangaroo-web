@@ -6,7 +6,7 @@ A static Astro site, hosted on Azure Static Web Apps like every site in this rep
 Start with [docs/brief.md](docs/brief.md).
 
 **Decisions and their reasons: [docs/DECISIONS.md](docs/DECISIONS.md).** Don't reopen an Accepted
-decision without Grant. The roadmap and issues live in the Linear project **Website**.
+decision without Grant. The roadmap and issues live in the tracker project **Website**.
 
 Keep this file under 100 lines. It is read by every session and every subagent. Rules that
 matter for only part of the code go in `.claude/rules/<topic>.md` with a `paths:` list, so they
@@ -50,13 +50,14 @@ The repo is `walkingkangaroo/walkingkangaroo-web`, one repo for the web
 
 ## Workflow
 
-- Work is driven from Linear. `/shape <topic>` turns an idea into Ready for Build issues, with
-  the decisions recorded in the repo. `/do KAN-###` (or `/do next`) builds one issue and opens a
-  pull request. `/retro <milestone>` measures a finished milestone.
+- Work is driven from Grant's tracker vault, through `bash .claude/scripts/tracker.sh` (the
+  `tracker` skill). New issues are `WEB-###`; ones moved from Linear keep `KAN-###`. `/shape
+  <topic>` turns an idea into Ready for Build issues, with the decisions recorded in the repo.
+  `/do <ID>` (or `/do next`) builds one issue and opens a pull request. `/retro <milestone>` measures a finished milestone.
 - The session that runs these is the orchestrator. It plans, verifies and owns every commit,
-  pull request and Linear update. `implementer` writes the code and `reviewer` reviews the diff.
+  pull request and tracker update. `implementer` writes the code and `reviewer` reviews the diff.
 - Never commit to the default branch, never merge a pull request, never set Done. Grant merges,
-  and Linear sets Done when he does.
+  and the `Tracker - Done on merge` workflow sets Done when he does.
 - Project facts for the skills are in `docs/process/project.md`. The skills, agents and scripts
   under `.claude/` come from `process-template` and are not edited here.
 

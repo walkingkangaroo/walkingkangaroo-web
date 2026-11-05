@@ -6,7 +6,9 @@ never edited here.
 
 ## Identity
 
-- **Linear:** team Dev, project **Website**
+- **Issues:** the tracker project **Website** (`TRACKER_PROJECT` in `project.env`). New IDs are
+  `WEB-###`; issues moved from Linear on 2026-11-05 keep `KAN-###`. WEB-1 was Linear's KAN-1135,
+  renumbered because the vault had already used that number.
 - **Repo:** local folder `C:\dev\website`, remote `walkingkangaroo/walkingkangaroo-web` (public).
   A pnpm workspace: the hub is in `sites/hub/`, shared code goes in `packages/`, and `docs/`
   and `.claude/` stay at the root (0027).
@@ -57,8 +59,8 @@ Baseline: run these once before changing anything.
 
 ## Parallel rule
 
-Parallel implementers only with disjoint files; otherwise one after another. One checkout, no
-worktrees: the repo is small.
+One subagent at a time, in every project (see `/do`). One checkout, no worktrees: the repo is
+small.
 
 ## CI
 

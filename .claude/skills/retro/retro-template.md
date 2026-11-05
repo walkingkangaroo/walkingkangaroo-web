@@ -23,7 +23,7 @@ Issues: <n> Done of <n> · First started: YYYY-MM-DD · Last merged: YYYY-MM-DD
 
 | Issue | In Progress | AI Review | Human QA | Fix rounds | Built by | Follow-ups |
 | --- | --- | --- | --- | --- | --- | --- |
-| KAN-### | | | | | | |
+| <ID> | | | | | | |
 
 ## What worked
 
@@ -39,7 +39,7 @@ At most three. Each one is also a Process issue.
 - **Expected saving:** <time, tokens or defects, with the arithmetic>
 - **Risk:** <what could get worse>
 - **How we'd know it worked:** <the number to compare at the next retro>
-- **Process issue:** <full Linear URL>
+- **Process issue:** <issue ID>
 
 ## Could not measure
 

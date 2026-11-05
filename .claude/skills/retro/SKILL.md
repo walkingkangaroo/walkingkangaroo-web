@@ -1,6 +1,6 @@
 ---
 name: retro
-description: Milestone retro. Reads Linear's state history and the pull requests for one milestone, writes a one-page retro with time per state, fix rounds and follow-ups, and files at most three process proposals in the Linear project Process. Invoke as /retro <milestone>.
+description: Milestone retro. Reads the tracker's status history and the pull requests for one milestone, writes a one-page retro with time per state, fix rounds and follow-ups, and files at most three process proposals in the tracker project Process. Invoke as /retro <milestone>.
 argument-hint: <milestone name or number>
 disable-model-invocation: true
 allowed-tools: Bash(git *) Bash(gh *) Bash(bash .claude/scripts/*) Bash(cat docs/process/*) Bash(cat .claude/process-template.version) Read Grep Glob Edit Write
@@ -44,9 +44,12 @@ Template version in this project:
 
 ## Steps
 
-1. **Find the work.** List this project's issues (`list_issues`) and keep those in the
-   milestone. For each, fetch `get_issue` (it carries `stateHistory`, `createdAt`, `startedAt`
-   and `completedAt`) and `list_comments` (the plan comment, fix rounds, questions to Grant).
+1. **Find the work.** `bash .claude/scripts/tracker.sh list --milestone "<milestone>" --all --json`
+   gives the milestone's issues with their bodies; the `## Log` section of each is its comments
+   (the plan, fix rounds, questions to Grant). For each, `bash .claude/scripts/tracker.sh history <ID> --json` gives
+   every status change with its time, and the minutes spent in each status. A milestone that
+   started before its project moved off Linear has its earlier history in Linear only: say so
+   and measure what the tracker holds.
 2. **Find the pull requests.** For each issue's branch:
    `gh pr view <branch> --json number,body,additions,deletions,changedFiles,createdAt,mergedAt,reviews,comments`.
    Read the **Subagents** section of each PR body for the agent and model of every dispatch.
@@ -70,9 +73,9 @@ Template version in this project:
    milestone's sessions, include it; otherwise write "not measured".
 7. **Write `docs/retros/<slug>.md`** from [retro-template.md](retro-template.md). One page.
 8. **Commit, push and open the pull request** `Retro: <milestone>`, with the page as its body.
-9. **File each proposal** as an issue in the Linear project **Process**, in Backlog, titled
-   `[<this project>] <proposal>`, with the evidence and the full URL of the retro's pull request.
-   Then add each issue's full URL to the page, commit and push again.
+9. **File each proposal** in the tracker project **Process**:
+   `bash .claude/scripts/tracker.sh new --project Process --title "[<this project>] <proposal>" --body-file -`, with
+   the evidence and the full URL of the retro's pull request. Then add each issue's ID to the page, commit and push again.
 10. **Report to Grant:** the three numbers that matter most, the proposals, and what each would
     change. The `SessionStart` hook removes the branch after he merges.
 
