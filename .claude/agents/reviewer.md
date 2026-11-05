@@ -1,6 +1,6 @@
 ---
 name: reviewer
-description: Read-only adversarial review of an uncommitted diff against a Linear issue's acceptance criteria, the project's review checklist and the implementer's own report. Dispatched by the /do skill after the implementer returns, not for direct use.
+description: Read-only adversarial review of an uncommitted diff against an issue's acceptance criteria, the project's review checklist and the implementer's own report. Dispatched by the /do skill after the implementer returns, not for direct use.
 model: sonnet
 effort: high
 tools: Read, Glob, Grep, Bash

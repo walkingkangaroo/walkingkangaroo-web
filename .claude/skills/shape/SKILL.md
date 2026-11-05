@@ -1,7 +1,7 @@
 ---
 name: shape
-description: Turn a topic or a Discovery issue into shaped work. Research it, put numbered questions to Grant in a decision round kept in the repo, then record his answers as decisions, revise the spec and write Ready for Build issues. Invoke as /shape <topic or KAN-###>.
-argument-hint: <topic in words | KAN-###> [note or answers]
+description: Turn a topic or a Discovery issue into shaped work. Research it, put numbered questions to Grant in a decision round kept in the repo, then record his answers as decisions, revise the spec and write Ready for Build issues. Invoke as /shape <topic or issue ID>.
+argument-hint: <topic in words | issue ID> [note or answers]
 disable-model-invocation: true
 allowed-tools: Bash(git *) Bash(gh *) Bash(bash .claude/scripts/*) Bash(cat docs/process/*) Bash(grep -l *) Read Grep Glob Edit Write
 shell: bash
@@ -11,7 +11,7 @@ shell: bash
 
 Topic to shape: **$ARGUMENTS**
 
-The first part is a topic in plain words or an issue identifier (for example `KAN-593`).
+The first part is a topic in plain words or an issue ID (for example `PP-12`, or an older `KAN-593`).
 Anything after it is a note from Grant. If it carries answers to an open round (for example
 `1: B, 2: yes, 3: use your recommendation`), go to **Record**.
 
@@ -25,6 +25,12 @@ This file comes from `process-template` and is the same in every project. Never 
 ```
 
 !`cat docs/process/project.md 2>/dev/null || echo "**docs/process/project.md is missing.** Stop and tell Grant: this repo has not adopted the process template."`
+
+## Issues
+
+As in `/do`: every issue read and write goes through `tracker`, meaning
+`bash .claude/scripts/tracker.sh <command>`. The `tracker` skill lists its commands. Never edit or
+commit tracker files by hand.
 
 ## Current repo state
 
@@ -47,7 +53,7 @@ Shape branches and their pull requests:
 
 ## Roles
 
-You are the **orchestrator**. In `/shape` you write documents and Linear issues, never product
+You are the **orchestrator**. In `/shape` you write documents and tracker issues, never product
 code. Research goes to subagents: `Explore` on `haiku` (or `sonnet` where it needs judgement) to
 map the code, and `general-purpose` on `sonnet` for anything outside the repo. Always pass
 `model` explicitly, and never `fable`.
@@ -58,7 +64,7 @@ fact, check it yourself: open the page, read the file, run the command.
 ## Rules that always apply
 
 - **Decision rounds live in the repo.** The questions and Grant's answers are in
-  `docs/rounds/<slug>.md`. Linear carries only the `Needs Grant` label and a link.
+  `docs/rounds/<slug>.md`. The issue carries only the `Needs Grant` label and a link.
 - **Never invent an answer.** An unanswered question stays open. Its stated default applies only
   when Grant says to use the defaults.
 - **Never reopen an Accepted decision** without Grant asking for it.
@@ -70,10 +76,10 @@ fact, check it yourself: open the page, read the file, run the command.
   hold-out milestone, or to Backlog where it has none. It is never built and never lost.
 - **Nothing reaches Ready for Build until the shape pull request has merged.** `/do` starts from
   the default branch, so the decisions and the spec must be there first.
-- **Never set Done.** Linear's GitHub integration does that on merge.
-- Process problems become an issue in the Linear project **Process**, as in `/do`.
+- **Never set Done.** The `Tracker - Done on merge` workflow does that on merge.
+- Process problems become an issue in the tracker project **Process**, as in `/do`.
 
-`<slug>` is the topic in lowercase with hyphens, or `kan-###-<short-title>` for an issue.
+`<slug>` is the topic in lowercase with hyphens, or `<id>-<short-title>` for an issue (for example `pp-12-quote-chips`).
 
 ## Decide which phase you're in
 
@@ -91,11 +97,12 @@ fact, check it yourself: open the page, read the file, run the command.
 1. **Working copy.** As in `/do` Start, following the project's working-copy mode, but on the
    branch `shape/<slug>`.
 2. **The issue.** If you were given a Discovery issue, leave it in Discovery. If you were given a
-   topic in words, create an issue in this project, in Discovery, titled `Shape: <topic>`, so the
+   topic in words, create one with
+   `tracker new --title "Shape: <topic>" --status Discovery`, so the
    queue has something to show.
 3. **Understand.** Read `CLAUDE.md`, the decision index, the spec or brief, and the code the
-   topic touches. Dispatch research in parallel. Give each agent one question and ask for
-   sources.
+   topic touches. Dispatch research one agent at a time, as in `/do`. Give each agent one
+   question and ask for sources.
 4. **Write `docs/research/<slug>.md`** from [research-template.md](research-template.md): what
    exists today, two to four options with their cost and risk, what can't be known without
    building, and the sources.
@@ -108,12 +115,12 @@ fact, check it yourself: open the page, read the file, run the command.
      with their name.
    - More than about seven questions means the topic is too big. Split it.
 6. **Commit, push and open a draft pull request** titled `Shape: <topic>`. Paste the questions
-   into the body so they can be read on a phone. Start the body with `Part of KAN-###`, or
-   `Fixes KAN-###` when the issue exists only to make this decision.
-7. **Linear.** Add the `Needs Grant` label to the issue (and the other decider's label where the
-   project has one), and comment one line with the full pull-request URL. No question text in
-   Linear. If Linear's GitHub integration moved the issue when the pull request opened, set it
-   back to Discovery.
+   into the body so they can be read on a phone. Start the body with `Part of <ID>`, or
+   `Fixes <ID>` when the issue exists only to make this decision.
+7. **The issue.** `tracker label <ID> "+Needs Grant"` (and the other decider's label where the
+   project has one), then `tracker log <ID> "Decision round open: <full pull-request URL>"`. No
+   question text in the issue. Nothing moves the issue when the pull request opens, so it stays
+   in Discovery.
 8. **Report to Grant and stop.** Give the questions in full, your recommendation for each, and
    the three ways to answer: reply here, run `/shape <slug> <answers>`, or edit the `Answer:`
    lines in the round file.
@@ -130,20 +137,23 @@ fact, check it yourself: open the page, read the file, run the command.
 4. **Revise the design.** Update the spec, the design doc and `CLAUDE.md` wherever the decisions
    change them. Instruction files keep only the decision and a link; how and why stays in the
    research and round files.
-5. **Write the issues** in Linear, in this project and the right milestone, in **Backlog** for
-   now, from [issue-template.md](issue-template.md).
+5. **Write the issues** with `tracker new --title "..." --milestone "<milestone>" --body-file -`,
+   in this project and the right milestone, in **Backlog** (the default) for now, from
+   [issue-template.md](issue-template.md). It prints each new ID.
    - One issue is one pull request: a vertical slice that can be verified on its own.
    - Acceptance criteria are things that can be checked, with numbers where they exist.
-   - Name the files each issue owns, and set the blocked-by relations between them.
+   - Name the files each issue owns, and set the blocked-by relations between them
+     (`--blocked-by <ID>,<ID>`, or `tracker set <ID> blocked_by=<ID>,<ID>` afterwards).
    - Give each a risk level: `high` if it touches the project's risky areas or is judged by feel,
      otherwise `low`.
-   - If the original issue is itself the work, rewrite its description as a brief instead of
-     creating a duplicate.
+   - If the original issue is itself the work, give it the brief instead of creating a
+     duplicate: `tracker comment <ID> --title Brief --body-file -`, and `tracker set` its title,
+     milestone and blockers.
    - Held-out items get a plain title and one paragraph in the hold-out milestone. No brief yet.
-6. **List the issues** (full URLs) under "Outcome" in the round file and in the pull-request
+6. **List the issues** (by ID) under "Outcome" in the round file and in the pull-request
    body. Commit, push and mark the pull request ready for review.
-7. **Linear.** Comment on the original issue that the answers are recorded and the pull request
-   is ready to merge, with its full URL. Leave `Needs Grant` on: the merge is his.
+7. **The issue.** `tracker log` on the original issue that the answers are recorded and the
+   pull request is ready to merge, with its full URL. Leave `Needs Grant` on: the merge is his.
 8. **Watch for the merge**: `bash .claude/scripts/wait-for-merge.sh <number>` with
    `run_in_background`.
 9. **Report to Grant:** the decisions recorded, the issues written, what was held out, and that
@@ -154,9 +164,9 @@ fact, check it yourself: open the page, read the file, run the command.
 Only after `gh pr view <n> --json state,mergedAt` shows the pull request merged.
 
 1. **Branches.** Clean up as in `/do` Cleanup.
-2. **Move the shaped issues from Backlog to Ready for Build.** Leave any that still wait on an
+2. **Move the shaped issues from Backlog to Ready for Build** (`tracker set <ID> status="Ready for Build"`). Leave any that still wait on an
    open question in Backlog and say which.
-3. **The original issue.** Remove `Needs Grant`. If it is itself the work, it moves to Ready for
+3. **The original issue.** `tracker label <ID> "-Needs Grant"`. If it is itself the work, it moves to Ready for
    Build with the others. If it existed only for the decision, the merge closes it; confirm that
    and tell Grant if it didn't.
 4. **Report:** what is now Ready for Build, in build order, and the first `/do` to run.

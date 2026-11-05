@@ -1,7 +1,7 @@
 # Research: <topic>
 
 Date: YYYY-MM-DD
-Issue: <full Linear URL>
+Issue: <issue ID>
 Round: [docs/rounds/<slug>.md](../rounds/<slug>.md)
 
 ## The question

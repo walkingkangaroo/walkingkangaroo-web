@@ -2,7 +2,7 @@
 
 Status: Waiting on Grant
 Opened: YYYY-MM-DD
-Issue: <full Linear URL>
+Issue: <issue ID>
 Research: [docs/research/<slug>.md](../research/<slug>.md)
 
 To answer, edit the `Answer:` lines, reply in chat, or run `/shape <slug> 1: A, 2: yes`.
@@ -46,4 +46,4 @@ Filled in when the answers are recorded.
 
 - Decisions: <links to the decision records>
 - Spec or design changes: <files>
-- Issues: <full Linear URLs, in build order>
+- Issues: <issue IDs, in build order>

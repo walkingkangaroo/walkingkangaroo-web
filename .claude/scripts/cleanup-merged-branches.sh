@@ -137,7 +137,7 @@ if [ ${#deleted[@]} -gt 0 ] || [ ${#kept[@]} -gt 0 ] || [ -n "$note" ]; then
   for line in ${kept[@]+"${kept[@]}"}; do echo "- kept $line"; done
   echo "Now on $(git symbolic-ref --short -q HEAD || git rev-parse --short HEAD)."
   if printf '%s\n' ${deleted[@]+"${deleted[@]}"} | grep -q '^feature/'; then
-    echo "For each deleted feature/ branch, finish /do's Cleanup phase: confirm Linear shows Done (never set it yourself; tell Grant if it doesn't), comment with the PR and merge commit, and run milestone close-out if one just finished."
+    echo "For each deleted feature/ branch, finish /do's Cleanup phase: confirm the tracker shows the issue Done (never set it yourself; tell Grant if it doesn't), comment with the PR and merge commit, and run milestone close-out if one just finished."
   fi
   if printf '%s\n' ${deleted[@]+"${deleted[@]}"} | grep -q '^shape/'; then
     echo "For each deleted shape/ branch, run /shape <slug> to finish its Release phase: move the shaped issues from Backlog to Ready for Build and remove the Needs Grant label."

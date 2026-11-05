@@ -1,23 +1,23 @@
 ---
 name: do
-description: Work one Linear issue end to end. Plan, brief the implementer and reviewer, verify by running things yourself, commit on a feature branch, open a pull request for Grant, keep Linear current, and clean up after the merge. Invoke as /do KAN-### or /do next.
-argument-hint: KAN-### | next [optional note]
+description: Work one tracker issue end to end. Plan, brief the implementer and reviewer, verify by running things yourself, commit on a feature branch, open a pull request for Grant, keep the issue current, and clean up after the merge. Invoke as /do <issue ID> or /do next.
+argument-hint: <issue ID> | next [optional note]
 disable-model-invocation: true
 allowed-tools: Bash(git *) Bash(gh *) Bash(bash .claude/scripts/*) Bash(cat docs/process/*) Read Grep Glob Edit Write
 shell: bash
 ---
 
-# /do: work a Linear issue
+# /do: work an issue
 
 Issue to work: **$ARGUMENTS**
 
-The first token is the issue identifier (for example `KAN-512`), or `next`, meaning the
-lowest-numbered issue in this project's Ready for Build whose blockers are all in Human QA or
-Done. Anything after it is a note from Grant, and it wins where it conflicts with the issue text.
+The first token is the issue ID (for example `PP-12`, or an older ID moved from Linear such as
+`KAN-512`), or `next`, meaning the oldest issue in this project's Ready for Build whose
+blockers are all in Human QA or closed. Anything after it is a note from Grant, and it wins where it conflicts with the issue text.
 
 This file comes from `process-template` and is the same in every project. Never edit it here.
 Project facts live in `docs/process/`. A problem with the process itself becomes an issue in the
-Linear project **Process** (see Rules). Some issues call their acceptance criteria "Done when";
+tracker project **Process** (see Rules). Some issues call their acceptance criteria "Done when";
 it means the same thing.
 
 ## Project facts
@@ -32,6 +32,23 @@ Everything below names these facts in bold the first time it leans on one: **the
 **the default branch**, **the working copy mode**, **the green checks**, **the model table** and
 so on. Where a fact and this file disagree, follow the fact and tell Grant, so the template gets
 fixed.
+
+## Issues
+
+Issues live in Grant's tracker vault, a separate git repo he reads in Obsidian. Every read and
+write goes through one command, written `tracker` below:
+
+```bash
+bash .claude/scripts/tracker.sh <command> ...
+```
+
+It finds or clones the tracker, works on **the project** named by `TRACKER_PROJECT` in the facts,
+and commits and pushes every change itself. The `tracker` skill lists its commands. Never edit
+or commit tracker files by hand. Issues in flight in this project:
+
+```
+!`bash .claude/scripts/tracker.sh list --status "In Progress,AI Review,Human QA" 2>&1 || echo "(the tracker could not be read)"`
+```
 
 ## Current repo state
 
@@ -60,9 +77,9 @@ Recent pull requests:
 ## Roles
 
 You are the **orchestrator**. You plan, choose models, brief subagents, review their work, run
-every check yourself, and own every git write, pull request and Linear update. Subagents never
+every check yourself, and own every git write, pull request and tracker update. Subagents never
 run a git command that writes (`add`, `commit`, `stash`, `checkout`, `switch`, `reset`, `merge`,
-`rebase`), never push, and never touch Linear or GitHub.
+`rebase`), never push, and never touch the tracker or GitHub.
 
 **A subagent's report is a claim, not evidence.** Re-run the checks, read the diff, and look at
 the result yourself before anything is committed. Real defects on Grant's projects were caught
@@ -72,31 +89,31 @@ only this way, and none would have been found by a test.
 
 - **Never commit to the default branch.** All work happens on the issue's feature branch.
 - **Never merge a pull request or enable auto-merge.** Grant merges after Human QA.
-- **Never set Done.** Linear's GitHub integration sets it when the pull request merges. If it
-  doesn't, tell Grant; don't set it yourself.
-- **Keep Linear current as you go**, not batched at the end. Every phase change below says which
+- **Never set Done.** The `Tracker - Done on merge` workflow sets it when the pull request
+  merges. If it hasn't a few minutes later, tell Grant; don't set it yourself.
+- **Keep the issue current as you go**, not batched at the end. Every phase change below says which
   status to set and what to comment.
 - **One issue per run.** If the issue is a parent with open sub-issues, list them and stop.
-- **Out-of-scope work becomes a new Linear issue** (Backlog, this project, the same milestone
-  where there is one), listed in the PR body. It never rides along in this PR.
+- **Out-of-scope work becomes a new issue** (`tracker new`, in Backlog and the same milestone
+  where there is one), listed in the PR body by its ID. It never rides along in this PR.
 - **Process problems become a Process issue.** If this file, an agent definition or a script is
-  wrong or missing something, file an issue in the Linear project **Process** titled
-  `[<this project>] <what is wrong>`, and carry on with your best reading. Don't edit the skills,
+  wrong or missing something, file an issue in the tracker project **Process**
+  (`tracker new --project Process --title "[<this project>] <what is wrong>"`), and carry on with your best reading. Don't edit the skills,
   agents or scripts that came from the template.
-- **Commit subjects start with the issue id**, then an imperative subject in sentence case:
-  `KAN-512: Add fog radius tweak`. This is the same in every project. Messages end with the
+- **Commit subjects start with the issue ID**, then an imperative subject in sentence case:
+  `PP-12: Add fog radius tweak`. This is the same in every project. Messages end with the
   Co-Authored-By trailer the harness specifies. Run `git branch --show-current` before every
   commit: a worktree has been seen to detach HEAD on its own.
-- **In Linear, write the full GitHub pull-request URL**, never a bare `#57`: Linear links that to
-  another repo's PR.
+- **In the issue, write the full GitHub pull-request URL**, never a bare `#57`: the tracker
+  holds every project, so a bare number doesn't say which repo.
 - **Shut down what you start**: dev servers, containers, emulators, anything listening on a port.
-- **If the Linear tools are missing**, say so and wait for them rather than working from the
-  title. They sometimes connect partway into a session.
+- **If the tracker can't be read** (no clone, no network, a git error), say so and stop rather
+  than working from the title or from memory.
 
 ## Choosing subagents and models
 
 Decide per task from **the model table** in the project facts. Record each choice and a one-line
-reason in the Linear plan comment. These two rows apply in every project:
+reason in the plan comment. These two rows apply in every project:
 
 | Task | Agent | Model |
 | --- | --- | --- |
@@ -108,9 +125,10 @@ reason in the Linear plan comment. These two rows apply in every project:
   verify. Small issues go to `implementer` on `haiku` or `sonnet`, with a short brief. The one
   exception is a fix of a few lines with no new logic, where writing the brief would cost more
   than the change: do that directly, and still run the review loop.
-- **Parallel work follows the project's parallel rule.** Where it allows more than one
-  implementer, they never share a file: state each agent's file list in its brief, and if the
-  split isn't clean, run them one after another.
+- **One subagent at a time, of any kind.** Grant's machine runs several sessions at once and
+  runs short of memory. Wait for one to finish before dispatching the next, background ones
+  included. `settings.json` caps this too, so a second dispatch fails with "Concurrent subagent
+  limit reached": wait, don't retry.
 - **Fix rounds go back to the same agent** via `SendMessage`, so it keeps its context.
 - If `implementer` or `reviewer` is missing from the agent list, tell Grant to restart the
   session (agent files only register at startup). Don't substitute a general-purpose agent.
@@ -142,13 +160,14 @@ touch, and the implementer's report pasted whole.
 
 ## Decide which phase you're in
 
-Fetch the issue from Linear (`get_issue`) with its project, state, labels, milestone, parent,
-relations and `gitBranchName`. For `next`, list this project's issues in Ready for Build and take
-the lowest-numbered one whose blockers are all in Human QA or Done.
+Read the issue with `tracker show <ID> --json`: its project, status, labels, milestone, parent,
+`blockers` (each with its status) and body. Its comments are the `## Log` section of the body.
+For `next`, `tracker next --order number` gives the oldest Ready for Build issue whose blockers
+are all in Human QA or closed, and lists the ones still held.
 
-- If its project isn't **the project** named in the facts, stop: "KAN-### belongs to <project>;
+- If its project isn't **the project** named in the facts, stop: "<ID> belongs to <project>;
   /do in this repo only works <this project> issues."
-- Branch name: the issue's `gitBranchName`, or `feature/kan-###` if that's empty.
+- Branch name: `feature/<ID in lowercase>`, for example `feature/pp-12`.
 
 Then check GitHub: `gh pr list --head <branch> --state all --json number,state,url`, and
 `git worktree list` for a worktree already on the branch.
@@ -178,7 +197,7 @@ Then check GitHub: `gh pr list --head <branch> --state all --json number,state,u
      branches, commit, stash or reset there, and treat unexplained changes in it as another
      session's work. `git fetch origin <default>`, then:
      - Session is in the shared checkout:
-       `git worktree add -b <branch> <scratchpad>/wt-kan-### origin/<default>`. Keep the path
+       `git worktree add -b <branch> <scratchpad>/wt-<id> origin/<default>`. Keep the path
        short, and use absolute paths into it from then on: the shell's working directory resets
        between calls.
      - Session is already in an app-made worktree with a clean tree:
@@ -190,16 +209,19 @@ Then check GitHub: `gh pr list --head <branch> --state all --json number,state,u
      Then set the worktree up as the project facts say under **Setting up the worktree**.
 2. **Baseline.** Run **the green checks** once before anything changes and record the test
    count, unless the project facts say to skip the baseline.
-3. **Linear → In Progress**, assignee `me`, before anything is dispatched.
+3. **Claim it** before anything is dispatched:
+   `tracker claim <ID> --branch <branch> --by orchestrator`. That sets In Progress. If it
+   refuses because someone else has claimed it or it is still blocked, stop and tell Grant.
 4. **Understand before planning.** Read the issue in full, `CLAUDE.md`, everything the project
    facts list under **Read before planning**, the decision records for its area, and the code it
-   touches. Use Explore agents in parallel for anything broad.
+   touches. Use Explore agents one after another for anything broad.
 5. **Sanity-check sizing.** If the real scope is far larger than the issue suggests, split it
    into two implementer runs and two commits on the same branch, and tell Grant you split it and
    why.
 6. **Plan.** Tasks, the agent and model for each with the reason, and the files each owns. Copy
    in the issue's **Stop and ask Grant if** conditions verbatim, and say how you'll know if one
-   is hit. Post it as a Linear comment (`save_comment`).
+   is hit. Post it on the issue: `tracker comment <ID> --title Plan --body-file -`, with the plan
+   in a heredoc.
 7. **Decisions that aren't yours.** If the acceptance criteria need a decision only Grant, or
    whoever the project facts name, can make, build what doesn't depend on it and everything that
    helps them decide, then ask plainly, with a recommendation. Never invent the answer. Once it's
@@ -209,7 +231,7 @@ Then check GitHub: `gh pr list --head <branch> --state all --json number,state,u
 ## Phase: Build
 
 1. Dispatch `implementer` per the plan, in the background so Grant can interject.
-2. When it returns, **Linear → AI Review**, dispatch `reviewer`, and run the review loop yourself
+2. When it returns, `tracker set <ID> status="AI Review"`, dispatch `reviewer`, and run the review loop yourself
    while it works.
 
 ### Review loop: what "green" means
@@ -236,21 +258,20 @@ All of these, run by you in the working copy, not taken from a report. Never ski
    list.
 
 If anything fails, send the fixes back to the implementer (same agent via `SendMessage`) and
-re-run the loop; re-review if the fix is more than a line or two. Record each round as a one-line
-Linear comment, `Fix round 1: <what failed>`, so `/retro` can count them. **At most two fix
-rounds.** After that, stop: comment on Linear what's failing and why, leave the issue in AI
+re-run the loop; re-review if the fix is more than a line or two. Record each round as one line,
+`tracker log <ID> "Fix round 1: <what failed>"`, so `/retro` can count them. **At most two fix
+rounds.** After that, stop: `tracker comment` on the issue what's failing and why, leave the issue in AI
 Review, and ask Grant.
 
 ## Phase: Deliver
 
-1. **Commit** in reasonable units, each subject starting `KAN-###:`. A spec change rides in the
+1. **Commit** in reasonable units, each subject starting `<ID>:`. A spec change rides in the
    same commit as the code that caused it. Check `git branch --show-current` first.
 2. **Push:** `git push -u origin <branch>`.
 3. **Open the PR** against the default branch (or the stacked base), titled
-   `KAN-###: <issue title in plain words>`. Grant has standing-authorised this; don't ask first.
+   `<ID>: <issue title in plain words>`. Grant has standing-authorised this; don't ask first.
    ```markdown
-   Fixes KAN-###
-   Linear: <issue url>
+   Fixes <ID>
 
    ## What changed
    <two to five bullets>
@@ -269,7 +290,7 @@ Review, and ask Grant.
    <agent, model and one-line reason per dispatch>
 
    ## Follow-ups filed
-   <new Linear issues as full URLs, or "none">
+   <new issue IDs, or "none">
 
    <attribution line the harness specifies for PR descriptions>
    ```
@@ -284,12 +305,10 @@ Review, and ask Grant.
    - Elsewhere, run `gh pr checks <number> --watch` in the background and wait for it.
    - **CI red:** stay in AI Review, read the failing log (`gh run view <id> --log-failed`), fix,
      push, and wait again. This counts toward the two fix rounds.
-5. **CI green, or no CI → Linear → Human QA.** Attach the PR link (`links`) first, then set
-   Human QA, then
-   `save_comment` with the full PR URL, a one-paragraph summary and what Grant should check by
-   hand. Linear's GitHub integration moves the issue to In Progress when the PR opens, and
-   attaching a link can too, so set Human QA last. If the issue ships with a deliberate
-   carve-out, say what was excluded, why, and which issue tracks it.
+5. **CI green, or no CI → Human QA.** `tracker set <ID> status="Human QA" pr=<full PR URL>`,
+   then `tracker comment <ID> --title "Ready for Human QA" --body-file -` with the full PR URL,
+   a one-paragraph summary and what Grant should check by hand. If the issue ships with a
+   deliberate carve-out, say what was excluded, why, and which issue tracks it.
 6. **Watch for the merge**, so Grant never has to say he merged. Start
    `bash .claude/scripts/wait-for-merge.sh <number>` with `run_in_background`. It checks every
    two minutes and exits when the PR is merged or closed, which wakes this session. On a merge
@@ -303,13 +322,13 @@ Review, and ask Grant.
 
 1. **Get onto the branch.** `checkout` mode: `git checkout <branch>`. `worktree` mode: find the
    branch's worktree in `git worktree list` and work there; if there isn't one, make it as in
-   Start (`git worktree add <scratchpad>/wt-kan-### <branch>`). In both modes the tree must be
+   Start (`git worktree add <scratchpad>/wt-<id> <branch>`). In both modes the tree must be
    clean first, and `git pull --ff-only` if the branch has an upstream.
 2. **PR open:** read review comments and CI (`gh pr view <n> --comments`, `gh pr checks <n>`).
-   Set Linear → In Progress, address every unresolved comment through the implementer, run the
+   `tracker set <ID> status="In Progress"`, address every unresolved comment through the implementer, run the
    review loop, push, reply on the PR with what changed, then wait for CI and move to Human QA as
-   in Deliver. Comment on Linear that feedback was addressed.
-3. **No PR yet:** work out from the branch diff and the Linear comments where it stopped. A
+   in Deliver. `tracker log` on the issue that the feedback was addressed.
+3. **No PR yet:** work out from the branch diff and the issue's Log where it stopped. A
    subagent may have hit a rate limit mid-task, so look for half-added code. Then continue with
    Build.
 
@@ -320,7 +339,7 @@ own: the merge watcher exits (Deliver step 6), or the `SessionStart` hook report
 deleted. Some of the cleanup may already have happened:
 
 - GitHub deletes the head branch on merge where that setting is on.
-- Linear's GitHub integration moves the issue to Done.
+- The `Tracker - Done on merge` workflow moves the issue to Done.
 - The merge watcher or the hook may already have deleted the local branch and fast-forwarded the
   default branch.
 
@@ -349,19 +368,20 @@ deleted. Some of the cleanup may already have happened:
    If `git branch -d` refuses (squash merge), confirm the PR is merged, then use `-D`. Before
    deleting a remote branch, run `gh pr list --base <branch> --state open`: if a pull request is
    stacked on it, leave the remote branch where it is.
-2. **Linear.** Confirm the issue shows Done. If it doesn't, tell Grant; don't set it. Add a
-   comment naming the PR (full URL) and the merge commit.
+2. **The issue.** `tracker show <ID>` should show Done; the workflow can take a minute after the
+   merge. If it still doesn't a few minutes later, tell Grant; don't set it. Then
+   `tracker log <ID> "Merged in <full PR URL>, <merge commit>"`.
 3. **Shut down** anything still running for this issue.
 4. **Milestone close-out**, if this was the milestone's last open issue:
    - Re-check the milestone's exit criteria line by line. Say which you verified by execution
      and which only by reading.
-   - File follow-up issues for anything real that was left out, with enough detail to act on
+   - File follow-up issues (`tracker new`) for anything real that was left out, with enough detail to act on
      without this conversation.
    - Confirm every divergence from the spec was written into the spec, with the reasoning.
    - Do the close-out extras the project facts list.
    - Report gaps prominently. Something connected at one end only is not done.
    - Tell Grant the milestone is ready for `/retro <milestone>`.
-5. **Report:** branch removed, the issue's Linear state, and the next Ready for Build issue in
+5. **Report:** branch removed, the issue's status, and the next Ready for Build issue in
    this project if there's an obvious one.
 
 ## When to stop and ask

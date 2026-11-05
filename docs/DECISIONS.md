@@ -51,6 +51,7 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0004](decisions/0004-github-pages-public-repo.md) | Public repo, published to GitHub Pages on merge | Accepted (GitHub Pages superseded by 0032) |
 | [0005](decisions/0005-dns-stays-at-ventraip.md) | DNS stays at VentraIP, and email records are never touched | Accepted (GitHub Pages records superseded by 0032) |
 | [0007](decisions/0007-adopt-process-template.md) | Work through process-template 1.0.1 | Accepted |
+| [0045](decisions/0045-issues-live-in-the-tracker-vault.md) | Issues live in the tracker vault through process-template 1.3.0; new IDs are `WEB-###`, moved ones keep `KAN-###` | Accepted |
 | [0008](decisions/0008-astro-7-on-node-24.md) | Astro 7 on Node 24 LTS | Accepted |
 | [0011](decisions/0011-publish-at-launch.md) | The site is first published at launch, not while it's built | Accepted (first publication superseded by 0033) |
 | [0027](decisions/0027-one-web-repo-walkingkangaroo-web.md) | One web repo, walkingkangaroo-web, with the hub in sites/hub/ | Accepted |

@@ -1,0 +1,53 @@
+# Marks tracker issues Done when their PR merges, like Linear's GitHub integration.
+# Comes from process-template and is the same in every project. Do not edit it in a project.
+# IDs come from the branch name (except shape/ and retro/ branches), the PR title, and
+# "Fixes/Closes/Resolves <ID>" lines in the PR body.
+# Needs, in this repo's settings:
+#   Secret   TRACKER_TOKEN  fine-grained token with Contents: read and write on the tracker repo
+#   Variable TRACKER_REPO   owner/name of the tracker repo
+# Uses no third-party actions.
+name: Tracker - Done on merge
+
+on:
+  pull_request:
+    types: [closed]
+
+permissions: {}
+
+jobs:
+  done:
+    if: github.event.pull_request.merged == true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Mark linked issues Done
+        env:
+          BRANCH: ${{ github.event.pull_request.head.ref }}
+          TITLE: ${{ github.event.pull_request.title }}
+          BODY: ${{ github.event.pull_request.body }}
+          PR_URL: ${{ github.event.pull_request.html_url }}
+          TRACKER_TOKEN: ${{ secrets.TRACKER_TOKEN }}
+          TRACKER_REPO: ${{ vars.TRACKER_REPO }}
+        run: |
+          set -euo pipefail
+          # Shape and retro branches are named after an issue but don't finish it; only their
+          # PR's "Fixes <ID>" lines count.
+          case "$BRANCH" in shape/*|retro/*) BRANCH="" ;; esac
+          ids=$( {
+            printf '%s\n%s\n' "$BRANCH" "$TITLE"
+            printf '%s\n' "$BODY" | grep -iE '\b(close[sd]?|fix(e[sd])?|resolve[sd]?)\b' || true
+          } | grep -oiE '\b[a-z]{2,6}-[0-9]+\b' | tr '[:lower:]' '[:upper:]' | sort -u || true )
+          if [ -z "$ids" ]; then echo "No issue IDs found in the branch, title or body."; exit 0; fi
+          if [ -z "${TRACKER_TOKEN:-}" ] || [ -z "${TRACKER_REPO:-}" ]; then
+            echo "::error::Set the TRACKER_TOKEN secret and TRACKER_REPO variable."; exit 1
+          fi
+          git clone --quiet --depth 20 "https://x-access-token:${TRACKER_TOKEN}@github.com/${TRACKER_REPO}.git" tracker
+          cd tracker
+          git config user.name "tracker-bot"
+          git config user.email "tracker-bot@users.noreply.github.com"
+          for id in $ids; do
+            if node _tracker/tracker.mjs show "$id" > /dev/null 2>&1; then
+              node _tracker/tracker.mjs set "$id" status=Done "pr=$PR_URL" --allow-done --by github
+            else
+              echo "$id is not in the tracker; skipped."
+            fi
+          done
