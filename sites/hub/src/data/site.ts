@@ -7,10 +7,10 @@ export interface SiteInfo {
 }
 
 export const site: SiteInfo = {
-  bio: "I make games and apps as Walking Kangaroo. There are four games and one app on the go, and none of them are out yet. This site shows how far along each one is, and there's a devlog too.",
+  bio: "I make games and apps as Walking Kangaroo.",
   wall: {
     line: 'I make games and apps as Walking Kangaroo.',
-    sub: 'The first one to go live is PanePilot, an app for window cleaners. Four games are on the way.',
+    sub: 'The first one to go live is PanePilot, an app for window cleaners. More exciting projects are underway.',
   },
   links: [],
 };

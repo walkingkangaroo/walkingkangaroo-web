@@ -24,7 +24,7 @@ const projects = defineCollection({
       /** The project's own horizontal logo, copied unchanged from its brand files. Used as the
        *  heading in place of the name set in Outfit. */
       lockup: image().optional(),
-      /** A short line above the heading, for example "Going live in November · Web and phone". */
+      /** A short line above the heading, for example "Going live Q1 2027 · Web and phone". */
       eyebrow: z.string().optional(),
       /** A one-line headline under the heading. */
       headline: z.string().optional(),
