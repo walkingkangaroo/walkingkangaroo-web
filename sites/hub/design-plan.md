@@ -27,15 +27,26 @@ Recorded in [docs/rounds/hub-leads-with-panepilot.md](../../docs/rounds/hub-lead
 - **Repo rename:** Grant renames the GitHub repo himself, before the move (0027).
 - **PanePilot's project page:** "Go to panepilot.au" first, then "Follow this project", with the
   lockup as its `h1` (0029).
-- **The nav's "PanePilot" link** goes to the hub's PanePilot page (0024).
+- **The nav's "PanePilot" link** went to the hub's PanePilot page (0024). The header has no links
+  now (0047).
+
+## Slimmed, 2026-11-06
+
+Grant cut the hub back. The home page is now the header, the hero, the devlog (once posts are
+published), the newsletter band (once it is live) and the footer (0046). "How a visit goes",
+"Built on our own round", "Also in the works" and the about section are gone from home, and so is
+the hero's "See how it works" button. The header is the logo alone, with no links (0047). About
+and the project pages are still built but aren't linked from the header. The sections below are
+updated to match. "Brief", "Generic check" and "Different from previous sites" are kept as the
+reasoning of 2026-10-14.
 
 ## Until Kit is connected, 2026-10-15
 
-The newsletter band, the header's "Get updates" and the project pages' "Follow this project" are
+The newsletter band and the project pages' "Follow this project" are
 hidden by `newsletterLive` in `src/lib/newsletter.ts` (0034). The Newsletter step turns them back
 on. The rest of this plan shows them as designed.
 - **The link label** to PanePilot's website is "Visit panepilot.au", not "Go to panepilot.au", on
-  the buttons and in "Built on our own round" (0030, Grant on 2026-10-14).
+  the buttons (0030, Grant on 2026-10-14).
 - **The steps strip:** it was only ever on the home page, so it is removed, not kept on the project
   pages. Project pages already name all five steps in their stage panel (0025).
 
@@ -99,7 +110,7 @@ at partial opacity.
 | `--wk-paper` | `#F4EBDD` | Page background |
 | `--wk-ink` | `#2B1A12` | Text, primary button fill |
 | `--wk-rust` | `#9E3B22` | Stage-meter footprints, the primary button on the PanePilot hero |
-| `--site-panel` | `#EFE3D0` | The run band ("how it works") |
+| `--site-panel` | `#EFE3D0` | Panels (the run band it was made for is gone, 0046) |
 | `--site-media` | `#E6D8C2` | Media panels, and the fog at about 70% opacity |
 | `--site-text-quiet` | `#4A362B` | Secondary text |
 
@@ -121,7 +132,7 @@ say a styled heading never stands in for the lockup. The headline line under it 
 Hero, desktop (text left and pane right, per 0022):
 
 ```
- walking kangaroo                    PanePilot  Games  Devlog  About  [Get updates]
+ walking kangaroo
 
  Going live in November · Web and phone         ┌──────────────────────────────┐
                                                 │ ░░░░░░░░░░░░░░░░░╲           │
@@ -133,40 +144,15 @@ Hero, desktop (text left and pane right, per 0022):
  work each one from your phone, then invoice    │ ╲   the stroke follows the mark│
  it and pay whoever did the job.                └──────────────────────────────┘
  ✿✿✿✿✿ Beta, step 4 of 5
- [Go to panepilot.au]   See how it works
+ [Visit panepilot.au]
 ```
 
 Hero, phone: the pane first (5:4, full width, so the job card isn't tiny), then the eyebrow,
-the lockup, the headline, the sentence, the meter, and full-width "Go to panepilot.au" and "See
-how it works" buttons. On desktop the pane is 16:10.
+the lockup, the headline, the sentence, the meter, and a full-width "Visit panepilot.au" button.
+On desktop the pane is 16:10. The wide screen and the phone sit in slim bevelled Ink frames.
 
-"How a visit goes" is four stops in order on a `--site-panel` band, with no footprints between
-them (Grant's note). The numbers are real here because it is a sequence. Each stop is its
-number, a heading and two lines, then its screenshot shown whole, never cropped. On desktop
-the pictures' tops line up and their bottoms are left uneven (KAN-924).
-
-```
- Desktop                                                 Phone
- ── How a visit goes ──────────────────────────────      How a visit goes
-  ①            ②            ③            ④                ① Quote per pane
- Quote per    The visits   Do it from   Invoice it,          [screenshot]
- pane         come round   the phone    pay the crew
- [quote]      [calendar]   [time card]  [invoice]          ② The visits come round
- [    ]                    [        ]                        [screenshot]
-                                                           … (stacked)
-```
-
-After that come:
-
-- **Built on our own round:** a left-aligned editorial block, first person, with no image.
-- **Also in the works:** four rows, not cards. Each row is a small cover thumbnail, the name, one
-  line, a small stage meter and a link to the project page. The whole thing is about one phone
-  screen tall.
-- **Devlog** (when posts are published), **About**, the **newsletter band** and the **footer**, as
-  now.
-- **Removed from home:** the "Five steps to launch" strip. The meter is always labelled in text
-  (0009), and the strip doubles the page's length for one game-shaped idea. It stays on the
-  project pages.
+After the hero come the **devlog** (when posts are published), the **newsletter band** (when it
+is live) and the **footer**. Nothing else (0046).
 
 ## Motion
 
@@ -187,16 +173,14 @@ rewrites (0014).
 
 ## Sections, in order
 
-1. Header: the nav gains "PanePilot" first
-2. Hero with the sweep. The primary action is **Go to panepilot.au**.
-3. How a visit goes (the run)
-4. Built on our own round
-5. Also in the works (the four games)
-6. Devlog, when there are published posts
-7. About, newsletter, footer
+1. Header: the logo alone (0047)
+2. Hero with the sweep. The one action is **Visit panepilot.au**.
+3. Devlog, when there are published posts
+4. Newsletter band, when it is live
+5. Footer
 
-The PanePilot project page stays and takes the same lockup and screenshots. Common Ground is no
-longer featured: this supersedes the "featured" part of 0002 and needs a new decision record.
+The PanePilot project page stays and takes the same lockup and screenshots, though nothing links
+to it now (0047). Common Ground is no longer featured: this supersedes the "featured" part of 0002 and needs a new decision record.
 
 ## Different from previous sites
 
