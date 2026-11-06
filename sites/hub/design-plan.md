@@ -148,27 +148,27 @@ under it is Outfit.
 
 ## Layout
 
-Home, laptop (0049). The pane and its label sit side by side, and the label starts below the
-wall's edge:
+Home, laptop (0049, 0051). The pane and its label sit side by side, and the label starts below
+the wall's edge:
 
 ```
 ████████████████████████████████████████████████████████████████████  Rust
 █                      ╲╲  (stacked logo, Paper)                    █
 █                    walking kangaroo                               █
 █                                                                   █
-█           I make games and apps as Walking Kangaroo.   ← h1       █
+█                  I make games and apps.   ← h1                    █
 █   The first one to go live is PanePilot, an app for window ...    █
 █                                                                   █
 █   ┌───────────────────────────────────────┐                       █
-████│                                       │████████████████████████  ← the wall's edge, 24% down the pane
-    │   the pane: wide calendar and phone,  │   GOING LIVE IN NOVEMBER · WEB AND PHONE
+████│                                       │████████████████████████  ← the wall's edge, 14% down the pane
+    │   the pane: wide calendar and phone,  │   GOING LIVE Q1 2027 · WEB AND PHONE
     │   fogged, then one sweep              │   [■ panepilot]  ← h2
     │   (about 764 × 478 at 1440 wide)      │   The window-cleaning round,
     │                                       │   start to finish.
     └───────────────────────────────────────┘   Quote per pane, book the ...
                                                 ✿✿✿✿✿ Beta · step 4 of 5
                                                 [Visit panepilot.au]
- walking kangaroo                              © 2026 Walking Kangaroo · walkingkangaroo.com
+ walking kangaroo                              © 2026 Walking Kangaroo
 ```
 
 The label is a 380 px column, 56 px from the pane. At 1440 × 900 the button ends within 800 px

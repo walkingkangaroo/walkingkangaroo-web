@@ -9,7 +9,7 @@ export interface SiteInfo {
 export const site: SiteInfo = {
   bio: "I make games and apps as Walking Kangaroo.",
   wall: {
-    line: 'I make games and apps as Walking Kangaroo.',
+    line: 'I make games and apps.',
     sub: 'The first one to go live is PanePilot, an app for window cleaners. More exciting projects are underway.',
   },
   links: [],
