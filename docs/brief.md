@@ -18,10 +18,9 @@ except the project page, which is the template for project pages).
 - Paper ground, Ink text, Rust accents, Outfit. Everything comes from the brand pack in
   `C:\dev\walkingkangaroo\brand\dist\walking-kangaroo-brand-pack\`: colour tokens, Outfit
   webfonts, logos, favicons, link-preview images. Never redraw or recolour the logo.
-- Home, PanePilot first ([design-plan.md](../sites/hub/design-plan.md), 0024, 0025): header; PanePilot's hero, a
-  fogged pane cleared by one squeegee sweep, with "Visit panepilot.au"; "How a visit goes" in four
-  stops; "Built on our own round"; the four games as an "Also in the works" list; devlog; about;
-  newsletter band; footer.
+- Home, PanePilot first (0024, 0046): header; PanePilot's hero, a fogged pane cleared by one
+  squeegee sweep, with "Visit panepilot.au"; devlog; newsletter band; footer. About is on its own
+  page, and the game pages aren't in the navigation.
 - **The footprint stage meter**: five prints for Idea, Prototype, Alpha, Beta, Launch. Filled
   prints show how far a project has come; steps not reached are the same foot, faded (0009).
   Always paired with the stage name in text.

@@ -17,20 +17,18 @@ const { name, oneLiner, stage, platforms, cover, heroBackdrop, wide, phone, lock
 const backdrop = heroBackdrop ?? cover;
 // With both a wide screen and a phone, they stand together. With only one, it stands alone.
 const duo = Boolean(wide && phone);
-// The phone's rendered width: 16.1% of the pane's width as one of a pair (its screenshot, inside the
+// The phone's rendered width: 17.0% of the pane's width as one of a pair (its screenshot, inside the
 // bezel), or 0024's single phone.
 const phoneSizes = duo
-  ? '(min-width: 1280px) 108px, (min-width: 1024px) calc((100vw - 128px) * 7 / 12 * 0.161), calc((100vw - 2 * clamp(16px, 4vw, 40px)) * 0.161)'
+  ? '(min-width: 1280px) 114px, (min-width: 1024px) calc((100vw - 128px) * 7 / 12 * 0.17), calc((100vw - 2 * clamp(16px, 4vw, 40px)) * 0.17)'
   : '(min-width: 1024px) 165px, 33vw';
 
 // Everything below reads from the project's content file (0024). A featured project without the
 // hero fields gets the older hero's text: its name set in Outfit, its one-liner, "In development".
 const eyebrowText = eyebrow ?? (platforms.length ? `In development · ${platforms.join(' / ')}` : 'In development');
 // With no link, the first button is "Follow development", which goes to the newsletter band. While the
-// newsletter is hidden (0034) there is no first button, and the hero shows only the second one.
+// newsletter is hidden (0034) there is no button (0046).
 const primary = link ?? (newsletterLive ? { label: 'Follow development', href: '/#news' } : undefined);
-// The second button jumps to the "How a visit goes" section just below the hero (0025).
-const secondary = { label: 'See how it works', href: '#how' };
 ---
 
 <section id="top" class="container hero-section">
@@ -96,10 +94,13 @@ const secondary = { label: 'See how it works', href: '#how' };
       {headline && <p class="headline">{headline}</p>}
       {summary ? <p class="summary">{summary}</p> : <p class="one-liner">{oneLiner}</p>}
       <StageMeter stage={stage} size="md" label="long" detail={platforms.length ? platforms.join(', ') : undefined} />
-      <div class="actions">
-        {primary && <a class="btn btn--solid" href={primary.href}>{primary.label}</a>}
-        <a class="btn btn--outline" href={secondary.href}>{secondary.label}</a>
-      </div>
+      {
+        primary && (
+          <div class="actions">
+            <a class="btn btn--solid" href={primary.href}>{primary.label}</a>
+          </div>
+        )
+      }
     </div>
   </div>
 </section>
@@ -150,21 +151,21 @@ const secondary = { label: 'See how it works', href: '#how' };
     object-fit: cover;
   }
 
-  /* The wide screen and the phone: real screenshots in plain Ink CSS frames, standing on the
+  /* The wide screen and the phone: real screenshots in slim bevelled Ink CSS frames, standing on the
      backdrop and under the fog, so the sweep clears them with the rest of the scene. Every size is
      a share of the pane, and the bezels are shares of the pane's width, so it all scales with it.
      W is the pane's width and H its height (5:4 under 1024 px, so H = 0.8 W; 16:10 from there, so
      H = 0.625 W).
 
      Both devices, as a pair (.pane--duo):
-       Wide screen: 78% of W wide, 4% from the left, bezel 1.2% of W. Its screenshot is 16:10, so the
-         frame is 0.497 W tall. Top at 10% of H at 5:4 (0.08 W) and 5% of H at 16:10 (0.031 W), so
+       Wide screen: 78% of W wide, 4% from the left, bezel 0.6% of W. Its screenshot is 16:10, so the
+         frame is 0.492 W tall. Top at 10% of H at 5:4 (0.08 W) and 5% of H at 16:10 (0.031 W), so
          it ends at 72% of H at 5:4 and 84% of H at 16:10, and its right edge is at 82% of W.
-       Phone: 9% from the right and 5% from the bottom, bezel 1.6% of W. Its height is 47.5% of H at
-         5:4 and 60.8% of H at 16:10. Both are 0.38 W, so its frame is 19.3% of W wide.
+       Phone: 9% from the right and 5% from the bottom, bezel 0.6% of W, the same as the wide screen's. Its height is 47.5% of H at
+         5:4 and 60.8% of H at 16:10. Both are 0.38 W, so its frame is 18.2% of W wide.
      So the phone is the same size against the pane's width at both ratios, and 76% of the wide
-     screen's height at both. Its left edge is at 71.7% of W, so it covers the wide screen's right
-     10.3% of W, from 0.38 W down at 5:4 and 0.214 W down at 16:10: the Sun column, below its
+     screen's height at both. Its left edge is at 72.8% of W, so it covers the wide screen's right
+     9.2% of W, from 0.38 W down at 5:4 and 0.214 W down at 16:10: the Sun column, below its
      header, and the empty space below the week's cards. Sat is fully visible. The Thu column and
      its Shops run block, at 53 to 64% across the screenshot, are not covered. Both stay inside
      the pane with a margin of 4% of W or more at 5:4 and 3% of W or more at 16:10 (the wide
@@ -179,11 +180,22 @@ const secondary = { label: 'See how it works', href: '#how' };
     transform: translate(-50%, -50%);
     box-sizing: border-box;
     width: 78%;
-    padding: 1.2%;
-    border-radius: 2.6% / 4%;
-    background: var(--wk-ink);
+    padding: 0.6%;
+    border-radius: 1.8% / 2.8%;
+    background: linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--wk-ink) 78%, var(--wk-paper)) 0%,
+      var(--wk-ink) 35%,
+      var(--wk-ink) 70%,
+      color-mix(in srgb, var(--wk-ink) 88%, var(--wk-paper)) 100%
+    );
+    /* The bevel: a lit rim on the top edge, a darker one at the bottom, a thin dark line where the
+       glass meets the frame, then the outline and the shadow on the backdrop. */
     box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--site-text-quiet) 70%, transparent),
+      inset 0 1px 0 color-mix(in srgb, var(--wk-paper) 35%, transparent),
+      inset 0 -1px 0 color-mix(in srgb, black 40%, transparent),
+      inset 0 0 0 1px color-mix(in srgb, var(--wk-paper) 12%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--wk-ink) 80%, transparent),
       0 14px 32px color-mix(in srgb, var(--wk-ink) 35%, transparent);
   }
 
@@ -191,7 +203,8 @@ const secondary = { label: 'See how it works', href: '#how' };
     display: block;
     width: 100%;
     height: auto;
-    border-radius: 1.1% / 1.7%;
+    border-radius: 1.2% / 1.9%;
+    box-shadow: 0 0 0 1px color-mix(in srgb, black 55%, transparent);
   }
 
   .pane__phone {
@@ -201,11 +214,22 @@ const secondary = { label: 'See how it works', href: '#how' };
     transform: translateX(-50%);
     box-sizing: border-box;
     height: 88%;
-    padding: 1.6%;
-    border-radius: 17% / 8%;
-    background: var(--wk-ink);
+    padding: 0.6%;
+    border-radius: 13% / 6.2%;
+    background: linear-gradient(
+      155deg,
+      color-mix(in srgb, var(--wk-ink) 78%, var(--wk-paper)) 0%,
+      var(--wk-ink) 35%,
+      var(--wk-ink) 70%,
+      color-mix(in srgb, var(--wk-ink) 88%, var(--wk-paper)) 100%
+    );
+    /* The bevel: a lit rim on the top edge, a darker one at the bottom, a thin dark line where the
+       glass meets the frame, then the outline and the shadow on the backdrop. */
     box-shadow:
-      0 0 0 1px color-mix(in srgb, var(--site-text-quiet) 70%, transparent),
+      inset 0 1px 0 color-mix(in srgb, var(--wk-paper) 35%, transparent),
+      inset 0 -1px 0 color-mix(in srgb, black 40%, transparent),
+      inset 0 0 0 1px color-mix(in srgb, var(--wk-paper) 12%, transparent),
+      0 0 0 1px color-mix(in srgb, var(--wk-ink) 80%, transparent),
       0 14px 32px color-mix(in srgb, var(--wk-ink) 35%, transparent);
   }
 
@@ -228,7 +252,8 @@ const secondary = { label: 'See how it works', href: '#how' };
     display: block;
     width: auto;
     height: 100%;
-    border-radius: 15% / 7%;
+    border-radius: 10.5% / 5%;
+    box-shadow: 0 0 0 1px color-mix(in srgb, black 55%, transparent);
   }
 
   .pane__fog,
@@ -420,17 +445,7 @@ const secondary = { label: 'See how it works', href: '#how' };
     color: var(--wk-paper);
   }
 
-  .btn--outline {
-    border: 2px solid var(--wk-ink);
-    color: var(--wk-ink);
-  }
-
-  .btn--outline:hover {
-    background: var(--wk-ink);
-    color: var(--wk-paper);
-  }
-
-  /* Phones: the buttons span the full width. */
+  /* Phones: the button spans the full width. */
   @media (max-width: 719px) {
     .actions,
     .btn {

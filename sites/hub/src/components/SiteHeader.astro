@@ -1,32 +1,20 @@
 ---
 import logo from '../assets/brand/walking-kangaroo-logo-horizontal-primary.svg';
-import { newsletterLive } from '../lib/newsletter';
 ---
 
+<!-- The header is the logo alone, linking home, with no navigation links (0047). -->
 <header class="site-header">
   <div class="container site-header__inner">
     <a class="site-header__logo" href="/" aria-label="Walking Kangaroo home">
       <img src={logo.src} width="191" height="28" alt="" />
     </a>
-    <nav aria-label="Main">
-      <ul class="site-nav">
-        <li><a href="/projects/panepilot/">PanePilot</a></li>
-        <li><a href="/#games">Games</a></li>
-        <li><a href="/devlog/">Devlog</a></li>
-        <li><a href="/about/">About</a></li>
-        {newsletterLive && <li><a class="site-nav__pill" href="/#news">Get updates</a></li>}
-      </ul>
-    </nav>
   </div>
 </header>
 
 <style>
   .site-header__inner {
     display: flex;
-    flex-wrap: wrap;
     align-items: center;
-    justify-content: space-between;
-    gap: 16px;
     padding-block: 24px;
   }
 
@@ -38,46 +26,5 @@ import { newsletterLive } from '../lib/newsletter';
     display: block;
     height: 28px;
     width: auto;
-  }
-
-  .site-nav {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: center;
-    gap: 12px 28px;
-    margin: 0;
-    padding: 0;
-    list-style: none;
-  }
-
-  /* Narrower gaps on phones. The links wrap under the logo (0013): at 375–390 px the four text
-     links share one line and "Get updates" takes the next. */
-  @media (max-width: 30rem) {
-    .site-nav {
-      column-gap: 16px;
-    }
-  }
-
-  .site-nav a {
-    color: var(--wk-ink);
-    font-weight: 600;
-    text-decoration: none;
-  }
-
-  .site-nav a:hover {
-    color: var(--wk-rust);
-  }
-
-  .site-nav .site-nav__pill {
-    display: inline-block;
-    padding: 10px 18px;
-    border-radius: 999px;
-    background: var(--wk-rust);
-    color: var(--wk-paper);
-  }
-
-  .site-nav .site-nav__pill:hover {
-    background: var(--wk-ink);
-    color: var(--wk-paper);
   }
 </style>
