@@ -84,8 +84,14 @@ Grant's words in chat, 2026-11-06. They are recorded as decisions without asking
 
 ## Outcome
 
-Filled in when the answers are recorded.
+Recorded 2026-11-06.
 
-- Decisions:
-- Spec or design changes:
-- Issues:
+- Decisions: [0048](../decisions/0048-header-is-rust.md) (the header is Rust; supersedes 0047),
+  [0049](../decisions/0049-home-page-is-the-rust-wall.md) (the home page is the Rust wall;
+  supersedes 0046, amends 0024), [0050](../decisions/0050-devlog-and-about-unlinked-until-they-have-content.md)
+  (nothing links to the devlog or About until they have content).
+- Spec or design changes: `sites/hub/design-plan.md` ("The Rust wall, 2026-11-06", Palette, Type,
+  Layout, Sections), `docs/brief.md` (The design), `docs/DECISIONS.md`.
+- Issues, in build order: WEB-3 (every page opens with a slim Rust band), WEB-4 (the home page
+  opens on the Rust wall; blocked by WEB-3). Held out: WEB-5 (link the devlog and About again
+  once they have content), in Backlog.
