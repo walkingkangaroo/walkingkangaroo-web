@@ -2,7 +2,7 @@
 
 What each site is hosted on and which DNS records point at it, written down when the site goes
 live. Each section also has the checks to rerun, so the next site can copy them. The hub is on
-its domain; PanePilot's site is on its Azure address until its domain moves.
+its domain, and so is PanePilot's site.
 
 No token and no validation code is in this file. The repo is public.
 
@@ -195,8 +195,9 @@ request that deploys a preview will show.
 
 ## PanePilot's site: panepilot.au
 
-`sites/panepilot/`, on its own Azure Static Web App. It serves at the app's Azure address only:
-every merge to `main` that touches it deploys there, and the address isn't linked from anywhere.
+`sites/panepilot/`, on its own Azure Static Web App. It went live at `https://panepilot.au/` on
+2026-11-07 (KAN-948), and `www` and the app's Azure address redirect there. Every merge to
+`main` that touches it deploys.
 
 ### The app
 
@@ -216,11 +217,11 @@ Azure, one app each), [0035](decisions/0035-pull-requests-get-preview-links.md) 
 
 ### The domain
 
-In progress (KAN-948). panepilot.au and `www.panepilot.au` move to this app before PanePilot's
-sign-up opens ([0052](decisions/0052-panepilot-site-collects-interest-before-sign-up.md),
+Moved on 2026-11-07 (KAN-948). panepilot.au and `www.panepilot.au` moved to this app before
+PanePilot's sign-up opens ([0052](decisions/0052-panepilot-site-collects-interest-before-sign-up.md),
 replacing [0040](decisions/0040-panepilot-site-live-on-azure-first.md)'s timing). The app's
-side, letting go of panepilot.au, is PanePilot's KAN-947, and the apex can't move until that is
-released.
+side, letting go of panepilot.au, was PanePilot's KAN-947, released between steps 2 and 3.
+The records table and steps below are kept as the record of how it was done.
 
 It follows the hub's [order that worked](#the-order-that-worked) with one deliberate difference:
 the hub validated `www` by TXT before touching it, while here the `www` CNAME goes in first and
@@ -354,6 +355,38 @@ both names show Validated in Azure.
 So the certificate for `panepilot.au` is served before the switch, and step 2 is done: the
 go-ahead for PanePilot's KAN-947.
 
+#### Results after steps 3 and 4, on 2026-11-07
+
+KAN-947 was released, then Grant added the ALIAS at the root, deleted the old root A record,
+and set `panepilot.au` as the default domain in Azure.
+
+| Check | Result |
+| --- | --- |
+| Root A on ns1, ns2, ns3 | Azure addresses on all three (`13.75.66.141` on ns1 and ns2, `20.99.157.72` on ns3), and no `4.196.42.39`. The ALIAS follows Azure's moving IPs, so the nameservers needn't agree. |
+| `www` CNAME on ns1, ns2, ns3 | `calm-water-0d51c3900.3.azurestaticapps.net` on all three |
+| MX on ns1, ns2, ns3 | The same four records |
+| SPF and Google TXT | Unchanged |
+| CAA | None |
+| `https://panepilot.au/` | 200, with a certificate curl accepts (from both nameservers' addresses) |
+| `https://panepilot.au/no-such-page/` | 404 |
+| `https://www.panepilot.au/` | **301** to `https://panepilot.au/` |
+| `https://www.panepilot.au/a/` | 301 to `https://panepilot.au/a/` (the path is kept) |
+| `http://panepilot.au/` | 301 to `https://panepilot.au/` |
+| `http://www.panepilot.au/` | 301 to `https://www.panepilot.au/`, then 301 to the root |
+| `https://calm-water-0d51c3900.3.azurestaticapps.net/` | 301 to `https://panepilot.au/` |
+| Social image | 200, `image/png` |
+| Canonical link | `https://panepilot.au/` |
+| Security headers | nosniff, strict-origin-when-cross-origin, DENY |
+| Page | No placeholder, no `/sign-in` link, both mailto links to `hello@panepilot.au`, the main one with the subject "Tell me when PanePilot opens" |
+| Lighthouse mobile 13.5.0 | Performance 100, accessibility 100, best practices 100, SEO 100 |
+
+Public resolvers took a while to agree. When these checks ran, Cloudflare's had the Azure
+address with a 300-second TTL, while some of Google's still gave `4.196.42.39`, and this machine's
+resolver too. With the Container App no longer serving panepilot.au, those visitors got a reset
+over HTTPS and a 404 over HTTP until their cache ran out. The HTTP checks above were run with
+`curl --resolve` to the nameservers' addresses, and Lighthouse with Chrome's
+`--host-resolver-rules`, for that reason. PageSpeed Insights' free daily quota was used up.
+
 Email for `hello@panepilot.au` ([0041](decisions/0041-panepilot-contact-address.md)) works:
 Grant set it up at VentraIP and tested it on 2026-11-06. The domain switch leaves these four MX
 records exactly as they are ([0005](decisions/0005-dns-stays-at-ventraip.md)):
@@ -367,21 +400,22 @@ records exactly as they are ([0005](decisions/0005-dns-stays-at-ventraip.md)):
 
 ### The checks
 
-For Git Bash, against the Azure address.
+For Git Bash, against the domain. (Before 2026-11-07 these ran against the Azure address, which
+now redirects to the domain.)
 
 ```bash
-APP=calm-water-0d51c3900.3.azurestaticapps.net
+DOMAIN=panepilot.au
 
 # The home page serves. Expect 200.
-curl -sSI --max-time 15 https://$APP/ | grep -iE '^HTTP'
+curl -sSI --max-time 15 https://$DOMAIN/ | grep -iE '^HTTP'
 
 # A missing path serves the site's 404 page. Expect 404.
-curl -sSI --max-time 15 https://$APP/no-such-page/ | grep -iE '^HTTP'
+curl -sSI --max-time 15 https://$DOMAIN/no-such-page/ | grep -iE '^HTTP'
 
 # The three security headers. Expect nosniff, strict-origin-when-cross-origin and DENY.
-curl -sSI --max-time 15 https://$APP/ | grep -iE '^(x-content-type-options|referrer-policy|x-frame-options)'
+curl -sSI --max-time 15 https://$DOMAIN/ | grep -iE '^(x-content-type-options|referrer-policy|x-frame-options)'
 
 # Built assets cache for a year. Expect public, max-age=31536000, immutable.
-ASSET=$(curl -sS --max-time 15 https://$APP/ | grep -oE '/_astro/[^"]+' | head -1)
-curl -sSI --max-time 15 https://$APP$ASSET | grep -iE '^(HTTP|cache-control)'
+ASSET=$(curl -sS --max-time 15 https://$DOMAIN/ | grep -oE '/_astro/[^"]+' | head -1)
+curl -sSI --max-time 15 https://$DOMAIN$ASSET | grep -iE '^(HTTP|cache-control)'
 ```

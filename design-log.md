@@ -4,7 +4,7 @@ Every shipped site gets an entry here, newest first. Read this before planning a
 
 ## PanePilot: panepilot.au
 
-- **Shipped**: YYYY-MM (set to the month panepilot.au serves it, KAN-948 step 4). Live on its Azure address since 2026-11, before sign-up opens (0052)
+- **Shipped**: 2026-11, at panepilot.au before sign-up opens (0052)
 - **Signature moment**: "Try each step of the round". Under the hero, five tabs (Quoting, Scheduling, Visits, Invoicing, Workers' pay), each a small working copy of that part of the app, with the app's own controls and words. In Quoting the visitor adds price-book lines and the Ladder chip, and a two-storey shop comes up clean pane by pane; the drawing only follows the numbers and is never a control.
 - **Palette**: Harbour, from the app's tokens. `--glass` #F4F8F8 (page), `--deep-water` #0B2F33 (text, the pricing band), `--harbour` #0E7C86 (the one primary button, active tab), `--harbour-dark` #07646C (hover, links), `--muted` #52696D (secondary text), `--mint` #E6FFFB (text on Deep Water), `--pane-clean` #D9F2F5, `--pane-dusty` #E1E6E4, `--frame` #D3DFE0, plus white for cards and screenshot frames. The app's `--status-*` colours only in the demos' badges and chip edges.
 - **Type**: Manrope 700 and 800 (headings, -3% tracking at 40 px and up; the wordmark's face), Geist 400 and 500 (everything else; the app's UI face). Ratio 1.25 from a 17 px body. Sentence case, no all-caps, no monospace.
