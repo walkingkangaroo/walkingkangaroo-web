@@ -1,0 +1,98 @@
+---
+import logo from '../assets/brand/walking-kangaroo-logo-stacked-paper.svg';
+import { site } from '../data/site';
+
+// The home page's header: the Rust wall, with the stacked Paper logo linking home, the page's h1 and
+// one sentence, both from site.ts (0049). Its bottom padding is the overlap, the length the pane
+// hangs down across its edge. `--overlap` is set once, on the page's `.home` size container, so it
+// is the same length as the hero's pull-up (see index.astro).
+---
+
+<header class="wall">
+  <div class="container wall__inner">
+    <a class="wall__logo" href="/" aria-label="Walking Kangaroo home">
+      <img src={logo.src} width={logo.width} height={logo.height} alt="" />
+    </a>
+    <div class="wall__text">
+      <h1 class="wall__line">{site.wall.line}</h1>
+      <p class="wall__sub">{site.wall.sub}</p>
+    </div>
+  </div>
+</header>
+
+<style>
+  .wall {
+    padding-bottom: var(--overlap, 0px);
+    background: var(--wk-rust);
+    color: var(--wk-paper);
+    text-align: center;
+  }
+
+  /* The logo's clear space is one foot length: 40 px above it and between it and the text, then
+     32 px under the text before the pane starts. 44 px and 36 px from 1024 px. */
+  .wall__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 40px;
+    padding-block: 40px 32px;
+  }
+
+  .wall__logo {
+    display: block;
+  }
+
+  /* Ink on Rust is 2.46:1, so the focus outline on the wall is Paper, as on SiteHeader's band. */
+  .wall__logo:focus-visible {
+    outline: 2px solid var(--wk-paper);
+    outline-offset: 3px;
+  }
+
+  .wall__logo img {
+    display: block;
+    width: 184px;
+    height: auto;
+  }
+
+  /* The line heights are the site's heading 1.15 (global.css) and a tight 1.4 for the sentence, so
+     that at 1440 x 900 the whole page, footer included, stays within 940 px. */
+  .wall__line {
+    max-width: 20ch;
+    margin: 0 auto;
+    font-size: 24px;
+    font-weight: 600;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    text-wrap: balance;
+  }
+
+  .wall__sub {
+    max-width: 36ch;
+    margin: 10px auto 0;
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 1.4;
+    text-wrap: balance;
+  }
+
+  @media (min-width: 1024px) {
+    .wall__inner {
+      gap: 44px;
+      padding-block: 44px 36px;
+    }
+
+    .wall__logo img {
+      width: 200px;
+    }
+
+    .wall__line {
+      max-width: none;
+      font-size: 34px;
+    }
+
+    .wall__sub {
+      max-width: 62ch;
+      font-size: 18px;
+    }
+  }
+</style>
