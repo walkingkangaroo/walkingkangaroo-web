@@ -29,7 +29,7 @@ const featured = await getFeaturedProject();
 
      W is the pane's width; --hang-gutter is .container's padding, in vw like it.
        Under 1024 px: W = min(column, 720 px), at 5:4, with 36% of its height on the wall.
-       From 1024 px: W = column - 56 px - the 380 px label, at 16:10, with 24% of its height on the wall.
+       From 1024 px: W = column - 56 px - the 380 px label, at 16:10, with 14% of its height on the wall (0051).
      The switch is @media (min-width: 1024px), the same condition as the hero's two columns and the
      pane's 16:10. */
   .home {
@@ -42,7 +42,7 @@ const featured = await getFeaturedProject();
 
   @media (min-width: 1024px) {
     .home {
-      --overlap: calc((min(100cqi, 1280px) - 2 * var(--hang-gutter) - var(--hang-gap) - var(--hang-label-w)) * 0.625 * 0.24);
+      --overlap: calc((min(100cqi, 1280px) - 2 * var(--hang-gutter) - var(--hang-gap) - var(--hang-label-w)) * 0.625 * 0.14);
     }
   }
 </style>

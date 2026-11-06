@@ -43,8 +43,9 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0042](decisions/0042-demo-seed-uses-the-sites-example-prices.md) | The demo business's price book changes to the site's example prices before the wide screenshots | Accepted |
 | [0044](decisions/0044-panepilot-site-says-job-like-the-app.md) | panepilot.au says "job" and "visit" as the app does, and claims only what the app does; amends 0039's plan | Accepted |
 | [0048](decisions/0048-header-is-rust.md) | The header is Rust: a wall on the home page and a slim band on every other page | Accepted |
-| [0049](decisions/0049-home-page-is-the-rust-wall.md) | The home page is the Rust wall, with PanePilot's pane hung across its edge, and nothing else but the footer | Accepted |
+| [0049](decisions/0049-home-page-is-the-rust-wall.md) | The home page is the Rust wall, with PanePilot's pane hung across its edge, and nothing else but the footer | Accepted (how much of the pane is on the wall from 1024 px amended by 0051) |
 | [0050](decisions/0050-devlog-and-about-unlinked-until-they-have-content.md) | Nothing links to the devlog or About until they have content | Accepted |
+| [0051](decisions/0051-pane-hangs-14-percent-onto-the-wall-on-laptops.md) | On laptops, 14% of PanePilot's pane hangs onto the Rust wall | Accepted |
 
 ## Platform, code and process
 

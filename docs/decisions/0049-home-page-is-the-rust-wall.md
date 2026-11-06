@@ -1,6 +1,6 @@
 # 0049. The home page is the Rust wall, with PanePilot's pane hung across its edge, and nothing else but the footer
 
-- **Status:** Accepted
+- **Status:** Accepted; how much of the pane is on the wall from 1024 px is amended by [0051](0051-pane-hangs-14-percent-onto-the-wall-on-laptops.md) (14%, not 24%)
 - **Date:** 2026-11-06
 - **Issues:** WEB-2
 - **Round:** [docs/rounds/home-rust-wall.md](../rounds/home-rust-wall.md), "Already answered"
