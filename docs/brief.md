@@ -32,7 +32,7 @@ except the project page, which is the template for project pages).
 
 | Project | Type | Stage | Code |
 | --- | --- | --- | --- |
-| PanePilot (featured, 0023) | App | Beta; goes live in November 2026 | `C:\dev\panepilot` |
+| PanePilot (featured, 0023) | App | Beta; goes live in Q1 2027 | `C:\dev\panepilot` |
 | Common Ground | Game | Prototype | `C:\dev\commonground` |
 | Arcsine | Game | Prototype | `C:\dev\arcsine` |
 | Aussie Trucker | Game | Prototype | `C:\dev\aussietrucker` |

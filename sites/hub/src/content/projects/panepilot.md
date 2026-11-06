@@ -8,7 +8,7 @@ platforms: [Web, Phone]
 oneLiner: "Scheduling, quoting, invoicing and field work for window cleaners."
 cover: ../../assets/projects/panepilot.jpg
 lockup: ../../assets/projects/panepilot-lockup.svg
-eyebrow: "Going live in November · Web and phone"
+eyebrow: "Going live Q1 2027 · Web and phone"
 headline: "The window-cleaning round, start to finish."
 summary: "Quote per pane, book the recurring visits, work each one from your phone, then invoice it and pay whoever did the job."
 link:

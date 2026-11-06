@@ -90,8 +90,10 @@ import { site } from '../data/site';
       font-size: 34px;
     }
 
+    /* No cap from 1024 px, so the sentence stays on one line on a laptop (about 800 px at 18 px)
+       and the page keeps within 940 px at 1440 x 900. A rewrite longer than the column wraps. */
     .wall__sub {
-      max-width: 62ch;
+      max-width: none;
       font-size: 18px;
     }
   }

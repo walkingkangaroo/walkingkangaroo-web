@@ -13,7 +13,7 @@ moves into `walkingkangaroo-web` (see "Repo" at the end).
 - **Repo:** yes to `walkingkangaroo-web`, with this hub nested in its own folder inside it.
 - **Process:** shape it into Linear issues with `/shape` as usual.
 - **First notes:** no footprints on the hero image, and none between the four stops.
-- **Launch and stage:** it launches in November. Show Beta (step 4 of 5) for now.
+- **Launch and stage:** it launches in Q1 2027. Show Beta (step 4 of 5) for now.
 
 ## Decided in the shape round, 2026-10-14
 
@@ -84,7 +84,7 @@ on. The rest of this plan shows them as designed.
 - **Materials:** glass, squeegee strokes, the run (a street of shops cleaned together), the job
   card on a phone in sunlight, invoices labelled "Invoice" and never "Tax Invoice".
 - **Status:** going live soon at app.panepilot.au; panepilot.au redirects there (PanePilot
-  decision 0052). No public sign-up and no pricing yet. It launches in November 2026.
+  decision 0052). No public sign-up and no pricing yet. It launches in Q1 2027.
 - **Assets:** the PanePilot lockup, mark and teal cover art (all in the hub or PanePilot's
   `public/brand/`).
 - **Gaps:** there are no screenshots of the app at all. The hero and the "how it works" section
