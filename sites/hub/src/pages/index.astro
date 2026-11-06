@@ -1,73 +1,48 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
+import HomeWall from '../components/HomeWall.astro';
 import HomeHero from '../components/HomeHero.astro';
-import PostCard from '../components/PostCard.astro';
 import NewsletterBand from '../components/NewsletterBand.astro';
 import { newsletterLive } from '../lib/newsletter';
-import { getFeaturedProject, getPublishedPosts } from '../lib/content';
+import { getFeaturedProject } from '../lib/content';
 
-// The home page is the hero, then the devlog and the newsletter band once each exists (0046).
+// The home page is the Rust wall in the header's place, PanePilot's pane hung across its edge, then
+// the newsletter band once Kit is connected, and nothing else (0049).
 const featured = await getFeaturedProject();
-// The Devlog section is left out entirely until there is a published post.
-const latestPosts = (await getPublishedPosts()).slice(0, 3);
 ---
 
-<BaseLayout title="Walking Kangaroo" description="Grant's games and apps, and how far along each one is.">
-  <HomeHero project={featured} />
-
-  {
-    latestPosts.length > 0 && (
-      <section id="devlog" class="container section">
-        <div class="section__head section__head--ruled">
-          <h2>Devlog</h2>
-          <a class="all-posts" href="/devlog/">
-            All posts →
-          </a>
-        </div>
-        <div class="posts">
-          {latestPosts.map((post) => <PostCard post={post} />)}
-        </div>
-      </section>
-    )
-  }
+<BaseLayout title="Walking Kangaroo" description="Grant's games and apps, and how far along each one is." siteHeader={false}>
+  <div class="home">
+    <HomeWall />
+    <HomeHero project={featured} />
+  </div>
 
   {newsletterLive && <NewsletterBand />}
 </BaseLayout>
 
 <style>
-  .section {
-    display: flex;
-    flex-direction: column;
-    gap: 28px;
-    padding-top: clamp(40px, 6vw, 64px);
-    padding-bottom: clamp(56px, 8vw, 96px);
+  /* The overlap: how far the pane hangs up across the wall's lower edge. The wall's bottom padding,
+     the hero's negative top margin and the label's offset all use it. .home is a size container
+     around the wall and the hero, so `cqi` in all three is this block's width and the lengths are
+     always the same. Not 100vw, which includes a classic scrollbar; and not percentages, which
+     resolve against the label's 380 px grid column on the label.
+
+     W is the pane's width; --hang-gutter is .container's padding, in vw like it.
+       Under 1024 px: W = min(column, 720 px), at 5:4, with 36% of its height on the wall.
+       From 1024 px: W = column - 56 px - the 380 px label, at 16:10, with 24% of its height on the wall.
+     The switch is @media (min-width: 1024px), the same condition as the hero's two columns and the
+     pane's 16:10. */
+  .home {
+    container-type: inline-size;
+    --hang-gutter: clamp(16px, 4vw, 40px);
+    --hang-label-w: 380px;
+    --hang-gap: 56px;
+    --overlap: calc(min(100cqi - 2 * var(--hang-gutter), 720px) * 0.8 * 0.36);
   }
 
-  .section__head {
-    display: flex;
-    flex-wrap: wrap;
-    align-items: baseline;
-    justify-content: space-between;
-    gap: 16px;
-  }
-
-  .section__head--ruled {
-    padding-top: 20px;
-    border-top: 2px solid var(--wk-ink);
-  }
-
-  h2 {
-    margin: 0;
-    font-size: clamp(28px, 5vw, 36px);
-  }
-
-  .all-posts {
-    font-weight: 600;
-  }
-
-  .posts {
-    display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 32px;
+  @media (min-width: 1024px) {
+    .home {
+      --overlap: calc((min(100cqi, 1280px) - 2 * var(--hang-gutter) - var(--hang-gap) - var(--hang-label-w)) * 0.625 * 0.24);
+    }
   }
 </style>

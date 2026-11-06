@@ -17,18 +17,25 @@ const { name, oneLiner, stage, platforms, cover, heroBackdrop, wide, phone, lock
 const backdrop = heroBackdrop ?? cover;
 // With both a wide screen and a phone, they stand together. With only one, it stands alone.
 const duo = Boolean(wide && phone);
+// The `sizes` below only choose image files. They follow the pane's width W (0049): 764 px from
+// 1280 px; from 1024 px the page column less the 56 px gap and the 380 px label, 100vw - 516 px; and
+// under 1024 px the column, up to 720 px, which it reaches at about 783 px wide.
 // The phone's rendered width: 17.0% of the pane's width as one of a pair (its screenshot, inside the
 // bezel), or 0024's single phone.
 const phoneSizes = duo
-  ? '(min-width: 1280px) 114px, (min-width: 1024px) calc((100vw - 128px) * 7 / 12 * 0.17), calc((100vw - 2 * clamp(16px, 4vw, 40px)) * 0.17)'
+  ? '(min-width: 1280px) 130px, (min-width: 1024px) calc((100vw - 516px) * 0.17), (min-width: 783px) 122px, calc((100vw - 2 * clamp(16px, 4vw, 40px)) * 0.17)'
   : '(min-width: 1024px) 165px, 33vw';
 
 // Everything below reads from the project's content file (0024). A featured project without the
 // hero fields gets the older hero's text: its name set in Outfit, its one-liner, "In development".
 const eyebrowText = eyebrow ?? (platforms.length ? `In development · ${platforms.join(' / ')}` : 'In development');
 // With no link, the first button is "Follow development", which goes to the newsletter band. While the
-// newsletter is hidden (0034) there is no button (0046).
+// newsletter is hidden (0034) there is no button.
 const primary = link ?? (newsletterLive ? { label: 'Follow development', href: '/#news' } : undefined);
+
+// The pane hangs up across the Rust wall's lower edge, by --overlap, and the label sits beside it from
+// 1024 px and under it below that (0049). --overlap, --hang-label-w and --hang-gap are set on the home
+// page's .home size container (index.astro).
 ---
 
 <section id="top" class="container hero-section">
@@ -41,7 +48,7 @@ const primary = link ?? (newsletterLive ? { label: 'Follow development', href: '
             src={backdrop}
             alt=""
             widths={[480, 800, 1200, 1800]}
-            sizes="(min-width: 1280px) 672px, (min-width: 1024px) calc((100vw - 128px) * 7 / 12), calc(100vw - 2 * clamp(16px, 4vw, 40px))"
+            sizes="(min-width: 1280px) 764px, (min-width: 1024px) calc(100vw - 516px), (min-width: 783px) 720px, calc(100vw - 2 * clamp(16px, 4vw, 40px))"
             loading="eager"
             fetchpriority="high"
           />
@@ -55,7 +62,7 @@ const primary = link ?? (newsletterLive ? { label: 'Follow development', href: '
               src={wide}
               alt=""
               widths={[480, 760, 1020, 1520]}
-              sizes="(min-width: 1280px) 508px, (min-width: 1024px) calc((100vw - 128px) * 7 / 12 * 0.756), calc((100vw - 2 * clamp(16px, 4vw, 40px)) * 0.756)"
+              sizes="(min-width: 1280px) 578px, (min-width: 1024px) calc((100vw - 516px) * 0.756), (min-width: 783px) 544px, calc((100vw - 2 * clamp(16px, 4vw, 40px)) * 0.756)"
               loading="eager"
               fetchpriority="high"
             />
@@ -84,16 +91,17 @@ const primary = link ?? (newsletterLive ? { label: 'Follow development', href: '
       <span class="eyebrow">{eyebrowText}</span>
       {
         lockup ? (
-          <h1 class="lockup">
+          <h2 class="lockup">
             <img src={lockup.src} width={lockup.width} height={lockup.height} alt={name} />
-          </h1>
+          </h2>
         ) : (
-          <h1 class="name">{name}</h1>
+          <h2 class="name">{name}</h2>
         )
       }
       {headline && <p class="headline">{headline}</p>}
       {summary ? <p class="summary">{summary}</p> : <p class="one-liner">{oneLiner}</p>}
-      <StageMeter stage={stage} size="md" label="long" detail={platforms.length ? platforms.join(', ') : undefined} />
+      {/* No platforms detail here: the eyebrow already says them (0049). Project pages keep it. */}
+      <StageMeter stage={stage} size="md" label="long" />
       {
         primary && (
           <div class="actions">
@@ -115,14 +123,27 @@ const primary = link ?? (newsletterLive ? { label: 'Follow development', href: '
     initial-value: 101%;
   }
 
+  /* The pull-up is the wall's bottom padding, the same length (index.astro). Then the space before
+     the newsletter band or the footer. */
   .hero-section {
-    padding-top: 16px;
+    margin-top: calc(-1 * var(--overlap, 0px));
+    padding-bottom: 56px;
   }
 
-  /* Phones and tablets: the pane first, then the text, both the full width of the page. */
+  /* Phones and tablets: the pane first, then the text, both the column's width up to 720 px, centred. */
   .hero {
     display: grid;
     gap: 28px;
+  }
+
+  /* Where the pane sits, how wide it is, and its shadow, so it reads as hung on the wall. Its inside
+     is the .pane rules below (0024, 0038). */
+  .hero .pane {
+    max-width: 720px;
+    margin-inline: auto;
+    box-shadow:
+      0 2px 0 color-mix(in srgb, var(--wk-ink) 18%, transparent),
+      0 28px 56px color-mix(in srgb, var(--wk-ink) 30%, transparent);
   }
 
   /* The pane: the project's hero backdrop (its cover, or a version of it without the mark), the wide
@@ -349,8 +370,11 @@ const primary = link ?? (newsletterLive ? { label: 'Follow development', href: '
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    gap: 18px;
+    gap: 16px;
+    width: 100%;
+    max-width: 720px;
     min-width: 0;
+    margin-inline: auto;
   }
 
   .eyebrow {
@@ -363,8 +387,9 @@ const primary = link ?? (newsletterLive ? { label: 'Follow development', href: '
 
   /* The lockup is the heading, never the name set in Outfit (PanePilot's brand rules). It keeps
      clear space of a quarter of its mark's tile on every side, and the tile is as wide as the
-     lockup is tall: 11 px at 44 px, 13 px at 52 px. The text column's 18 px gap gives that above
-     and below; the page margin and the empty rest of the column give it at the sides. */
+     lockup is tall: 11 px at 44 px, its height at every width. The text column's gap, 16 px and
+     12 px from 1024 px, gives that above and below; the page margin and the empty rest of the
+     column give it at the sides. */
   .lockup {
     --lockup-h: 44px;
     margin: 0;
@@ -395,7 +420,7 @@ const primary = link ?? (newsletterLive ? { label: 'Follow development', href: '
   .headline {
     margin: 0;
     max-width: 16ch;
-    font-size: clamp(30px, 3vw, 42px);
+    font-size: 30px;
     font-weight: 600;
     line-height: 1.08;
     letter-spacing: -0.025em;
@@ -405,7 +430,7 @@ const primary = link ?? (newsletterLive ? { label: 'Follow development', href: '
   .summary {
     margin: 0;
     max-width: 36ch;
-    font-size: 18px;
+    font-size: 17px;
     color: var(--site-text-quiet);
   }
 
@@ -453,19 +478,28 @@ const primary = link ?? (newsletterLive ? { label: 'Follow development', href: '
     }
   }
 
-  /* Desktop: the text on the left and the pane on the right, side by side and vertically centred,
-     with no overlap and no box behind the text. At 1440 px wide (a 1200 px content box) the text
-     column is 480 px and the pane 672 x 420 px; at 1024 px the text is about 373 px and the pane
-     about 523 x 327 px. */
+  /* Desktop: the pane on the left, taking the rest, and the 380 px label on the right, 56 px apart
+     and top-aligned. At 1440 px wide (a 1200 px content box) the pane is 764 x 477.5 px; at 1024 px
+     about 508 x 318 px (less a classic scrollbar). The label starts 24 px below the wall's edge, so
+     its Ink text is never on Rust. */
   @media (min-width: 1024px) {
+    .hero-section {
+      padding-bottom: 48px;
+    }
+
     .hero {
-      grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
-      gap: 48px;
-      align-items: center;
+      grid-template-columns: minmax(0, 1fr) var(--hang-label-w, 380px);
+      column-gap: var(--hang-gap, 56px);
+      align-items: start;
+    }
+
+    .hero .pane {
+      max-width: none;
+      margin: 0;
     }
 
     .pane {
-      grid-column: 2;
+      grid-column: 1;
       grid-row: 1;
       aspect-ratio: 16 / 10;
     }
@@ -481,13 +515,11 @@ const primary = link ?? (newsletterLive ? { label: 'Follow development', href: '
     }
 
     .hero__text {
-      grid-column: 1;
+      grid-column: 2;
       grid-row: 1;
-    }
-
-    /* 40 px at 1024 px wide, 52 px from about 1444 px. */
-    .lockup {
-      --lockup-h: clamp(40px, 3.6vw, 52px);
+      gap: 12px;
+      max-width: none;
+      margin: calc(var(--overlap, 0px) + 24px) 0 0;
     }
 
     .name {

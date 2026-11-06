@@ -15,10 +15,15 @@ interface Props {
    * the wrong page.
    */
   noindex?: boolean;
+  /**
+   * Show `SiteHeader`, the slim Rust band (0048). The home page passes false, because its Rust
+   * wall, the first thing in its `main`, takes the header's place (0049).
+   */
+  siteHeader?: boolean;
 }
 
 const SITE_NAME = 'Walking Kangaroo';
-const { title, description, image = '/og-default.png', noindex = false } = Astro.props;
+const { title, description, image = '/og-default.png', noindex = false, siteHeader = true } = Astro.props;
 
 const fullTitle = title === SITE_NAME ? SITE_NAME : `${title} · ${SITE_NAME}`;
 const canonical = new URL(Astro.url.pathname, Astro.site);
@@ -62,7 +67,7 @@ const imageUrl = new URL(image, Astro.site);
     }
   </head>
   <body>
-    <SiteHeader />
+    {siteHeader && <SiteHeader />}
     <main>
       <slot />
     </main>
