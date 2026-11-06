@@ -1,5 +1,4 @@
 ---
-import { offer } from '../data/offer';
 import { site } from '../data/site';
 
 // Native <details>, so every answer opens without JavaScript. The contact address is not mentioned
@@ -12,8 +11,8 @@ const questions = [
     ],
   },
   {
-    q: 'Can I bring my customers from Fergus or a spreadsheet?',
-    a: ["Yes. Bring them in from a CSV exported from Fergus or a spreadsheet. You match the columns and check every row before anything's saved."],
+    q: 'Can I bring my customers from my current software or a spreadsheet?',
+    a: ["Yes. Export them as a CSV file and bring them in. You match the columns and check every row before anything's saved."],
   },
   {
     q: 'Do my workers pay?',
@@ -21,13 +20,7 @@ const questions = [
   },
   {
     q: 'Does it work on my phone?',
-    a: ["Yes. It runs in your phone's browser and installs to your home screen. It isn't in the app stores yet."],
-  },
-  {
-    q: "I'm not registered for GST. Is that a problem?",
-    a: [
-      `No. While you're not registered, invoices are headed "Invoice" with no GST line. ${offer.gstNote} on PanePilot's ${offer.priceLine}.`,
-    ],
+    a: ["Yes. It works in your phone's browser, and it's on Google Play for Android phones. It's coming soon to Apple's App Store."],
   },
   {
     q: 'Can I cancel?',

@@ -13,7 +13,9 @@ import { site } from '../data/site';
         <li><a href={site.privacyUrl}>Privacy</a></li>
         <li><a href={site.termsUrl}>Terms</a></li>
       </ul>
-      <p class="site-footer__contact">Contact: {site.contact}</p>
+      <p class="site-footer__contact">
+        Contact: <a href={`mailto:${site.contact}`}>{site.contact}</a>
+      </p>
     </div>
     <WkSignature variant="primary" class="site-footer__signature" />
   </div>
@@ -63,7 +65,8 @@ import { site } from '../data/site';
     font-weight: 500;
   }
 
-  .site-footer__links a {
+  .site-footer__links a,
+  .site-footer__contact a {
     display: inline-flex;
     align-items: center;
     min-height: var(--tap);

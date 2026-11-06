@@ -16,8 +16,11 @@ email yet.
 - The site shows `hello@panepilot.au`.
 - Grant sets up a mailbox or a forward for it at VentraIP first. That means an MX record on
   panepilot.au, which this repo never touches (0005).
-- Until he confirms it receives mail, the site shows `[TODO: contact address]` in its place.
-  The launch issue replaces it.
+- ~~Until he confirms it receives mail, the site shows `[TODO: contact address]` in its place.
+  The launch issue replaces it.~~ Amended 2026-11-06 (Grant): the footer shows
+  `hello@panepilot.au` now, as a `mailto:` link, before the MX record exists.
+- Amended 2026-11-06 (Grant): `support@`, `sales@` and `accounts@panepilot.au` forward to the
+  same inbox as `hello@`. Only `hello@` appears on the site.
 
 ## Alternatives considered
 
@@ -27,5 +30,5 @@ email yet.
 ## Consequences
 
 - Launching at panepilot.au waits on the address working.
-- The placeholder is public on the Azure address until then. That's Grant's sign-off on it,
-  for the Azure address only.
+- Since 2026-11-06 the address is public before it receives mail, so anything sent to it
+  bounces until the MX record and the forwards are set up at VentraIP.

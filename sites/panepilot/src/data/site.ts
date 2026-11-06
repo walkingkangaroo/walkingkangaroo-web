@@ -11,6 +11,6 @@ export const site = {
   trialUrl: `${APP_URL}/sign-in`,
   privacyUrl: `${APP_URL}/privacy`,
   termsUrl: `${APP_URL}/terms`,
-  /** Decision 0041: the launch issue swaps this for hello@panepilot.au once it receives mail. */
-  contact: '[TODO: contact address]',
+  /** Decision 0041. support@, sales@ and accounts@ forward to the same inbox but aren't shown. */
+  contact: 'hello@panepilot.au',
 } as const;
