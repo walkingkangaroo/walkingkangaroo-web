@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '../layouts/BaseLayout.astro';
-import { site } from '../data/site';
+import { cta } from '../data/site';
 ---
 
 <BaseLayout title="Page not found · PanePilot" description="There's nothing at this address." noindex>
@@ -9,7 +9,7 @@ import { site } from '../data/site';
     <p>There's nothing at this address.</p>
     <p class="actions">
       <a class="home" href="/">Back to the home page</a>
-      <a class="btn btn-primary" href={site.trialUrl}>Start your free trial</a>
+      <a class="btn btn-primary" href={cta.href}>{cta.label}</a>
     </p>
   </div>
 </BaseLayout>

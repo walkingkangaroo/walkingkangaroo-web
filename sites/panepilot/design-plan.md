@@ -15,6 +15,11 @@ plan and a decision record disagree, the record wins.
   Azure address from the deploy issue on, and at panepilot.au once PanePilot's sign-up ships.
 - **Contact** ([0041](../../docs/decisions/0041-panepilot-contact-address.md)): `hello@panepilot.au`,
   shown in the footer as a `mailto:` link; support@, sales@ and accounts@ forward to the same inbox.
+- **Before sign-up opens** ([0052](../../docs/decisions/0052-panepilot-site-collects-interest-before-sign-up.md)):
+  the site goes live first. Every "Start your free trial" below reads "Tell me when it opens" (an
+  email to `hello@panepilot.au`), "Sign in" is hidden, and the price is A$39 a month, not A$49,
+  with a founders' price of A$27 for sign-ups before 30 June 2027.
+  The footer shows the address without "Contact:".
 - **Screenshot prices** ([0042](../../docs/decisions/0042-demo-seed-uses-the-sites-example-prices.md)):
   the demo business switches to $7.50, $10.00 and Ladder +50% before the wide screenshots.
 - **"Job", like the app** ([0044](../../docs/decisions/0044-panepilot-site-says-job-like-the-app.md)):

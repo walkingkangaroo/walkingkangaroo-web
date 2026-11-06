@@ -21,7 +21,10 @@ These are `pnpm --filter panepilot ...`. The hub's scripts (`pnpm build`, `pnpm 
 
 - `src/styles/tokens.css`: every colour, the type scale and the spacing, as custom properties. It's
   the only file that writes a hex value. Components use the names.
-- `src/data/site.ts`: the app's addresses, the A$49 price and the contact line. Pages read from it.
+- `src/data/site.ts`: the app's addresses, the contact line, and `isOpen`, which picks the main
+  button ("Tell me when it opens" until sign-up opens, then "Start your free trial"; 0052).
+- `src/data/offer.ts`: the A$39 price, the founders' A$27 and its deadline, the trial and the
+  hero's line. Pages read from both.
 - `src/layouts/BaseLayout.astro`: the head (title, description, canonical, Open Graph, Twitter, icons),
   the header and footer, and a slot for the page.
 - `src/pages/index.astro` and `404.astro`.

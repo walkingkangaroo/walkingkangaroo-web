@@ -1,16 +1,32 @@
-// Facts the pages share: the links to the app and the contact line. The price and the trial are in
-// offer.ts.
+// Facts the pages share: the links to the app, the contact line and the page's main button. The
+// price and the trial are in offer.ts.
 
 export const APP_URL = 'https://app.panepilot.au';
+
+const contact = 'hello@panepilot.au';
+
+/** False until self-serve sign-up opens (decision 0052). It switches the main button and hides "Sign in". */
+const isOpen = false;
+
+const trialUrl = `${APP_URL}/sign-in`;
+const interestUrl = `mailto:${contact}?subject=${encodeURIComponent('Tell me when PanePilot opens')}`;
 
 export const site = {
   name: 'PanePilot',
   url: 'https://panepilot.au/',
+  isOpen,
   signInUrl: `${APP_URL}/sign-in`,
   /** "Start your free trial" goes to the app's sign-in, where sign-up starts. */
-  trialUrl: `${APP_URL}/sign-in`,
+  trialUrl,
+  /** "Tell me when it opens": an email to the contact address, with the subject filled in. */
+  interestUrl,
   privacyUrl: `${APP_URL}/privacy`,
   termsUrl: `${APP_URL}/terms`,
   /** Decision 0041. support@, sales@ and accounts@ forward to the same inbox but aren't shown. */
-  contact: 'hello@panepilot.au',
+  contact,
 } as const;
+
+/** The page's main button, in the header, the hero, the pricing band and the 404 page. */
+export const cta = isOpen
+  ? { label: 'Start your free trial', href: trialUrl }
+  : { label: 'Tell me when it opens', href: interestUrl };

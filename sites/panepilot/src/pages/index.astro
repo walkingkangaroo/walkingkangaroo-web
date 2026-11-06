@@ -25,20 +25,27 @@ const jsonLd = {
   applicationCategory: 'BusinessApplication',
   operatingSystem: 'Any device with a web browser',
   inLanguage: 'en-AU',
-  offers: {
+  offers: [
+    monthlyOffer(offer.price, offer.schemaDescription),
+    { ...monthlyOffer(offer.foundersPrice, offer.foundersSchemaDescription), priceValidUntil: offer.foundersUntilIso },
+  ],
+};
+
+function monthlyOffer(price: number, offerDescription: string) {
+  return {
     '@type': 'Offer',
-    price: String(offer.price),
+    price: String(price),
     priceCurrency: offer.currency,
-    description: offer.schemaDescription,
-    url: site.trialUrl,
+    description: offerDescription,
+    url: site.isOpen ? site.trialUrl : `${site.url}#pricing`,
     priceSpecification: {
       '@type': 'UnitPriceSpecification',
-      price: String(offer.price),
+      price: String(price),
       priceCurrency: offer.currency,
       unitText: 'MONTH',
     },
-  },
-};
+  };
+}
 ---
 
 <BaseLayout title={title} description={description}>

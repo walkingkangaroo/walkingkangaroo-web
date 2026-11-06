@@ -3,7 +3,7 @@ import { Picture } from 'astro:assets';
 import calendarWide from '../assets/screenshots/calendar-wide.png';
 import quoteWide from '../assets/screenshots/quote-wide.png';
 import invoicePaidWide from '../assets/screenshots/invoice-paid-wide.png';
-import { site } from '../data/site';
+import { site, cta } from '../data/site';
 import { offer } from '../data/offer';
 import BrowserFrame from './BrowserFrame.astro';
 ---
@@ -17,8 +17,8 @@ import BrowserFrame from './BrowserFrame.astro';
         works out your workers' pay.
       </p>
       <div class="hero__cta">
-        <a class="btn btn-primary" href={site.trialUrl}>Start your free trial</a>
-        <small>{offer.trialLine}</small>
+        <a class="btn btn-primary" href={cta.href}>{cta.label}</a>
+        <small>{site.isOpen ? offer.trialLine : offer.openingLine}</small>
       </div>
     </div>
 
