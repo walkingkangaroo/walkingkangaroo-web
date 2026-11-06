@@ -1,6 +1,6 @@
 # 0047. The header is the logo alone, with no navigation links
 
-- **Status:** Accepted
+- **Status:** Superseded by [0048](0048-header-is-rust.md)
 - **Date:** 2026-11-06
 - **Issues:** none (Grant's request of 2026-11-06)
 - **Supersedes:** [0013](0013-phone-header-wraps.md)

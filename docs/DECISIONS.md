@@ -29,7 +29,7 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0021](decisions/0021-about-has-no-photo.md) | The about section has no photo | Accepted |
 | [0022](decisions/0022-hero-text-beside-the-cover.md) | The home hero shows the featured cover beside or above its text, never behind it | Superseded by 0024 |
 | [0023](decisions/0023-panepilot-is-featured-at-beta.md) | PanePilot is the featured project, shown at Beta | Accepted |
-| [0024](decisions/0024-home-hero-is-the-fogged-pane.md) | The home hero is PanePilot's fogged pane, cleared by one sweep | Accepted (button label superseded by 0030, pane composition by 0038) |
+| [0024](decisions/0024-home-hero-is-the-fogged-pane.md) | The home hero is PanePilot's fogged pane, cleared by one sweep | Accepted (button label superseded by 0030, pane composition by 0038, `h1` and text placement by 0049) |
 | [0025](decisions/0025-home-sections-panepilot-first.md) | After the hero, the home page shows how a visit goes, our own round, and the games as a list | Superseded by 0046 |
 | [0026](decisions/0026-panepilot-screenshots-from-a-demo-business.md) | PanePilot's screenshots come from a demo business with invented data, and the page doesn't wait for them | Accepted |
 | [0028](decisions/0028-signature-uses-brand-pack-files.md) | The signature on product sites uses the brand pack's logo files unchanged | Accepted |
@@ -42,6 +42,9 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0041](decisions/0041-panepilot-contact-address.md) | panepilot.au's contact address is hello@panepilot.au | Accepted |
 | [0042](decisions/0042-demo-seed-uses-the-sites-example-prices.md) | The demo business's price book changes to the site's example prices before the wide screenshots | Accepted |
 | [0044](decisions/0044-panepilot-site-says-job-like-the-app.md) | panepilot.au says "job" and "visit" as the app does, and claims only what the app does; amends 0039's plan | Accepted |
+| [0048](decisions/0048-header-is-rust.md) | The header is Rust: a wall on the home page and a slim band on every other page | Accepted |
+| [0049](decisions/0049-home-page-is-the-rust-wall.md) | The home page is the Rust wall, with PanePilot's pane hung across its edge, and nothing else but the footer | Accepted |
+| [0050](decisions/0050-devlog-and-about-unlinked-until-they-have-content.md) | Nothing links to the devlog or About until they have content | Accepted |
 
 ## Platform, code and process
 
@@ -52,8 +55,8 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0005](decisions/0005-dns-stays-at-ventraip.md) | DNS stays at VentraIP, and email records are never touched | Accepted (GitHub Pages records superseded by 0032) |
 | [0007](decisions/0007-adopt-process-template.md) | Work through process-template 1.0.1 | Accepted |
 | [0045](decisions/0045-issues-live-in-the-tracker-vault.md) | Issues live in the tracker vault through process-template 1.3.0; new IDs are `WEB-###`, moved ones keep `KAN-###` | Accepted |
-| [0046](decisions/0046-home-page-is-the-hero-and-devlog.md) | The home page is the hero, then the devlog and the newsletter band | Accepted |
-| [0047](decisions/0047-header-is-the-logo-alone.md) | The header is the logo alone, with no navigation links | Accepted |
+| [0046](decisions/0046-home-page-is-the-hero-and-devlog.md) | The home page is the hero, then the devlog and the newsletter band | Superseded by 0049 |
+| [0047](decisions/0047-header-is-the-logo-alone.md) | The header is the logo alone, with no navigation links | Superseded by 0048 |
 | [0008](decisions/0008-astro-7-on-node-24.md) | Astro 7 on Node 24 LTS | Accepted |
 | [0011](decisions/0011-publish-at-launch.md) | The site is first published at launch, not while it's built | Accepted (first publication superseded by 0033) |
 | [0027](decisions/0027-one-web-repo-walkingkangaroo-web.md) | One web repo, walkingkangaroo-web, with the hub in sites/hub/ | Accepted |
