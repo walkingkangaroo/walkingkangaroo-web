@@ -1,6 +1,6 @@
 # 0013. On a phone the header links wrap under the logo, with no menu button
 
-- **Status:** Accepted
+- **Status:** Superseded by [0047](0047-header-is-the-logo-alone.md): the header has no links
 - **Date:** 2026-10-05
 - **Issues:** KAN-726
 - **Round:** [docs/rounds/build-the-site.md](../rounds/build-the-site.md), question 6

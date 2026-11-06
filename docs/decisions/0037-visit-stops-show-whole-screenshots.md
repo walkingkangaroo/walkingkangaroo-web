@@ -1,6 +1,6 @@
 # 0037. Each stop in "How a visit goes" shows its screenshot whole, below its text
 
-- **Status:** Accepted
+- **Status:** Superseded by [0046](0046-home-page-is-the-hero-and-devlog.md): "How a visit goes" is gone
 - **Date:** 2026-10-15
 - **Issues:** KAN-924
 - **Round:** none: Grant's request and answers of 2026-10-15, recorded in KAN-924

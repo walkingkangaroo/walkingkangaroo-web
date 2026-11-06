@@ -18,7 +18,7 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0009](decisions/0009-stage-meter-solid-footprints.md) | The stage meter uses one solid foot, faded for steps not reached | Accepted |
 | [0010](decisions/0010-site-tints.md) | The site uses seven Paper and Ink tints alongside the brand colours | Accepted |
 | [0012](decisions/0012-project-page-scope.md) | Project pages leave out the playtest parts until there is a playtest | Accepted |
-| [0013](decisions/0013-phone-header-wraps.md) | On a phone the header links wrap under the logo, with no menu button | Accepted |
+| [0013](decisions/0013-phone-header-wraps.md) | On a phone the header links wrap under the logo, with no menu button | Superseded by 0047 |
 | [0014](decisions/0014-claude-drafts-grant-rewrites.md) | Claude drafts the site's words, and Grant rewrites them before they merge | Accepted |
 | [0015](decisions/0015-no-clips-yet.md) | No gameplay clips in the Content step | Accepted |
 | [0016](decisions/0016-grant-supplies-covers.md) | Grant supplies each project's cover art | Accepted |
@@ -30,13 +30,13 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0022](decisions/0022-hero-text-beside-the-cover.md) | The home hero shows the featured cover beside or above its text, never behind it | Superseded by 0024 |
 | [0023](decisions/0023-panepilot-is-featured-at-beta.md) | PanePilot is the featured project, shown at Beta | Accepted |
 | [0024](decisions/0024-home-hero-is-the-fogged-pane.md) | The home hero is PanePilot's fogged pane, cleared by one sweep | Accepted (button label superseded by 0030, pane composition by 0038) |
-| [0025](decisions/0025-home-sections-panepilot-first.md) | After the hero, the home page shows how a visit goes, our own round, and the games as a list | Accepted (cropped screenshots superseded by 0037) |
+| [0025](decisions/0025-home-sections-panepilot-first.md) | After the hero, the home page shows how a visit goes, our own round, and the games as a list | Superseded by 0046 |
 | [0026](decisions/0026-panepilot-screenshots-from-a-demo-business.md) | PanePilot's screenshots come from a demo business with invented data, and the page doesn't wait for them | Accepted |
 | [0028](decisions/0028-signature-uses-brand-pack-files.md) | The signature on product sites uses the brand pack's logo files unchanged | Accepted |
 | [0029](decisions/0029-panepilot-page-leads-to-panepilot-au.md) | PanePilot's project page leads with "Go to panepilot.au" and its lockup | Accepted (button label superseded by 0030) |
 | [0030](decisions/0030-panepilot-link-reads-visit-panepilot-au.md) | Links to PanePilot's website read "Visit panepilot.au" | Accepted |
 | [0034](decisions/0034-newsletter-hidden-until-kit.md) | The newsletter band and the links to it are hidden until Kit is connected | Accepted |
-| [0037](decisions/0037-visit-stops-show-whole-screenshots.md) | Each stop in "How a visit goes" shows its screenshot whole, below its text | Accepted |
+| [0037](decisions/0037-visit-stops-show-whole-screenshots.md) | Each stop in "How a visit goes" shows its screenshot whole, below its text | Superseded by 0046 |
 | [0038](decisions/0038-hero-shows-wide-screen-and-phone-over-the-swoops.md) | The home hero shows PanePilot on a wide screen and a phone, over the swoops without the mark | Accepted |
 | [0039](decisions/0039-panepilot-site-follows-its-design-plan.md) | panepilot.au is built to its approved design plan: real screens, then five working demos | Accepted |
 | [0041](decisions/0041-panepilot-contact-address.md) | panepilot.au's contact address is hello@panepilot.au | Accepted |
@@ -52,6 +52,8 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0005](decisions/0005-dns-stays-at-ventraip.md) | DNS stays at VentraIP, and email records are never touched | Accepted (GitHub Pages records superseded by 0032) |
 | [0007](decisions/0007-adopt-process-template.md) | Work through process-template 1.0.1 | Accepted |
 | [0045](decisions/0045-issues-live-in-the-tracker-vault.md) | Issues live in the tracker vault through process-template 1.3.0; new IDs are `WEB-###`, moved ones keep `KAN-###` | Accepted |
+| [0046](decisions/0046-home-page-is-the-hero-and-devlog.md) | The home page is the hero, then the devlog and the newsletter band | Accepted |
+| [0047](decisions/0047-header-is-the-logo-alone.md) | The header is the logo alone, with no navigation links | Accepted |
 | [0008](decisions/0008-astro-7-on-node-24.md) | Astro 7 on Node 24 LTS | Accepted |
 | [0011](decisions/0011-publish-at-launch.md) | The site is first published at launch, not while it's built | Accepted (first publication superseded by 0033) |
 | [0027](decisions/0027-one-web-repo-walkingkangaroo-web.md) | One web repo, walkingkangaroo-web, with the hub in sites/hub/ | Accepted |
