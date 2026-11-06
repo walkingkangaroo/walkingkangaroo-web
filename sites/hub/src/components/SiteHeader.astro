@@ -1,30 +1,52 @@
 ---
-import logo from '../assets/brand/walking-kangaroo-logo-horizontal-primary.svg';
+import logo from '../assets/brand/walking-kangaroo-logo-horizontal-paper.svg';
 ---
 
-<!-- The header is the logo alone, linking home, with no navigation links (0047). -->
+<!-- The header is the Paper logo alone on a full-width Rust band, linking home, with no navigation links (0048). -->
 <header class="site-header">
   <div class="container site-header__inner">
     <a class="site-header__logo" href="/" aria-label="Walking Kangaroo home">
-      <img src={logo.src} width="191" height="28" alt="" />
+      <img src={logo.src} width="204" height="30" alt="" />
     </a>
   </div>
 </header>
 
 <style>
+  .site-header {
+    background: var(--wk-rust);
+  }
+
+  /* The clear space (one foot length, rounded up) is padding on the inner container, so the
+     link is just the logo and its focus outline stays on Rust, inside the band. */
   .site-header__inner {
     display: flex;
     align-items: center;
-    padding-block: 24px;
+    padding-block: 25px;
   }
 
   .site-header__logo {
     display: inline-flex;
   }
 
+  /* Ink on Rust is 2.46:1, so the focus outline on the band is Paper. */
+  .site-header__logo:focus-visible {
+    outline: 2px solid var(--wk-paper);
+    outline-offset: 3px;
+  }
+
   .site-header__logo img {
     display: block;
-    height: 28px;
+    height: 26px;
     width: auto;
+  }
+
+  @media (min-width: 720px) {
+    .site-header__inner {
+      padding-block: 29px;
+    }
+
+    .site-header__logo img {
+      height: 30px;
+    }
   }
 </style>
