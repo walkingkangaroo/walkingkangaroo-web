@@ -235,7 +235,7 @@ Read from ns1.nameserver.net.au and Google Public DNS. Nameservers are ns1 to ns
 | Type | Host | Value | TTL | What happens to it |
 | --- | --- | --- | --- | --- |
 | A | root | `4.196.42.39` | 14400 | The app's Container Apps environment, which redirects to `https://app.panepilot.au/` (308). Replaced in step 3, removed in step 4. |
-| A | `www` | `4.196.42.39` | 14400 | Answers nothing useful: HTTPS resets, HTTP gives 404. Removed in step 2, because a CNAME can't share its name with any other record. Not one of the issue's listed records: needs Grant's OK. |
+| A | `www` | `4.196.42.39` | 14400 | Answers nothing useful: HTTPS resets, HTTP gives 404. Removed in step 2, because a CNAME can't share its name with any other record. Not one of the issue's listed records; Grant approved deleting it on 2026-11-07. |
 | TXT | `asuid` | The Container App's domain-verification code. Not recorded here. | 3600 | Left alone here. It belongs to the app's binding of panepilot.au, so whether it goes is KAN-947's call. |
 | MX | root | The four `email-hosting.net.au` records (below) | 3600 | Never changes ([0005](decisions/0005-dns-stays-at-ventraip.md)). |
 | TXT | root | `v=spf1 +a +mx +include:spf.email-hosting.net.au ~all` | 3600 | Never changes. Its `+a` means the root's address may send mail, and that address becomes Azure's after step 3; that sends no mail, so it's harmless. |
