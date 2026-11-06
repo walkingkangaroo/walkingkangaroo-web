@@ -336,6 +336,24 @@ Then the page itself: no placeholder text, "Tell me when it opens" opens an emai
 `hello@panepilot.au` with the subject "Tell me when PanePilot opens", no "Sign in" at any width,
 and a link pasted into a chat app shows the title, description and image.
 
+#### Results after step 2, on 2026-11-07
+
+Grant added the TXT for `panepilot.au`, deleted the `www` A record, added the `www` CNAME, and
+both names show Validated in Azure.
+
+| Check | Result |
+| --- | --- |
+| `www` CNAME on ns1, ns2, ns3 | `calm-water-0d51c3900.3.azurestaticapps.net` on all three |
+| Root A on ns1, ns2, ns3 | Still `4.196.42.39`, as expected until step 3 |
+| MX on ns1, ns2, ns3 | The same four records and preferences |
+| Root TXT on ns1 | Azure's validation code beside the Google and SPF records, both unchanged |
+| `--resolve` root to Azure (`13.75.66.141`) | 200, with a certificate curl accepts |
+| `--resolve` `www` to Azure | 200 (a redirect to the root comes once the default domain is set in step 4) |
+| `https://www.panepilot.au/` through public DNS | Still the reset: Google Public DNS had the old `www` A cached with about 12,100 seconds (3.4 hours) left |
+
+So the certificate for `panepilot.au` is served before the switch, and step 2 is done: the
+go-ahead for PanePilot's KAN-947.
+
 Email for `hello@panepilot.au` ([0041](decisions/0041-panepilot-contact-address.md)) works:
 Grant set it up at VentraIP and tested it on 2026-11-06. The domain switch leaves these four MX
 records exactly as they are ([0005](decisions/0005-dns-stays-at-ventraip.md)):
