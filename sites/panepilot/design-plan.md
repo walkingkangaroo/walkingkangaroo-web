@@ -14,7 +14,7 @@ plan and a decision record disagree, the record wins.
 - **Going live** ([0040](../../docs/decisions/0040-panepilot-site-live-on-azure-first.md)): live on its
   Azure address from the deploy issue on, and at panepilot.au once PanePilot's sign-up ships.
 - **Contact** ([0041](../../docs/decisions/0041-panepilot-contact-address.md)): `hello@panepilot.au`,
-  shown as `[TODO: contact address]` until Grant confirms it receives mail.
+  shown in the footer as a `mailto:` link; support@, sales@ and accounts@ forward to the same inbox.
 - **Screenshot prices** ([0042](../../docs/decisions/0042-demo-seed-uses-the-sites-example-prices.md)):
   the demo business switches to $7.50, $10.00 and Ladder +50% before the wide screenshots.
 - **"Job", like the app** ([0044](../../docs/decisions/0044-panepilot-site-says-job-like-the-app.md)):
@@ -287,7 +287,7 @@ point (`app.panepilot.au/privacy` and `/terms`), and the footer links to them.
    in the database itself.) Can I bring my customers from Fergus or a spreadsheet? (A CSV import.)
    Do my workers pay? Does it work on my phone? (It installs to the home screen.) I'm not
    registered for GST; is that a problem? Can I cancel? What happens to my data if I stop?
-10. **Footer:** the lockup, privacy, terms, contact `hello@panepilot.au` (0041; a placeholder until it receives mail), and the Walking
+10. **Footer:** the lockup, privacy, terms, contact `hello@panepilot.au` (0041, a `mailto:` link), and the Walking
     Kangaroo signature from `packages/shared/`.
 
 `SoftwareApplication` JSON-LD with the A$49 offer, `en-AU`, Open Graph image of the wide calendar
