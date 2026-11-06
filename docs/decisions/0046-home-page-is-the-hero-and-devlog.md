@@ -1,6 +1,6 @@
 # 0046. The home page is the hero, then the devlog and the newsletter band
 
-- **Status:** Accepted
+- **Status:** Superseded by [0049](0049-home-page-is-the-rust-wall.md)
 - **Date:** 2026-11-06
 - **Issues:** none (Grant's request of 2026-11-06)
 - **Supersedes:** [0025](0025-home-sections-panepilot-first.md)

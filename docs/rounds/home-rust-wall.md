@@ -1,6 +1,6 @@
 # Decision round: the home page and header become the Rust wall
 
-Status: Waiting on Grant
+Status: Answered
 Opened: 2026-11-06
 Issue: WEB-2
 Research: [docs/research/home-rust-wall.md](../research/home-rust-wall.md)
@@ -28,7 +28,8 @@ addresses.
   and the footer adds them without adding a section.
 - **Default if unanswered:** A, because it is what you asked for, with nothing added.
 - **For:** Grant
-- **Answer:**
+- **Answer:** A. Grant, 2026-11-06: "nothing links because there's nothing of note there yet. I'll bring
+  them in when I have content to fill them."
 
 ### 2. Should every other page get the wall as a slim Rust band?
 
@@ -43,7 +44,7 @@ About, the devlog, the project pages and 404 share the header with the home page
   home page doesn't look like a different site from the rest.
 - **Default if unanswered:** A, the version you saw in the mockup before saying "Yes, shape it".
 - **For:** Grant
-- **Answer:**
+- **Answer:** A. Grant, 2026-11-06: "A"
 
 ## Already answered
 
@@ -78,7 +79,8 @@ Grant's words in chat, 2026-11-06. They are recorded as decisions without asking
 
 ## Held out
 
-- **About's line "there's a devlog too"** if question 1 is A: Backlog, for Grant to rewrite.
+- **Links to the devlog and About, and About's line "there's a devlog too":** Backlog, until
+  Grant has content to fill them (question 1).
 
 ## Outcome
 

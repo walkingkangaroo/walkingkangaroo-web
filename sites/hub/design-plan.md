@@ -40,6 +40,22 @@ and the project pages are still built but aren't linked from the header. The sec
 updated to match. "Brief", "Generic check" and "Different from previous sites" are kept as the
 reasoning of 2026-10-14.
 
+## The Rust wall, 2026-11-06
+
+Later the same day Grant asked for a home page that fills the screen around PanePilot, and a
+header that brings Walking Kangaroo to your attention before the hero project. From three
+mockups (https://claude.ai/artifact/UtehVfMfRHeZanwRgVNHC3) he chose B, the Rust wall, with no
+devlog section and no PanePilot section other than the hero. Recorded in
+[docs/rounds/home-rust-wall.md](../../docs/rounds/home-rust-wall.md) and decisions 0048 to 0050.
+
+- **Home:** a full-width Rust wall with the Paper stacked logo and one line about the studio,
+  centred. PanePilot's pane hangs across the wall's lower edge, and its label sits on the Paper
+  below: beside the pane on a laptop, under it on a phone (0049).
+- **Every other page:** the wall shrinks to a slim Rust band with the Paper horizontal logo (0048).
+- **Nothing links** to the devlog or About until Grant has content for them (0050).
+
+The sections below are updated to match.
+
 ## Until Kit is connected, 2026-10-15
 
 The newsletter band and the project pages' "Follow this project" are
@@ -109,13 +125,14 @@ at partial opacity.
 |-------|-----|------|
 | `--wk-paper` | `#F4EBDD` | Page background |
 | `--wk-ink` | `#2B1A12` | Text, primary button fill |
-| `--wk-rust` | `#9E3B22` | Stage-meter footprints, the primary button on the PanePilot hero |
+| `--wk-rust` | `#9E3B22` | The wall and the slim band (0048), stage-meter footprints, the primary button |
 | `--site-panel` | `#EFE3D0` | Panels (the run band it was made for is gone, 0046) |
 | `--site-media` | `#E6D8C2` | Media panels, and the fog at about 70% opacity |
 | `--site-text-quiet` | `#4A362B` | Secondary text |
 
-Pairs used, all AA or better: Ink on Paper 14.1, Quiet on Paper 9.6, Paper on Rust (the button)
-5.7, Ink on Panel 13.2, Quiet on Panel 8.9, Paper on Ink 14.1.
+Pairs used, all AA or better: Ink on Paper 14.1, Quiet on Paper 9.6, Paper on Rust (the wall's
+logo and words, the band's logo, the button) 5.7, Ink on Panel 13.2, Quiet on Panel 8.9, Paper on
+Ink 14.1. Ink on Rust (2.46) is never used: the label starts below the wall's edge.
 
 ## Type
 
@@ -123,36 +140,48 @@ Outfit only, as now: SemiBold 600 for headings with -2.5% tracking at 48 px and 
 400 for body. The scale is unchanged (body 17 px, h1 56 px on desktop and 36 px on phone, h2 36
 and 28, h3 20).
 
-One exception, from PanePilot's own brand rules: the hero's h1 is the **panepilot lockup**
-(outlined SVG, accessible name "PanePilot"), never "PanePilot" set in Outfit, because its rules
-say a styled heading never stands in for the lockup. The headline line under it is Outfit.
+The home page's `h1` is the line on the wall, in Paper: 24 px on a phone, 34 px on a laptop
+(0049). One exception, from PanePilot's own brand rules: the hero's heading, now the `h2`, is the
+**panepilot lockup** (outlined SVG, accessible name "PanePilot"), never "PanePilot" set in
+Outfit, because its rules say a styled heading never stands in for the lockup. The headline line
+under it is Outfit.
 
 ## Layout
 
-Hero, desktop (text left and pane right, per 0022):
+Home, laptop (0049). The pane and its label sit side by side, and the label starts below the
+wall's edge:
 
 ```
- walking kangaroo
-
- Going live in November · Web and phone         ┌──────────────────────────────┐
-                                                │ ░░░░░░░░░░░░░░░░░╲           │
- [■ panepilot]  ← the lockup is the h1          │ ░░░ fog ░░░░░░░╲  clean      │
- The window-cleaning round,                     │ ░░░░░░░░░░░░╲   ┌─────┐      │
- start to finish.                               │ ░░░░░░░░░╲      │ job │ teal │
-                                                │ ░░░░░░╲  sweep  │card │ cover│
- Quote per pane, book the recurring visits,     │ ░░░╲            └─────┘      │
- work each one from your phone, then invoice    │ ╲   the stroke follows the mark│
- it and pay whoever did the job.                └──────────────────────────────┘
- ✿✿✿✿✿ Beta, step 4 of 5
- [Visit panepilot.au]
+████████████████████████████████████████████████████████████████████  Rust
+█                      ╲╲  (stacked logo, Paper)                    █
+█                    walking kangaroo                               █
+█                                                                   █
+█           I make games and apps as Walking Kangaroo.   ← h1       █
+█   The first one to go live is PanePilot, an app for window ...    █
+█                                                                   █
+█   ┌───────────────────────────────────────┐                       █
+████│                                       │████████████████████████  ← the wall's edge, 24% down the pane
+    │   the pane: wide calendar and phone,  │   GOING LIVE IN NOVEMBER · WEB AND PHONE
+    │   fogged, then one sweep              │   [■ panepilot]  ← h2
+    │   (about 764 × 478 at 1440 wide)      │   The window-cleaning round,
+    │                                       │   start to finish.
+    └───────────────────────────────────────┘   Quote per pane, book the ...
+                                                ✿✿✿✿✿ Beta · step 4 of 5
+                                                [Visit panepilot.au]
+ walking kangaroo                              © 2026 Walking Kangaroo · walkingkangaroo.com
 ```
 
-Hero, phone: the pane first (5:4, full width, so the job card isn't tiny), then the eyebrow,
-the lockup, the headline, the sentence, the meter, and a full-width "Visit panepilot.au" button.
-On desktop the pane is 16:10. The wide screen and the phone sit in slim bevelled Ink frames.
+The label is a 380 px column, 56 px from the pane. At 1440 × 900 the button ends within 800 px
+of the top, and the whole page with its footer is about one screen.
 
-After the hero come the **devlog** (when posts are published), the **newsletter band** (when it
-is live) and the **footer**. Nothing else (0046).
+Home, phone: the wall (logo 184 px wide, the line, the sentence), then the pane at 5:4 with 36%
+of its height on the wall, then the label and a full-width "Visit panepilot.au".
+
+Every other page: a slim Rust band with the Paper horizontal logo, 26 px tall on a phone and
+30 px from 720 px, with a foot length clear above and below it (0048).
+
+After the hero come the **newsletter band** (when it is live) and the **footer**. Nothing else
+(0049).
 
 ## Motion
 
@@ -173,14 +202,14 @@ rewrites (0014).
 
 ## Sections, in order
 
-1. Header: the logo alone (0047)
-2. Hero with the sweep. The one action is **Visit panepilot.au**.
-3. Devlog, when there are published posts
-4. Newsletter band, when it is live
-5. Footer
+1. The Rust wall: the logo and the studio's line, the page's `h1` (0048, 0049)
+2. PanePilot's hero, its pane hung across the wall's edge, with the sweep. The one action is
+   **Visit panepilot.au**.
+3. Newsletter band, when it is live
+4. Footer
 
 The PanePilot project page stays and takes the same lockup and screenshots, though nothing links
-to it now (0047). Common Ground is no longer featured: this supersedes the "featured" part of 0002 and needs a new decision record.
+to it now (0047, 0050). Common Ground is no longer featured: this supersedes the "featured" part of 0002 and needs a new decision record.
 
 ## Different from previous sites
 
