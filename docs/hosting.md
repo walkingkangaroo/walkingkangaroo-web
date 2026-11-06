@@ -216,10 +216,23 @@ Azure, one app each), [0035](decisions/0035-pull-requests-get-preview-links.md) 
 
 ### The domain
 
-Not yet. panepilot.au and `www.panepilot.au` move to this app in the launch issue (KAN-948),
-after PanePilot's sign-up ships ([0040](decisions/0040-panepilot-site-live-on-azure-first.md)).
-That issue follows the hub's [order that worked](#the-order-that-worked) and reruns the hub's
-[checks](#the-checks) with this site's `DOMAIN` and `APP`.
+Not yet. panepilot.au and `www.panepilot.au` move to this app in the launch issue (KAN-948).
+That no longer waits for PanePilot's sign-up
+([0052](decisions/0052-panepilot-site-collects-interest-before-sign-up.md), replacing
+[0040](decisions/0040-panepilot-site-live-on-azure-first.md)'s timing). That issue follows the
+hub's [order that worked](#the-order-that-worked) and reruns the hub's [checks](#the-checks) with
+this site's `DOMAIN` and `APP`.
+
+Email for `hello@panepilot.au` ([0041](decisions/0041-panepilot-contact-address.md)) works:
+Grant set it up at VentraIP and tested it on 2026-11-06. The domain switch leaves these four MX
+records exactly as they are ([0005](decisions/0005-dns-stays-at-ventraip.md)):
+
+| Preference | Mail exchanger |
+| --- | --- |
+| 10 | `mx1.email-hosting.net.au` |
+| 10 | `mx2.email-hosting.net.au` |
+| 20 | `mx3.email-hosting.net.au` |
+| 30 | `mx4.email-hosting.net.au` |
 
 ### The checks
 
