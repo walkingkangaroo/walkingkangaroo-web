@@ -2,6 +2,18 @@
 
 Every shipped site gets an entry here, newest first. Read this before planning a new site so it goes somewhere new, and update an entry when a site is redesigned.
 
+## PanePilot: panepilot.au
+
+- **Shipped**: 2026-11, at panepilot.au before sign-up opens (0052)
+- **Signature moment**: "Try each step of the round". Under the hero, five tabs (Quoting, Scheduling, Visits, Invoicing, Workers' pay), each a small working copy of that part of the app, with the app's own controls and words. In Quoting the visitor adds price-book lines and the Ladder chip, and a two-storey shop comes up clean pane by pane; the drawing only follows the numbers and is never a control.
+- **Palette**: Harbour, from the app's tokens. `--glass` #F4F8F8 (page), `--deep-water` #0B2F33 (text, the pricing band), `--harbour` #0E7C86 (the one primary button, active tab), `--harbour-dark` #07646C (hover, links), `--muted` #52696D (secondary text), `--mint` #E6FFFB (text on Deep Water), `--pane-clean` #D9F2F5, `--pane-dusty` #E1E6E4, `--frame` #D3DFE0, plus white for cards and screenshot frames. The app's `--status-*` colours only in the demos' badges and chip edges.
+- **Type**: Manrope 700 and 800 (headings, -3% tracking at 40 px and up; the wordmark's face), Geist 400 and 500 (everything else; the app's UI face). Ratio 1.25 from a 17 px body. Sentence case, no all-caps, no monospace.
+- **Layout idea**: left-aligned and practical, like a job sheet, on a 12-column grid at 1200 px. Hero with the headline, the main button and three real screenshots flat in plain browser frames (the week calendar wide, a quote and a paid invoice). Then the five demo tabs (a sideways-swiping row on a phone), Made for window cleaning, Your workers, Built by a window cleaner, the Deep Water pricing band, What it doesn't do yet, and Questions as native details.
+- **Motion**: only the demos move, and only when the visitor changes something. Nothing plays on load and nothing fades in on scroll. Reduced motion makes every change instant.
+- **Voice**: plain, specific and Australian, to the owner ("you", "your round"), in the app's words: job, visit, pane, run, round, invoice (0044). "Built by a window cleaner" is first person plural. No claim the app can't show. Claude drafts and Grant rewrites.
+- **What worked / what Grant liked**: the quoting demo, once tapping windows was dropped (tappable windows would suggest the app quotes from a picture); the two-storey shop; the tabs-of-demos layout under a hero of wide screenshots; keeping "What it doesn't do yet".
+- **Don't repeat**: the tab-of-demos layout (a row of tabs, each a working copy of one feature) and the Harbour palette (Glass, Harbour teal and Deep Water). The next software site should find its own signature and its own colours, so it doesn't read as PanePilot's sibling.
+
 ## Walking Kangaroo hub: walkingkangaroo.com
 
 - **Shipped**: not yet (redesigned 2026-10)
