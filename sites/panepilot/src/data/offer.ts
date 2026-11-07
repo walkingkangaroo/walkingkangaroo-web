@@ -1,13 +1,12 @@
-// The offer: the price, the founders' price, the trial and the GST note. The one place they are
-// written, so a price change is one edit here. The page, the hero's line, the pricing band, the
-// questions and the JSON-LD all read from it. (PanePilot decisions 0057, 0058 and 0062; the prices
+// The offer: the price, the founders' price, the trial and the GST note (JSON-LD only; the page
+// doesn't mention GST). The one place they are written, so a price change is one edit here. The
+// page, the hero's line, the pricing band, the questions and the JSON-LD all read from it. (PanePilot decisions 0057, 0058 and 0062; the prices
 // are decision 0052.)
 
 const price = 39;
 const currency = 'AUD';
 const priceLabel = `A$${price}`;
 const billing = 'a month';
-const gstNote = 'No GST is charged';
 const noGst = 'no GST';
 const trialDays = 30;
 /** When self-serve sign-up opens, for the hero's line until then. */
@@ -29,9 +28,7 @@ export const offer = {
   /** How the price is written on the page. */
   priceLabel,
   billing,
-  /** Sentence form, for the pricing band. */
-  gstNote,
-  /** Inline form, for running text and the JSON-LD. */
+  /** For the JSON-LD. The page itself doesn't mention GST. */
   noGst,
   /** Days free from sign-up, with no card. */
   trialDays,
