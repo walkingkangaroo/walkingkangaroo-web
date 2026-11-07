@@ -1,0 +1,252 @@
+---
+// Ported word for word from the PanePilot app (decision 0053). Change the words here, and bump
+// LEGAL_EFFECTIVE_DATE in src/data/publisher.ts in the same commit.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalPage from '../components/legal/LegalPage.astro';
+import LegalSection from '../components/legal/LegalSection.astro';
+import { PUBLISHER } from '../data/publisher';
+
+const description = `The agreement between ${PUBLISHER.name} and the businesses that use PanePilot.`;
+---
+
+<BaseLayout title="Terms of service · PanePilot" description={description}>
+  <LegalPage
+    title="Terms of service"
+    summary={`These terms govern the use of PanePilot, published by ${PUBLISHER.name}${PUBLISHER.abn ? ` (ABN ${PUBLISHER.abn})` : ""}. They form an agreement between us and the business that subscribes. By using PanePilot you accept them.`}
+  >
+    <LegalSection id="parties" heading="1. Who this is between">
+      <p>
+        &ldquo;We&rdquo; and &ldquo;us&rdquo; are {PUBLISHER.name}. &ldquo;You&rdquo; is the
+        window-cleaning business that subscribes to PanePilot, and the people it gives accounts to
+        &mdash; its owner and its workers. If you are agreeing to these terms for a business, you
+        are confirming you are authorised to bind it.
+      </p>
+      <p>
+        PanePilot is sold to businesses, not to consumers, and is not intended for personal or
+        household use.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="service" heading="2. What PanePilot is">
+      <p>
+        A web application for running a window-cleaning business: quoting per pane, scheduling
+        recurring visits, completing jobs in the field, invoicing, recording payments, and
+        tracking worker time and pay. It installs to a phone&rsquo;s home screen but is not a
+        native app store application.
+      </p>
+      <p>
+        PanePilot is under active development and we add to it regularly. We may change or remove
+        a feature, but we will not materially reduce the service you are paying for without
+        telling you at least 30 days beforehand.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="accounts" heading="3. Accounts and access">
+      <p>
+        There is no public sign-up. Accounts exist because a business owner created them, and a
+        person can sign in only if the email address they authenticate with matches an account
+        their business has already added. You are responsible for who you give an account to, and
+        for removing people who leave &mdash; deactivating them in the app takes effect within
+        minutes.
+      </p>
+      <p>
+        People sign in with an account they already hold: Google, Microsoft, or a code emailed to
+        any address. We never see or store a password. Keeping the account you sign in with secure
+        is your responsibility, and we are not liable for what happens through an account you
+        failed to secure or failed to deactivate.
+      </p>
+      <p>
+        The two roles are Owner and Worker, and what each may see is enforced by the system. Do
+        not try to reach data the system does not give you, including another business&rsquo;s.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="your-data" heading="4. Your data is yours">
+      <p>
+        Everything you put into PanePilot &mdash; customers, properties, quotes, jobs, invoices,
+        payments, photos, time records &mdash; remains yours. We claim no ownership of it and no
+        licence to it beyond what we need to run the service for you, keep it secure, back it up
+        and support you when you ask.
+      </p>
+      <p>
+        We do not use your data for our own purposes, do not sell it, do not share it with other
+        businesses on PanePilot, and do not use it to train machine-learning models.
+      </p>
+      <p>
+        You can ask for an export of your data at any time and we will provide it in a usable
+        format. How we handle personal information is in the{" "}
+        <a href="/privacy">privacy policy</a>, which forms part of these terms.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="your-obligations" heading="5. What you are responsible for">
+      <p>
+        You are responsible for the accuracy and lawfulness of what you put in, and for the
+        obligations you have to your own customers and workers. In particular:
+      </p>
+      <ul>
+        <li>
+          Your customers&rsquo; personal information is collected by you. You need a lawful basis
+          for holding it and for contacting them, and you must have your own privacy practices in
+          place. We handle it on your instructions.
+        </li>
+        <li>
+          Invoices, tax and GST treatment are yours to get right. PanePilot produces documents
+          from the settings you give it; it is not tax advice, and it does not check your figures
+          against the ATO&rsquo;s requirements.
+        </li>
+        <li>
+          Worker pay calculated in PanePilot is a calculation from the rates and times you enter.
+          Meeting your obligations under the Fair Work Act and any applicable award, including
+          minimum rates, penalties and superannuation, is yours &mdash; PanePilot does not know
+          your award and does not check compliance with it.
+        </li>
+        <li>
+          Sending emails and text messages through PanePilot means complying with the Spam Act:
+          you need the recipient&rsquo;s consent and must honour an unsubscribe or opt-out
+          request.
+        </li>
+      </ul>
+    </LegalSection>
+
+    <LegalSection id="acceptable-use" heading="6. Acceptable use">
+      <p>You must not:</p>
+      <ul>
+        <li>
+          try to access another business&rsquo;s data, or any part of the system you have not been
+          given access to;
+        </li>
+        <li>
+          probe, scan or test the security of the service without our written permission, or
+          interfere with its operation;
+        </li>
+        <li>
+          resell, sublicence or white-label PanePilot, or use it to run a service for businesses
+          that do not have their own subscription;
+        </li>
+        <li>
+          upload malware, or content that is unlawful, or content you have no right to upload;
+        </li>
+        <li>
+          use automated means to extract data at a scale that degrades the service for others, or
+          copy the service to build a competing one.
+        </li>
+      </ul>
+      <p>
+        We may suspend access immediately if we reasonably believe this clause is being breached
+        or that an account is compromised. Where we can, we will tell you first.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="fees" heading="7. Fees">
+      <p>
+        Subscription fees, the billing period, and what is included are set out in the arrangement
+        we agree with you when you are onboarded. Fees are in Australian dollars. We are not
+        registered for GST and do not charge it; if that changes, we will tell you before GST is
+        added to any fee.
+      </p>
+      <p>
+        We may change our fees on 30 days&rsquo; notice. If a change does not suit you, you may
+        cancel before it takes effect. Fees already paid for a period are not refunded if you
+        cancel part way through it, except where the law requires a refund.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="availability" heading="8. Availability and support">
+      <p>
+        We work to keep PanePilot available and to fix problems promptly, but we do not offer a
+        guaranteed uptime figure and the service is provided as is. It can be unavailable for
+        maintenance, or because of a failure at a provider we depend on. Where maintenance is
+        planned, we will give notice and schedule it outside business hours where we can.
+      </p>
+      <p>
+        The database is backed up and restorable. You should still keep your own copies of
+        anything you cannot afford to lose &mdash; an export is available at any time.
+      </p>
+      <p>
+        Support is by email to{" "}
+        <a href={`mailto:${PUBLISHER.supportEmail}`}>{PUBLISHER.supportEmail}</a> during
+        Australian business hours.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="liability" heading="9. Liability">
+      <p>
+        <strong>
+          Nothing in these terms excludes, restricts or modifies any guarantee, right or remedy
+          you have under the Australian Consumer Law or any other law that cannot be excluded.
+        </strong>{" "}
+        Where we are permitted to limit our liability for a failure to comply with a consumer
+        guarantee, our liability is limited to re-supplying the service or paying the cost of
+        having it re-supplied.
+      </p>
+      <p>
+        Subject to that, and to the extent the law allows: we are not liable for indirect or
+        consequential loss, lost profits, lost business or lost data; and our total liability
+        arising out of or in connection with these terms in any 12-month period is limited to the
+        fees you paid us in that period.
+      </p>
+      <p>
+        PanePilot produces calculations and documents from what you enter. It is not financial,
+        tax, legal or employment advice, and checking that an invoice, a price or a pay figure is
+        right before you act on it remains yours to do.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="confidentiality" heading="10. Confidentiality">
+      <p>
+        Each of us may learn things about the other that are not public. Neither of us will
+        disclose the other&rsquo;s confidential information except to people who need it to
+        perform this agreement, or where the law requires it.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="ip" heading="11. Our intellectual property">
+      <p>
+        PanePilot itself &mdash; the software, its design, and the PanePilot name and logo &mdash;
+        remains ours. Your subscription is a right to use it, not a transfer of any of it. If you
+        send us feedback or a suggestion, we may act on it without owing you anything for it.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="termination" heading="12. Ending the agreement">
+      <p>
+        You may cancel at any time by telling us. We may end the agreement on 30 days&rsquo;
+        notice, or immediately if you materially breach these terms and do not fix it within 14
+        days of being asked, or if you become insolvent.
+      </p>
+      <p>
+        When the agreement ends, access stops. We will give you an export of your data if you ask
+        for it within 30 days, and we will then delete your account and its data within 90 days,
+        except anything we must keep to meet a legal obligation.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="changes" heading="13. Changes to these terms">
+      <p>
+        We may update these terms. For a material change we will give at least 30 days&rsquo;
+        notice by email to the business&rsquo;s registered contact, and continuing to use
+        PanePilot after it takes effect means you accept it. If you do not accept it, you may
+        cancel before it takes effect.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="general" heading="14. General">
+      <p>
+        These terms, with the privacy policy and the subscription arrangement we agree with you,
+        are the whole agreement between us about PanePilot. If a clause is unenforceable, the rest
+        stands. A delay in enforcing a right is not a waiver of it. You may not transfer this
+        agreement without our consent, which we will not unreasonably withhold.
+      </p>
+      <p>
+        These terms are governed by the law of {PUBLISHER.jurisdiction}, {PUBLISHER.country}, and
+        each of us submits to the courts of that place. We will both try to resolve a dispute by
+        talking before either of us starts proceedings.
+      </p>
+      <p>
+        Questions about these terms:{" "}
+        <a href={`mailto:${PUBLISHER.supportEmail}`}>{PUBLISHER.supportEmail}</a>.
+      </p>
+    </LegalSection>
+  </LegalPage>
+</BaseLayout>

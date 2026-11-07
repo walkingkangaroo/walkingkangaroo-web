@@ -1,0 +1,14 @@
+---
+// A "what we hold" list of LegalDefinition rows. A list, not a table: a two-column table of prose
+// is unreadable on a phone, which is where most people will read it.
+---
+
+<dl class="legal-dl"><slot /></dl>
+
+<style>
+  .legal-dl {
+    display: grid;
+    gap: var(--space-3);
+    margin: 0;
+  }
+</style>

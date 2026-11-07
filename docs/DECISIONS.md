@@ -42,6 +42,7 @@ row below in the same pull request. To change one: write a new record and mark t
 | [0041](decisions/0041-panepilot-contact-address.md) | panepilot.au's contact address is hello@panepilot.au | Accepted |
 | [0042](decisions/0042-demo-seed-uses-the-sites-example-prices.md) | The demo business's price book changes to the site's example prices before the wide screenshots | Accepted |
 | [0052](decisions/0052-panepilot-site-collects-interest-before-sign-up.md) | panepilot.au goes live before sign-up with "Tell me when it opens" (an email), no "Sign in", at A$39 a month with a founders' A$27 until 30 June 2027 | Accepted |
+| [0053](decisions/0053-panepilot-terms-and-privacy-move-to-the-site.md) | PanePilot's terms and privacy policy move from the app to panepilot.au; the app's pages redirect there once the domain points at the site | Accepted |
 | [0044](decisions/0044-panepilot-site-says-job-like-the-app.md) | panepilot.au says "job" and "visit" as the app does, and claims only what the app does; amends 0039's plan | Accepted |
 | [0048](decisions/0048-header-is-rust.md) | The header is Rust: a wall on the home page and a slim band on every other page | Accepted |
 | [0049](decisions/0049-home-page-is-the-rust-wall.md) | The home page is the Rust wall, with PanePilot's pane hung across its edge, and nothing else but the footer | Accepted (how much of the pane is on the wall from 1024 px amended by 0051) |
