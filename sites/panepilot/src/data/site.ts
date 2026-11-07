@@ -20,8 +20,9 @@ export const site = {
   trialUrl,
   /** "Tell me when it opens": an email to the contact address, with the subject filled in. */
   interestUrl,
-  privacyUrl: `${APP_URL}/privacy`,
-  termsUrl: `${APP_URL}/terms`,
+  /** The site's own pages since decision 0053; the app's /privacy and /terms redirect here. */
+  privacyUrl: '/privacy',
+  termsUrl: '/terms',
   /** Decision 0041. support@, sales@ and accounts@ forward to the same inbox but aren't shown. */
   contact,
 } as const;

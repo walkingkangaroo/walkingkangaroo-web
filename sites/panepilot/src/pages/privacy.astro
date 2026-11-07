@@ -1,0 +1,431 @@
+---
+// Ported word for word from the PanePilot app (decision 0053). Change the words here, and bump
+// LEGAL_EFFECTIVE_DATE in src/data/publisher.ts in the same commit.
+import BaseLayout from '../layouts/BaseLayout.astro';
+import LegalPage from '../components/legal/LegalPage.astro';
+import LegalSection from '../components/legal/LegalSection.astro';
+import LegalDefinition from '../components/legal/LegalDefinition.astro';
+import LegalDefinitionList from '../components/legal/LegalDefinitionList.astro';
+import { PUBLISHER } from '../data/publisher';
+
+// Keep it true: when the app starts holding a new kind of personal information, or sends it to a
+// new provider, this page changes in the same week.
+
+const description = `How ${PUBLISHER.name} handles personal information in PanePilot.`;
+const mailto = `mailto:${PUBLISHER.privacyEmail}`;
+---
+
+<BaseLayout title="Privacy policy · PanePilot" description={description}>
+  <LegalPage
+    title="Privacy policy"
+    summary={`This policy explains what personal information PanePilot holds, why, who else can see it, and how to get at or correct yours. PanePilot is published by ${PUBLISHER.name}${PUBLISHER.abn ? ` (ABN ${PUBLISHER.abn})` : ""} and is provided to window-cleaning businesses in Australia.`}
+  >
+    <LegalSection id="roles" heading="Two different relationships">
+      <p>
+        PanePilot is used by window-cleaning businesses to run their own work, so there are two
+        distinct groups of people in it and we sit differently with each.
+      </p>
+      <ul>
+        <li>
+          <strong>The business and its people.</strong> When a business subscribes to PanePilot,
+          we hold information about that business, its owner and its workers directly. We decide
+          how that information is handled, and this policy describes it.
+        </li>
+        <li>
+          <strong>The business&rsquo;s customers.</strong> The customer records, property
+          addresses, job history and invoices inside a business&rsquo;s account belong to that
+          business. It decides what goes in and what happens to it; we hold and process it on that
+          business&rsquo;s instructions and do not use it for our own purposes. If you are a
+          customer of a window-cleaning business that uses PanePilot, ask that business about its
+          own privacy practices &mdash; it is the one that collected your details. We will help it
+          answer you.
+        </li>
+      </ul>
+    </LegalSection>
+
+    <LegalSection id="collected" heading="What PanePilot holds">
+      <p>
+        Everything below is information the application actually stores. There is no &ldquo;and
+        anything else we may collect&rdquo; behind it.
+      </p>
+      <LegalDefinitionList>
+        <LegalDefinition term="Your sign-in identity">
+          Your email address, your name, and an identifier from whichever account you signed in
+          with &mdash; Google, Microsoft, or an emailed code. We record which provider you used
+          and when you last signed in.{" "}
+          <strong>
+            PanePilot never receives, holds or can see your password, passkey or 2-step code.
+          </strong>{" "}
+          Those stay with the account provider.
+        </LegalDefinition>
+        <LegalDefinition term="Phones signed in to the app">
+          For each phone you sign in to the PanePilot app: the name the phone gives itself,
+          whether it&rsquo;s an iPhone or Android, when it signed in, when it was last used, and
+          when and by whom it was signed out. The phone keeps a sign-in key; we store only a
+          one-way fingerprint of it, which can&rsquo;t be turned back into the key.
+        </LegalDefinition>
+        <LegalDefinition term="Your account in a business">
+          Your role (owner or worker), your phone number if it was added, whether your account is
+          active, and which business you belong to. For workers: your start date, any notes the
+          owner recorded about you, and your pay rates over time &mdash; an hourly rate, or a
+          percentage of each job&rsquo;s invoice.
+        </LegalDefinition>
+        <LegalDefinition term="The business’s own details">
+          The logo it uploads, legal and trading name, ABN, address, phone and email, invoice
+          terms and numbering, the time zone and GST setting, and the bank account name, BSB and
+          account number printed on its invoices. If the business sends its emails through its own
+          mail server: that server&rsquo;s name and port, the username, the name and address the
+          emails come from, when it was last tested, and the password &mdash; kept encrypted,
+          opened only to send an email, and never shown to anyone again.
+        </LegalDefinition>
+        <LegalDefinition term="Customers and properties">
+          Customer name, email, mobile, landline, Facebook Messenger name or link, WhatsApp
+          number, billing address, preferred contact channel, and any notes the business wrote.
+          The customer&rsquo;s other contacts the business adds, such as the person who pays or
+          the person on site: their name, position, email, mobile, landline, Facebook Messenger
+          name or link, WhatsApp number, notes and which properties they are for. For each
+          property: the address, an optional map pin, and the access, parking, hazard, service and
+          internal notes.
+        </LegalDefinition>
+        <LegalDefinition term="Enquiries">
+          If a business uses PanePilot&rsquo;s enquiry form and you send it an enquiry: your name,
+          email, phone, the address and what you asked for, any photos you add, and when you sent
+          it. To stop the form being flooded we also keep a one-way, keyed fingerprint of the
+          internet address you sent it from, which cannot be turned back into that address. We use
+          no CAPTCHA and nothing that tracks you across sites. The business sees your enquiry; its
+          photos are private to the business.
+        </LegalDefinition>
+        <LegalDefinition term="The work itself">
+          Quotes and their revisions, recurring services, jobs and the visits booked for them,
+          what was cleaned and at what price, completion checklists, and any photos uploaded
+          against a job. For a completed job: who completed it, who approved it and when, and a
+          record of who was on the crew at that moment.
+        </LegalDefinition>
+        <LegalDefinition term="The business's to-do list">
+          The tasks a business&rsquo;s owners keep for themselves: each task&rsquo;s title and
+          notes, its date and time if it has them, the customer it is linked to, who created it,
+          and who ticked it off and when. Only the business&rsquo;s owners see it; its workers do
+          not.
+        </LegalDefinition>
+        <LegalDefinition term="Time and pay">
+          When a worker started and finished work on each visit, break time, payable minutes, the
+          hourly rate or invoice percentage that applied on the day, the amount calculated, any
+          bonus or deduction the owner added and why, and whether it has been paid. For each
+          payment to a worker: the day, the amount, the bank reference and any note, and why a
+          payment was later reversed &mdash; and any invoice or receipt the worker gave the
+          business for it, which may carry their ABN or bank details.
+        </LegalDefinition>
+        <LegalDefinition term="Money">
+          Invoices and their lines, any note to the customer printed on one, a copy of the
+          business details each invoice was issued with, the PDF of each invoice as it was drawn,
+          payments recorded against them, the method (bank transfer or cash), and why any payment
+          was later reversed. For a customer who pays cash on the day: how much cash each job asks
+          for, and how much was recorded as collected.{" "}
+          <strong>PanePilot does not take card payments and holds no card numbers.</strong>
+        </LegalDefinition>
+        <LegalDefinition term="Messages we send for the business">
+          When a business emails or texts a quote, an invoice or a reminder from PanePilot, we
+          keep the recipient, the subject, the message as it was sent (for an email, its text and
+          HTML versions), whether it went out, how many times sending it was tried, the sending
+          service&rsquo;s reference for it and what that service said of it, any error it gave,
+          and — when the recipient&rsquo;s mail system reports it — whether the email arrived or
+          bounced, with the reason it gave. For an overdue reminder, we also keep who approved or
+          skipped it and when. An emailed invoice carries a private link that opens that one
+          invoice, and its PDF, without an account; we keep only a one-way fingerprint of each
+          link, never the link itself, and anyone the email is forwarded to can open it too. An
+          emailed quote carries a link the same way, from which the customer can accept or decline
+          it: we keep their answer, when they gave it, and, if they declined, any reason they
+          wrote — and, when they accept, the thank-you email the business sends them. A &ldquo;due
+          for a clean&rdquo; reminder carries a link the same way, from which the customer can ask
+          for the clean to be booked or say not this time: we keep their answer, when they gave
+          it, and any note they wrote with it, and who sent or skipped each reminder and when.
+        </LegalDefinition>
+        <LegalDefinition term="Documents you sign">
+          <div class="legal-stack">
+            <div>
+              When a business sends you one of its documents to sign, such as a scratch
+              acknowledgement, we keep the words exactly as they were sent, a fingerprint of those
+              words, which property it was about, and who it was emailed to and when. When you
+              sign it from the link in the email, we keep the full name you type, the time, the
+              internet (IP) address your browser connected from and the description of itself your
+              browser sends (which says, for example, that it is Safari on an iPhone). As with a
+              quote, the link is private and we keep only a one-way fingerprint of it.
+            </div>
+            <div>
+              A business can also ask you to sign one of its documents in person, on its own phone
+              or other device. We then keep the same words, fingerprint and property, the full
+              name you type and the time. The IP address and browser description we keep are those
+              of the business&rsquo;s device, not yours, and we record who at the business handed
+              it to you. No email address is kept with that signature. If the business later
+              emails you your copy, we keep that email as we do its other messages.
+            </div>
+            <div>
+              We also keep a PDF of each signed document, showing the words, your name, the time,
+              the IP address and the fingerprint, which the business can download. When you sign
+              from the link, we email the PDF to you. When you sign in person, the business can
+              choose to email it to you.
+            </div>
+            <div>
+              A signed document is never changed or deleted, so the business can show what you
+              agreed to.
+            </div>
+          </div>
+        </LegalDefinition>
+        <LegalDefinition term="An audit trail">
+          Anything that changes money, time, permissions or invoice state is recorded with who did
+          it and when. This record cannot be edited or deleted by anyone, us included &mdash; it
+          is what makes a payroll or invoice dispute answerable.
+        </LegalDefinition>
+        <LegalDefinition term="Technical logs">
+          Our servers log requests and errors so we can keep the service running. These are
+          scrubbed before they are written: contact details, addresses, amounts, pay rates and
+          credentials are stripped out, and we log record identifiers rather than records. They
+          are kept for a few weeks and then discarded.
+        </LegalDefinition>
+      </LegalDefinitionList>
+      <p>
+        <strong>What PanePilot does not do.</strong> It does not track a worker&rsquo;s location,
+        in the background or otherwise &mdash; a property&rsquo;s map pin is typed in by the
+        owner, not read from anyone&rsquo;s phone. It has no advertising, no analytics or tracking
+        pixels from anyone else, and no third-party cookies. We do not sell personal information.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="why" heading="Why we hold it">
+      <p>
+        To provide the service the business subscribed to: to sign you in and keep you signed in,
+        to show you the work assigned to you, to price and schedule jobs, to produce and send
+        invoices, to calculate and record worker pay, to keep the audit trail the business may
+        later need, to support the business when it asks, and to keep the service secure and
+        running. We use it for nothing else. We do not use any business&rsquo;s data to train
+        machine-learning models.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="google" heading="Signing in with Google or Microsoft">
+      <p>
+        If you sign in with Google or with a Microsoft account, we ask for the narrowest thing on
+        offer: your name, your email address and your account identifier, and nothing more. We do
+        not request access to your mail, your files, your contacts or your calendar, and we could
+        not read them if we tried. Signing in never gives us calendar access. Connecting a
+        calendar is a separate choice, described below.
+      </p>
+      <p>
+        What we receive from Google when you sign in is used only to sign you in to PanePilot and
+        to match you to the account your business created. It is not transferred to anyone else,
+        not used for advertising, and not read by a human except where you ask us to support you,
+        where we must for a security investigation, or where the law requires it.
+        PanePilot&rsquo;s use of information received from Google APIs follows the{" "}
+        <a
+          href="https://developers.google.com/terms/api-services-user-data-policy"
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          Google API Services User Data Policy
+        </a>
+        , including its Limited Use requirements.
+      </p>
+      <p>
+        Signing in tells your account provider that you signed in to PanePilot. What that provider
+        records is covered by its own privacy policy, not this one.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="sharing" heading="Who else can see it">
+      <p>
+        Within a business, an owner can see everything in that business&rsquo;s account. A worker
+        can see only the visits they are assigned, the properties those visits are at, their own
+        logged time and their own pay rate &mdash; not other people&rsquo;s pay, and nothing
+        financial except, on a job for a customer who pays cash on the day, how much cash to
+        collect. This is enforced by the database itself rather than by the screens.
+      </p>
+      <p>
+        No business can see another business&rsquo;s records. That separation is also enforced in
+        the database: a request carries the business it belongs to, and without one it returns
+        nothing at all.
+      </p>
+      <p>We rely on these service providers, and no others:</p>
+      <LegalDefinitionList>
+        <LegalDefinition term="Microsoft Azure">
+          Hosting, the database, file storage, secrets and logging. All of it runs in
+          Microsoft&rsquo;s Australia East region.
+        </LegalDefinition>
+        <LegalDefinition term="Microsoft Entra External ID">
+          Issues the emailed sign-in code.
+        </LegalDefinition>
+        <LegalDefinition term="Microsoft account sign-in">
+          Handles the Microsoft sign-in option, for a Microsoft work, school or personal account.
+        </LegalDefinition>
+        <LegalDefinition term="Google">
+          Handles the Google sign-in option and, if you connect it, your PanePilot calendar in
+          Google Calendar.
+        </LegalDefinition>
+        <LegalDefinition term="Microsoft Outlook">
+          If you connect it, holds your PanePilot calendar in your Outlook or Microsoft 365
+          account.
+        </LegalDefinition>
+        <LegalDefinition term="Azure Maps">
+          Looks up and validates addresses as they are typed. The text being searched is sent to
+          Microsoft to do it.
+        </LegalDefinition>
+        <LegalDefinition term="Azure Communication Services">
+          Delivers the emails and text messages a business sends from PanePilot &mdash; except a
+          business that has chosen to send its emails through its own mail server, whose emails
+          its own email provider delivers instead. Emails sent that way do not report back whether
+          they arrived.
+        </LegalDefinition>
+      </LegalDefinitionList>
+      <p>
+        If you turn on your calendar link, the calendar service you choose &mdash; Google
+        Calendar, Outlook or your phone&rsquo;s own &mdash; fetches your visits from it: each
+        customer&rsquo;s name, the address, the work and the time, but no prices and no notes. An
+        owner&rsquo;s link also carries the business&rsquo;s dated to-do tasks that aren&rsquo;t
+        done: each task&rsquo;s title and a link back to it, never its notes. That service then
+        keeps them under its own terms. You can make a new link, which stops the old one, or turn
+        it off at any time.
+      </p>
+      <p>
+        If you connect your Google Calendar, PanePilot sends Google the same visit details as the
+        calendar link &mdash; each customer&rsquo;s name, the address, the work and the time, but
+        no prices and no notes &mdash; into a calendar called PanePilot that it makes in your
+        Google account, and keeps it up to date as visits change. It can reach only that calendar,
+        not the rest of your Google Calendar. To do this we keep your Google account&rsquo;s email
+        address, the calendar&rsquo;s identifier, and a token that lets PanePilot update that
+        calendar, locked with a key held in our key vault and never shown to anyone. Disconnecting
+        deletes the PanePilot calendar from your Google account and the token from PanePilot.
+        PanePilot&rsquo;s use of information received from Google APIs follows the{" "}
+        <a
+          href="https://developers.google.com/terms/api-services-user-data-policy"
+          rel="noreferrer noopener"
+          target="_blank"
+        >
+          Google API Services User Data Policy
+        </a>
+        , including its Limited Use requirements.
+      </p>
+      <p>
+        Connecting your Outlook or Microsoft 365 calendar works the same way: PanePilot sends
+        Microsoft the same visit details, with no prices and no notes, into a calendar called
+        PanePilot that it makes in your Microsoft account, and keeps it up to date. It asks
+        Microsoft for permission to manage your calendars, because Microsoft offers nothing
+        narrower, but it only ever writes to that one calendar and never reads your other events.
+        We keep your Microsoft account&rsquo;s email address, the calendar&rsquo;s identifier, and
+        a token that lets PanePilot update it, locked the same way. Disconnecting deletes the
+        PanePilot calendar from your Microsoft account and the token from PanePilot. You can also
+        remove PanePilot&rsquo;s access in your Microsoft account settings at any time.
+      </p>
+      <p>
+        Beyond those, we disclose personal information only where the law requires it, or where it
+        is necessary to investigate a serious security incident. If we are ever compelled to hand
+        over a business&rsquo;s data, we will tell that business unless we are forbidden from
+        doing so.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="location" heading="Where it is stored">
+      <p>
+        In Australia. The application, the database, uploaded photos and files, invoice PDFs and
+        the backups are all in Microsoft&rsquo;s Australia East region, and we do not copy them
+        offshore. Our sign-in and address-lookup providers are global services operated by
+        Microsoft and Google, and the small amount of information they handle &mdash; your email
+        address when you sign in, the address text when one is being looked up &mdash; may be
+        processed on their infrastructure outside Australia under their own terms. If you connect
+        Google Calendar or an Outlook calendar, the visit details in your PanePilot calendar are
+        held by Google or Microsoft, which may also be outside Australia.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="retention" heading="How long we keep it">
+      <p>
+        A business&rsquo;s records are kept for as long as its account is open, because the whole
+        point of them is the history: what a property was quoted three years ago, what a worker
+        was paid last winter, which invoices were issued. Australian tax and employment law
+        requires much of it to be kept for years anyway.
+      </p>
+      <p>
+        When a business leaves, we give it an export of its data and then delete the account
+        within 90 days, except where we must keep something longer to meet a legal obligation.
+        Technical logs age out after a few weeks. The audit trail lasts as long as the account
+        does and cannot be edited in the meantime.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="security" heading="How it is protected">
+      <p>
+        Connections are encrypted in transit and the database and file storage are encrypted at
+        rest. We hold no passwords, so there are none to lose. Credentials and connection strings
+        live in a managed key vault rather than in the application. Access between businesses, and
+        between owners and workers, is enforced by database policies rather than by application
+        code that someone could forget to write. Anything touching money, time or permissions is
+        written to an append-only audit trail in the same transaction as the change.
+      </p>
+      <p>
+        No system is perfectly secure. If a data breach occurs that is likely to cause serious
+        harm, we will notify the affected businesses and the Office of the Australian Information
+        Commissioner as the Notifiable Data Breaches scheme requires.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="rights" heading="Getting at, correcting, or deleting your information">
+      <p>
+        If you are an owner or a worker at a business that uses PanePilot, most of this is in
+        front of you already: your account details, your logged time, your pay rate and your
+        assigned visits are all visible in the app, and much of it is editable there.
+      </p>
+      <p>
+        For anything else &mdash; a copy of what we hold about you, a correction, or a deletion
+        &mdash; email <a href={mailto}>{PUBLISHER.privacyEmail}</a>. We will respond within 30
+        days. We may need to confirm who you are first, and we will explain in writing if we
+        cannot do what you have asked.
+      </p>
+      <p>
+        If you are a customer of a window-cleaning business that uses PanePilot, that business
+        holds your details and is the right place to ask. Write to us at the same address if you
+        cannot reach them and we will pass it on.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="cookies" heading="Cookies">
+      <p>
+        PanePilot sets one cookie: the one that keeps you signed in. It expires 30 days after you
+        last use PanePilot. There are no advertising cookies, no analytics cookies and no
+        third-party trackers, which is why the app never asks you to accept any.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="children" heading="Children">
+      <p>
+        PanePilot is a tool for running a business and is not directed at children. We do not
+        knowingly create accounts for anyone under 16.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="changes" heading="Changes to this policy">
+      <p>
+        We will update this page when the service changes, and the date at the top is always the
+        date of the last substantive change. If a change materially affects how we handle personal
+        information, we will tell the businesses using PanePilot before it takes effect.
+      </p>
+    </LegalSection>
+
+    <LegalSection id="contact" heading="Contact and complaints">
+      <p>
+        Privacy questions, requests and complaints go to{" "}
+        <a href={mailto}>{PUBLISHER.privacyEmail}</a>. We will acknowledge a complaint within 5
+        business days and give you a written answer within 30 days.
+      </p>
+      <p>
+        If you are not satisfied with how we have handled it, you can complain to the Office of
+        the Australian Information Commissioner at{" "}
+        <a href="https://www.oaic.gov.au/" rel="noreferrer noopener" target="_blank">
+          oaic.gov.au
+        </a>
+        .
+      </p>
+      <p>
+        See also the <a href="/terms">terms of service</a>, which cover the agreement
+        between {PUBLISHER.name} and the businesses that use PanePilot.
+      </p>
+    </LegalSection>
+  </LegalPage>
+</BaseLayout>

@@ -1,0 +1,27 @@
+---
+// One section of a legal document. The id is the anchor a support reply can link to.
+interface Props {
+  id: string;
+  heading: string;
+}
+
+const { id, heading } = Astro.props;
+---
+
+<section id={id} class="legal-section">
+  <h2>{heading}</h2>
+  <slot />
+</section>
+
+<style>
+  .legal-section {
+    display: grid;
+    gap: var(--space-4);
+    scroll-margin-top: var(--space-6);
+  }
+
+  .legal-section h2 {
+    font-size: var(--text-h3);
+    margin: 0;
+  }
+</style>

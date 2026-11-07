@@ -22,7 +22,9 @@ paths: ["sites/panepilot/**"]
   - A drawing only follows the numbers and is never a control.
   - Names and addresses come from the demo business only.
   - Each demo is a plain-script island that loads when its tab is first opened.
-- The site collects nothing: no forms that post anywhere, no analytics, no cookies. Privacy and
-  terms are the app's, at `https://app.panepilot.au/privacy` and `/terms`.
+- The site collects nothing: no forms that post anywhere, no analytics, no cookies. The privacy
+  policy and terms are the site's own pages, `/privacy` and `/terms`, moved word for word from the
+  app (0053). Change their words only with Grant, and bump `LEGAL_EFFECTIVE_DATE` in
+  `src/data/publisher.ts` in the same commit.
 - Australian English. Buttons say exactly what happens. Claude drafts the words and Grant
   rewrites them (0014).

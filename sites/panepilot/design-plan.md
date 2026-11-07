@@ -261,8 +261,11 @@ claims we can't show.
 
 ## Sections
 
-One page, plus a 404. Privacy and terms stay where the law and Google's consent screen already
-point (`app.panepilot.au/privacy` and `/terms`), and the footer links to them.
+One page, plus a 404, the privacy policy and the terms. ~~Privacy and terms stay where the law and
+Google's consent screen already point (`app.panepilot.au/privacy` and `/terms`), and the footer
+links to them.~~ Since [0053](../../docs/decisions/0053-panepilot-terms-and-privacy-move-to-the-site.md)
+(Grant, 2026-11-07) they are the site's own `/privacy` and `/terms`, word for word from the app,
+and the app's addresses redirect to them once the domain points here.
 
 1. **Header:** lockup, How it works, Pricing, Questions, "Sign in" (to app.panepilot.au/sign-in),
    and "Start your free trial" as the one filled button.

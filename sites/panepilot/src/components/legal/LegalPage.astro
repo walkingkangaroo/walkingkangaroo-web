@@ -1,0 +1,71 @@
+---
+// The shell both legal documents are written in: the title, the date, the summary, then the
+// sections. Prose is styled by descendant selectors here rather than a class on every paragraph.
+import { formatLegalDate, LEGAL_EFFECTIVE_DATE } from '../../data/publisher';
+
+interface Props {
+  title: string;
+  summary: string;
+}
+
+const { title, summary } = Astro.props;
+---
+
+<article class="container legal">
+  <div class="legal__inner">
+    <h1>{title}</h1>
+    <p class="legal__date">Last updated {formatLegalDate(LEGAL_EFFECTIVE_DATE)}</p>
+    <p class="legal__summary">{summary}</p>
+    <div class="legal__body">
+      <slot />
+    </div>
+  </div>
+</article>
+
+<style>
+  .legal {
+    padding-top: clamp(40px, 6vw, 72px);
+    padding-bottom: clamp(56px, 8vw, 96px);
+  }
+
+  .legal__inner {
+    max-width: 42rem;
+  }
+
+  .legal h1 {
+    font-size: clamp(2rem, 5vw, 2.75rem);
+    margin-bottom: var(--space-2);
+  }
+
+  .legal__date {
+    margin: 0;
+    color: var(--muted);
+    font-size: var(--text-small);
+  }
+
+  .legal__summary {
+    margin: var(--space-5) 0 0;
+  }
+
+  .legal__body {
+    margin-top: var(--space-7);
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  .legal__body :global(p),
+  .legal__body :global(li) {
+    line-height: 1.65;
+  }
+
+  .legal__body :global(p) {
+    margin: 0;
+  }
+
+  .legal__body :global(ul) {
+    margin: 0;
+    padding-left: 1.25em;
+    display: grid;
+    gap: var(--space-2);
+  }
+</style>

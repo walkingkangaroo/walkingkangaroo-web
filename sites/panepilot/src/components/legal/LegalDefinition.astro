@@ -1,0 +1,39 @@
+---
+// One labelled row in a LegalDefinitionList.
+interface Props {
+  term: string;
+}
+
+const { term } = Astro.props;
+---
+
+<div class="legal-def">
+  <dt>{term}</dt>
+  <dd><slot /></dd>
+</div>
+
+<style>
+  .legal-def {
+    background: var(--white);
+    border: 1px solid var(--frame);
+    border-radius: 8px;
+    padding: var(--space-4);
+  }
+
+  .legal-def dt {
+    font-size: var(--text-small);
+    font-weight: 600;
+  }
+
+  .legal-def dd {
+    margin: var(--space-1) 0 0;
+    color: var(--muted);
+    font-size: var(--text-small);
+    line-height: 1.6;
+  }
+
+  /* A row with several paragraphs of its own (the privacy policy's signed documents). */
+  .legal-def dd :global(.legal-stack > * + *) {
+    margin-top: var(--space-2);
+  }
+</style>
